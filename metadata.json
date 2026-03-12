@@ -1,0 +1,5 @@
+{
+  "name": "台灣房貸試算神器",
+  "description": "支援新青安、寬限期、本息/本金攤還比較的台灣房貸計算機，提供詳細圖表與每月還款明細。",
+  "requestFramePermissions": []
+}
