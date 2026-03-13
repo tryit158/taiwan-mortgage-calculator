@@ -203,7 +203,7 @@ export default function App() {
       <header className="bg-indigo-600 text-white shadow-md sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Home className="w-6 h-6" />
+            <Home className="w-6 h-6" aria-hidden="true" />
             <h1 className="text-xl font-bold tracking-tight">台灣房貸試算神器</h1>
           </div>
           <div className="hidden sm:flex items-center gap-4 text-sm font-medium">
@@ -220,23 +220,25 @@ export default function App() {
           <div className="lg:col-span-4 space-y-6" id="calculator">
             <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
               <div className="flex items-center gap-2 mb-6">
-                <Calculator className="w-5 h-5 text-indigo-600" />
+                <Calculator className="w-5 h-5 text-indigo-600" aria-hidden="true" />
                 <h2 className="text-lg font-bold text-slate-800">輸入貸款條件</h2>
               </div>
 
               <div className="space-y-5">
                 {/* Loan Amount */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                  <label htmlFor="loan-amount" className="block text-sm font-medium text-slate-700 mb-1">
                     貸款金額 (萬元)
                   </label>
                   <div className="relative">
                     <input
+                      id="loan-amount"
                       type="number"
                       value={loanAmount}
                       onChange={(e) => setLoanAmount(Number(e.target.value))}
                       className="block w-full rounded-lg border-slate-300 bg-slate-50 border px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600 transition-shadow"
                       min="1"
+                      aria-label="輸入貸款金額(萬元)"
                     />
                     <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                       <span className="text-slate-500 sm:text-sm">萬元</span>
@@ -246,10 +248,11 @@ export default function App() {
 
                 {/* Loan Term */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                  <label htmlFor="loan-term" className="block text-sm font-medium text-slate-700 mb-1">
                     貸款年限 (年)
                   </label>
                   <select
+                    id="loan-term"
                     value={loanTerm}
                     onChange={(e) => {
                       const newTerm = Number(e.target.value);
@@ -257,6 +260,7 @@ export default function App() {
                       if (gracePeriod >= newTerm) setGracePeriod(0);
                     }}
                     className="block w-full rounded-lg border-slate-300 bg-slate-50 border px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600"
+                    aria-label="選擇貸款年限"
                   >
                     <option value={20}>20 年 (240期)</option>
                     <option value={30}>30 年 (360期)</option>
@@ -266,13 +270,15 @@ export default function App() {
 
                 {/* Grace Period */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                  <label htmlFor="grace-period" className="block text-sm font-medium text-slate-700 mb-1">
                     寬限期 (年)
                   </label>
                   <select
+                    id="grace-period"
                     value={gracePeriod}
                     onChange={(e) => setGracePeriod(Number(e.target.value))}
                     className="block w-full rounded-lg border-slate-300 bg-slate-50 border px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600"
+                    aria-label="選擇寬限期"
                   >
                     <option value={0}>無寬限期</option>
                     <option value={1}>1 年 (12期)</option>
@@ -291,16 +297,18 @@ export default function App() {
 
                 {/* Interest Rate */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                  <label htmlFor="interest-rate" className="block text-sm font-medium text-slate-700 mb-1">
                     房貸利率 (%)
                   </label>
                   <div className="relative">
                     <input
+                      id="interest-rate"
                       type="number"
                       step="0.01"
                       value={interestRate}
                       onChange={(e) => setInterestRate(Number(e.target.value))}
                       className="block w-full rounded-lg border-slate-300 bg-slate-50 border px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600"
+                      aria-label="輸入房貸利率"
                     />
                     <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                       <span className="text-slate-500 sm:text-sm">%</span>
@@ -545,7 +553,7 @@ export default function App() {
         {/* Knowledge Section */}
         <div className="mt-16" id="knowledge">
           <div className="flex items-center gap-2 mb-8 justify-center">
-            <BookOpen className="w-6 h-6 text-indigo-600" />
+            <BookOpen className="w-6 h-6 text-indigo-600" aria-hidden="true" />
             <h2 className="text-2xl font-bold text-slate-800">房貸知識與常見問題</h2>
           </div>
 
@@ -589,12 +597,13 @@ function KnowledgeCard({ title, content }: { title: string, content: string }) {
       <button 
         onClick={() => setIsOpen(!isOpen)}
         className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none"
+        aria-expanded={isOpen}
       >
         <h3 className="text-base font-semibold text-slate-800">{title}</h3>
         {isOpen ? (
-          <ChevronUp className="w-5 h-5 text-slate-400 flex-shrink-0" />
+          <ChevronUp className="w-5 h-5 text-slate-400 flex-shrink-0" aria-hidden="true" />
         ) : (
-          <ChevronDown className="w-5 h-5 text-slate-400 flex-shrink-0" />
+          <ChevronDown className="w-5 h-5 text-slate-400 flex-shrink-0" aria-hidden="true" />
         )}
       </button>
       <div 
