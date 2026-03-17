@@ -26,7 +26,8 @@ import {
   TrendingUp,
   PiggyBank,
   Home,
-  AlertCircle
+  AlertCircle,
+  X
 } from 'lucide-react';
 
 // Utility for class merging
@@ -66,6 +67,8 @@ export default function App() {
   const [repaymentMethod, setRepaymentMethod] = useState<RepaymentMethod>('equal_payment');
 
   const [activeTab, setActiveTab] = useState<'chart' | 'table'>('chart');
+  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
+  const [isTermsOpen, setIsTermsOpen] = useState(false);
 
   // Calculate Amortization Schedule
   const { schedule, summary } = useMemo(() => {
@@ -218,6 +221,14 @@ export default function App() {
           
           {/* Left Column: Calculator Inputs */}
           <div className="lg:col-span-4 space-y-6" id="calculator">
+            {/* SEO Text Block */}
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+              <h2 className="text-lg font-bold text-slate-800 mb-2">關於本試算機</h2>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                買房是人生大事，房貸往往伴隨我們 20 到 40 年。本工具專為台灣購屋族設計，提供最精準的<strong>本息平均攤還</strong>與<strong>本金平均攤還</strong>試算。無論您是適用 2026 最新<strong>新青安房貸</strong>的首購族，還是需要評估<strong>寬限期</strong>影響的換屋族，都能透過本系統的圖表與明細，快速掌握每月的財務負擔，做出最明智的理財決策。
+              </p>
+            </div>
+
             <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
               <div className="flex items-center gap-2 mb-6">
                 <Calculator className="w-5 h-5 text-indigo-600" aria-hidden="true" />
@@ -574,17 +585,178 @@ export default function App() {
               title="如何評估自己的購屋負擔能力？"
               content="建議使用「房貸收支比」(每月房貸支出 ÷ 每月總收入)。\n健康的房貸收支比建議控制在 30%~33% 以內，最高不宜超過 40%，以免影響生活品質或遇到升息時無力負擔。購屋前也應預留至少半年的緊急預備金。"
             />
+            <KnowledgeCard 
+              title="什麼是「一段式」與「分段式」機動利率？"
+              content="【一段式機動利率】整個貸款期間，以基準利率加上固定加碼利率計息。雖然基準利率會隨央行升降息浮動，但加碼部分不變。適合預期長期持有的自住客。\n\n【分段式機動利率】通常前一兩年利率較低（甚至低於一段式），但第三年起加碼利率會大幅提高。適合預計短期內就會轉手或提前還清貸款的投資客。"
+            />
+            <KnowledgeCard 
+              title="提前還款會有違約金嗎？"
+              content="多數銀行房貸合約中會設有「綁約期」（通常為 1 到 3 年）。如果在綁約期間內「提前清償全部本金」或「塗銷抵押權」，銀行會收取提前清償違約金（通常是提前還款金額的 0.5% ~ 1%）。\n\n但如果是「部分提前還款」（也就是多還一點本金，但不塗銷），多數銀行是不收違約金的，建議簽約前務必確認合約條款。"
+            />
+            <KnowledgeCard 
+              title="申請房貸需要準備哪些文件？"
+              content="1. 身分證明：雙證件影本（身分證、健保卡或駕照）。\n2. 財力證明：近半年薪資轉帳存摺明細、最新年度扣繳憑單或所得清單。若為自營商，需提供營業稅單（401表）。\n3. 買賣契約：不動產買賣契約書影本。\n4. 擔保品資料：土地及建物登記謄本。\n\n準備越齊全的財力證明，越有機會爭取到較低的利率與較高的成數。"
+            />
+            <KnowledgeCard 
+              title="什麼是聯徵分數？如何提高房貸過件率？"
+              content="聯徵分數（信用評分）是銀行評估您還款能力的重要指標。分數介於 200 到 800 分之間。\n\n提高過件率的秘訣：\n1. 培養信用：持有信用卡並全額繳清，不使用循環利息。\n2. 避免遲繳：任何貸款、卡費都應準時繳納。\n3. 減少負債：申請房貸前，盡量結清信貸或車貸。\n4. 穩定收入：保持同一份工作至少半年至一年以上，讓銀行看到穩定的現金流。"
+            />
+            <KnowledgeCard 
+              title="預售屋、新成屋、中古屋的貸款成數有何不同？"
+              content="【預售屋/新成屋】通常貸款成數最高，若地點佳且個人信用良好，有機會貸到 8 成甚至 85 成。建商通常會有配合的銀行，條件較優惠。\n\n【中古屋】銀行會依據房屋的屋齡、地段、屋況進行「鑑價」。通常鑑價金額會低於實際成交價，貸款成數約落在 7 成到 8 成之間。屋齡越老（如 30 年以上公寓），貸款成數可能越低，且貸款年限也會受限（通常要求：屋齡 + 貸款年限 < 50 或 60）。"
+            />
+            <KnowledgeCard 
+              title="房貸壽險是什麼？我需要保嗎？"
+              content="房貸壽險是專為房貸族設計的保險，當借款人發生意外身故或完全失能時，保險理賠金會優先用來清償房貸，避免房屋被法拍，留給家人一個安穩的家。\n\n是否需要保？\n如果您是家庭的「唯一或主要經濟支柱」，且沒有足夠的其他壽險保障，強烈建議投保。保費可選擇「躉繳（一次繳清，可跟著房貸一起貸）」或「期繳（每年繳）」。"
+            />
           </div>
         </div>
+
+        {/* SEO Long-form Articles Section */}
+        <div className="mt-20 max-w-5xl mx-auto space-y-12">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 lg:p-10">
+            <h2 className="text-2xl font-bold text-slate-800 mb-6 border-b pb-4">2026 台灣購屋與房貸最新趨勢指南</h2>
+            <div className="space-y-6 text-slate-600 leading-relaxed">
+              <section>
+                <h3 className="text-lg font-semibold text-slate-800 mb-3">1. 央行信用管制與利率環境</h3>
+                <p>
+                  在經歷了過去幾年的全球通膨與升息循環後，2026 年的台灣房貸市場逐漸步入一個相對穩定的「高原期」。雖然央行的基準利率不再像過去那樣頻繁大幅調升，但整體資金成本已較疫情前顯著增加。對於購屋族而言，這意味著「利息支出」在每月還款中的佔比變高了。因此，在購屋前使用精準的房貸試算工具，詳細評估「本息平均攤還」與「本金平均攤還」的總利息差異，變得比以往任何時候都更加重要。此外，央行針對特定區域（如六都及新竹縣市）的第二戶以上住宅貸款，仍可能實施嚴格的成數限制與無寬限期規定，投資客或換屋族需特別留意資金調度。
+                </p>
+              </section>
+              <section>
+                <h3 className="text-lg font-semibold text-slate-800 mb-3">2. 新青安房貸的延續與影響</h3>
+                <p>
+                  「青年安心成家購屋優惠貸款精進方案」（簡稱新青安）自推出以來，大幅降低了首購族的進場門檻。其三大亮點：最高貸款額度 1,000 萬元、最長貸款年限 40 年、以及最長 5 年的寬限期，依然是許多年輕人買房的首選。然而，專家提醒，長達 5 年的寬限期雖然初期輕鬆，但第 6 年起本金將壓縮在剩餘的 35 年內攤還，月付金將會出現「斷崖式」的跳升。建議首購族在享受政策紅利的同時，務必利用本站的試算機，切換查看「寬限期後」的真實月付金，確保未來的薪資成長幅度能跟上還款壓力。
+                </p>
+              </section>
+              <section>
+                <h3 className="text-lg font-semibold text-slate-800 mb-3">3. 綠色金融與 ESG 房貸專案</h3>
+                <p>
+                  隨著全球對永續發展（ESG）的重視，台灣各大銀行也紛紛推出「綠色房貸」或「永續房貸」專案。如果民眾購買的房屋具備「綠建築標章」（如鑽石級、黃金級、銀級等），或是配備節能減碳設施，銀行通常願意提供手續費減免、較低的貸款利率（可能減碼 0.02% ~ 0.05%），甚至給予較高的貸款成數。這不僅有助於環保，也能實質減輕購屋者的財務負擔。在尋找物件時，不妨將建築物的節能環保標章列入考量條件之一。
+                </p>
+              </section>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 lg:p-10">
+            <h2 className="text-2xl font-bold text-slate-800 mb-6 border-b pb-4">房貸申請完整流程教學 (新手必看)</h2>
+            <div className="space-y-6 text-slate-600 leading-relaxed">
+              <p>
+                對於第一次買房的首購族來說，房貸申請流程往往令人感到陌生與焦慮。只要掌握以下四個關鍵步驟，就能從容應對銀行的各項要求，順利取得購屋資金：
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                <div className="bg-slate-50 p-5 rounded-xl border border-slate-100">
+                  <h4 className="font-bold text-indigo-700 mb-2">步驟一：財務評估與尋找銀行 (簽約後 1-2 週)</h4>
+                  <p className="text-sm">
+                    在簽訂房屋買賣契約後，應立即開始尋找合適的貸款銀行。建議同時找 2 到 3 家銀行進行初步評估（包含薪轉銀行、建商配合銀行、或常往來的銀行）。此階段銀行會調閱您的「聯徵紀錄」，請注意短期內不要讓太多家銀行密集調閱聯徵（建議不超過 3 家），以免影響信用評分。
+                  </p>
+                </div>
+                <div className="bg-slate-50 p-5 rounded-xl border border-slate-100">
+                  <h4 className="font-bold text-indigo-700 mb-2">步驟二：房屋鑑價與條件審核 (約 1-2 週)</h4>
+                  <p className="text-sm">
+                    選定銀行並正式提出申請後，銀行會派員或委託估價公司對房屋進行「鑑價」。銀行的貸款成數是基於「買賣成交價」與「銀行鑑價」兩者取其低來計算。鑑價完成後，銀行的授信部門會綜合評估您的還款能力（財力證明、收支比）與房屋價值，最終核定貸款額度、利率及年限。
+                  </p>
+                </div>
+                <div className="bg-slate-50 p-5 rounded-xl border border-slate-100">
+                  <h4 className="font-bold text-indigo-700 mb-2">步驟三：簽約對保與開戶 (約半天)</h4>
+                  <p className="text-sm">
+                    當您同意銀行核發的貸款條件後，需親自前往銀行進行「對保」。對保就是借款人與保證人（若有）親自簽署借款契約的過程。此時銀行會詳細說明貸款合約內容，包含利率計算方式、違約金規定等。同時，您也需要在該銀行開立一個帳戶，作為未來每月自動扣繳房貸的帳戶。
+                  </p>
+                </div>
+                <div className="bg-slate-50 p-5 rounded-xl border border-slate-100">
+                  <h4 className="font-bold text-indigo-700 mb-2">步驟四：抵押權設定與撥款 (約 3-5 天)</h4>
+                  <p className="text-sm">
+                    對保完成後，代書（地政士）會拿著相關文件到地政事務所辦理「抵押權設定」，將房屋抵押給貸款銀行。設定完成後，銀行會確認產權無誤，並在買賣雙方約定的交屋日，將貸款金額直接撥入履約保證專戶或賣方帳戶。至此，房貸申請流程正式完成，您也準備迎接新家了！
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </main>
       
       {/* Footer */}
       <footer className="mt-20 border-t border-slate-200 bg-white py-8">
         <div className="max-w-7xl mx-auto px-4 text-center text-slate-500 text-sm">
           <p>本試算結果僅供參考，實際貸款條件與還款金額請以各家銀行核貸結果為準。</p>
-          <p className="mt-2">© 2026 台灣房貸試算神器. All rights reserved.</p>
+          <div className="mt-4 flex justify-center gap-6">
+            <button onClick={() => setIsPrivacyOpen(true)} className="hover:text-indigo-600 transition-colors">隱私權政策</button>
+            <button onClick={() => setIsTermsOpen(true)} className="hover:text-indigo-600 transition-colors">服務條款</button>
+          </div>
+          <p className="mt-4">© 2026 台灣房貸試算神器. All rights reserved.</p>
         </div>
       </footer>
+
+      {/* Privacy Policy Modal */}
+      {isPrivacyOpen && (
+        <div className="fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6 relative shadow-xl">
+            <button onClick={() => setIsPrivacyOpen(false)} className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors">
+              <X className="w-6 h-6" />
+            </button>
+            <h2 className="text-2xl font-bold mb-6 text-slate-800">隱私權政策 (Privacy Policy)</h2>
+            <div className="space-y-5 text-slate-600 text-sm leading-relaxed">
+              <p>本網站（台灣房貸試算神器）非常重視您的隱私權。請閱讀以下有關隱私權保護政策的更多內容。</p>
+              
+              <div>
+                <h3 className="font-bold text-slate-800 text-base mb-2">1. 資料收集與使用</h3>
+                <p>本網站作為一個純前端的計算工具，<strong>不會</strong>主動收集、儲存或傳送您輸入的任何財務數據（如貸款金額、利率、年限等）至我們的伺服器。所有的計算過程皆在您的瀏覽器端（Client-side）完成，確保您的財務隱私絕對安全。</p>
+              </div>
+
+              <div>
+                <h3 className="font-bold text-slate-800 text-base mb-2">2. Cookie 與第三方廣告 (Google AdSense)</h3>
+                <p>本網站使用 Google AdSense 服務來提供廣告。Google 及其合作夥伴會使用 Cookie 根據您先前對本網站或其他網站的造訪紀錄來放送廣告。</p>
+                <ul className="list-disc pl-5 mt-2 space-y-1">
+                  <li>Google 使用廣告 Cookie，可讓 Google 及其合作夥伴根據使用者造訪本網站和/或網際網路上其他網站的資料，向使用者放送合適的廣告。</li>
+                  <li>使用者可以選擇停用個人化廣告。如要停用，請前往 <a href="https://www.google.com/settings/ads" target="_blank" rel="noreferrer" className="text-indigo-600 hover:underline">廣告設定</a>。</li>
+                  <li>我們也可能使用分析工具（如 Google Analytics）的 Cookie 來分析網站流量並優化您的使用者體驗。</li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="font-bold text-slate-800 text-base mb-2">3. 外部連結</h3>
+                <p>本網站可能包含其他網站的連結。我們對這些外部網站的隱私權做法或內容概不負責。建議您在離開本網站時，閱讀每個收集個人識別資訊網站的隱私權聲明。</p>
+              </div>
+
+              <div>
+                <h3 className="font-bold text-slate-800 text-base mb-2">4. 政策修改</h3>
+                <p>我們保留隨時修改本隱私權政策的權利，修改後的條款將直接發布於本網站上。建議您定期查看本頁面以了解任何變更。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Terms of Service Modal */}
+      {isTermsOpen && (
+        <div className="fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6 relative shadow-xl">
+            <button onClick={() => setIsTermsOpen(false)} className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors">
+              <X className="w-6 h-6" />
+            </button>
+            <h2 className="text-2xl font-bold mb-6 text-slate-800">服務條款 (Terms of Service)</h2>
+            <div className="space-y-5 text-slate-600 text-sm leading-relaxed">
+              <p>歡迎使用台灣房貸試算神器。使用本網站即表示您同意遵守以下條款：</p>
+              
+              <div>
+                <h3 className="font-bold text-slate-800 text-base mb-2">1. 僅供參考聲明</h3>
+                <p>本網站提供的所有計算結果、圖表與數據<strong>僅供參考與初步評估之用</strong>。實際的貸款額度、利率、寬限期、手續費及每月還款金額，需以各家金融機構最終核貸的結果與正式合約為準。本網站不保證計算結果的絕對精確性，亦不對因依賴本網站資訊而產生的任何財務損失負責。</p>
+              </div>
+
+              <div>
+                <h3 className="font-bold text-slate-800 text-base mb-2">2. 服務可用性</h3>
+                <p>我們致力於維持網站的正常運作，但保留隨時修改、暫停或終止本網站部分或全部服務的權利，且不另行通知。對於因網站無法使用而造成的任何不便，我們不承擔任何責任。</p>
+              </div>
+
+              <div>
+                <h3 className="font-bold text-slate-800 text-base mb-2">3. 智慧財產權</h3>
+                <p>本網站的介面設計、程式碼、圖表樣式及文字內容等，均受智慧財產權法保護。未經授權，請勿隨意複製、修改或用於商業用途。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
