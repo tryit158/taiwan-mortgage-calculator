@@ -488,6 +488,22 @@ export function CalculatorSection() {
 
 // --- Pages ---
 
+function AdBanner() {
+  React.useEffect(() => {
+    const scriptId = 'ad-script-bdcaa1c0c90da2685ead8937b65bc674';
+    if (!document.getElementById(scriptId)) {
+      const script = document.createElement('script');
+      script.id = scriptId;
+      script.async = true;
+      script.setAttribute('data-cfasync', 'false');
+      script.src = 'https://pl29078114.profitablecpmratenetwork.com/bdcaa1c0c90da2685ead8937b65bc674/invoke.js';
+      document.body.appendChild(script);
+    }
+  }, []);
+
+  return <div id="container-bdcaa1c0c90da2685ead8937b65bc674" className="my-8 w-full flex justify-center min-h-[50px]"></div>;
+}
+
 export function Home() {
   return (
     <div className="space-y-16">
@@ -502,6 +518,7 @@ export function Home() {
       </section>
 
       <section className="border-t border-slate-200 pt-16">
+        <AdBanner />
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-2">
             <BookOpen className="w-6 h-6 text-indigo-600" />
