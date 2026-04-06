@@ -489,19 +489,20 @@ export function CalculatorSection() {
 // --- Pages ---
 
 function AdBanner() {
+  const bannerRef = React.useRef<HTMLDivElement>(null);
+
   React.useEffect(() => {
-    const scriptId = 'ad-script-bdcaa1c0c90da2685ead8937b65bc674';
-    if (!document.getElementById(scriptId)) {
+    if (bannerRef.current && !bannerRef.current.querySelector('script')) {
       const script = document.createElement('script');
-      script.id = scriptId;
+      script.type = 'text/javascript';
       script.async = true;
       script.setAttribute('data-cfasync', 'false');
       script.src = 'https://pl29078114.profitablecpmratenetwork.com/bdcaa1c0c90da2685ead8937b65bc674/invoke.js';
-      document.body.appendChild(script);
+      bannerRef.current.appendChild(script);
     }
   }, []);
 
-  return <div id="container-bdcaa1c0c90da2685ead8937b65bc674" className="my-8 w-full flex justify-center min-h-[50px]"></div>;
+  return <div id="container-bdcaa1c0c90da2685ead8937b65bc674" ref={bannerRef} className="my-8 w-full flex justify-center min-h-[50px]"></div>;
 }
 
 export function Home() {
