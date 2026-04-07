@@ -533,6 +533,53 @@ export function Home() {
       </section>
 
       <section className="border-t border-slate-200 pt-16">
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-slate-800 mb-6 text-center">為什麼需要使用房貸試算工具？</h2>
+          <div className="prose prose-slate max-w-none text-slate-600 space-y-4">
+            <p>
+              買房是人生中最大筆的消費之一，而房貸往往伴隨我們長達 20 到 40 年。許多首購族在看房時，往往只關注「房屋總價」與「頭期款」，卻忽略了未來每個月沉重的「房貸月付金」。透過專業的房貸試算工具，您可以在簽約前，精準預估未來的財務負擔。
+            </p>
+            <p>
+              本站提供的「台灣房貸試算神器」不僅支援一般的房貸計算，更針對台灣特有的房貸環境進行了優化。無論您是想了解「新青安房貸」的優惠方案、評估「寬限期」對未來還款的影響，或是比較「本息平均攤還」與「本金平均攤還」的總利息差異，都能在這裡一鍵獲得詳細的數據與圖表分析。
+            </p>
+            <p>
+              強烈建議您在看屋階段，就將心儀物件的價格輸入試算機中，並將利率設定得比目前市場利率稍高一些（例如加碼 0.25%），進行家庭財務的壓力測試。確保每月的房貸支出不超過家庭總收入的 1/3（即房貸負擔率），才能在擁有自己小窩的同時，依然保有良好的生活品質。
+            </p>
+          </div>
+        </div>
+
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-slate-800 mb-6 text-center">房貸常見問題 (FAQ)</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-slate-50 p-6 rounded-xl">
+              <h3 className="font-bold text-slate-800 mb-2">Q: 什麼是「本息平均攤還」？</h3>
+              <p className="text-sm text-slate-600">
+                這是最常見的還款方式。銀行會將整個貸款期間的本金與利息加總，平均分攤到每個月。優點是每個月繳交的金額固定，方便做財務規劃；缺點是總繳利息會比「本金攤還」來得高。
+              </p>
+            </div>
+            <div className="bg-slate-50 p-6 rounded-xl">
+              <h3 className="font-bold text-slate-800 mb-2">Q: 什麼是「本金平均攤還」？</h3>
+              <p className="text-sm text-slate-600">
+                每個月固定償還一樣多的「本金」，而利息則依據剩餘本金計算。優點是總繳利息較低，且越繳越輕鬆；缺點是初期的月付金非常高，對剛買房手頭緊的人壓力較大。
+              </p>
+            </div>
+            <div className="bg-slate-50 p-6 rounded-xl">
+              <h3 className="font-bold text-slate-800 mb-2">Q: 我應該申請「寬限期」嗎？</h3>
+              <p className="text-sm text-slate-600">
+                寬限期內只需繳利息不還本金，初期壓力小。但寬限期結束後，本金會壓縮在剩餘年限內攤還，月付金會暴增。適合初期需大量裝潢費或預計短期換屋的人；若收入固定，建議謹慎使用。
+              </p>
+            </div>
+            <div className="bg-slate-50 p-6 rounded-xl">
+              <h3 className="font-bold text-slate-800 mb-2">Q: 房貸成數通常可以貸到多少？</h3>
+              <p className="text-sm text-slate-600">
+                一般來說，首購族購買市區的預售屋或新成屋，最高有機會貸到 8 成甚至 8.5 成。若是中古屋，銀行會重新鑑價，通常落在 7 到 8 成之間。建議自備款至少準備房屋總價的 2.5 到 3 成較為安全。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-slate-200 pt-16">
         <AdBanner />
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-2">
@@ -628,21 +675,43 @@ export function AboutPage() {
       <h1 className="text-3xl font-bold text-slate-900 mb-8">關於我們</h1>
       <div className="space-y-6 text-slate-600 leading-relaxed">
         <p>
-          歡迎來到「台灣房貸試算神器」，這是一個專為台灣購屋族打造的免費線上工具平台。
+          歡迎來到「台灣房貸試算神器」，這是一個專為台灣購屋族、首購族以及換屋族打造的免費線上工具與知識平台。
         </p>
         <p>
-          買房是多數人一生中最大的財務決策，而房貸往往伴隨我們長達 20 到 40 年。我們深知在面對複雜的利率計算、寬限期評估以及本息/本金攤還的選擇時，許多人會感到困惑與無助。因此，我們致力於開發最直覺、最精準的試算工具，幫助您清晰地看見未來的財務藍圖。
+          買房是多數人一生中最大的財務決策，動輒千萬的房屋總價，往往需要向銀行申請長達 20 年、30 年甚至 40 年的房屋貸款。我們深知，在面對複雜的利率計算（如一段式、分段式機動利率）、寬限期評估（先甘後苦的還款壓力），以及「本息平均攤還」與「本金平均攤還」的艱難選擇時，許多沒有金融背景的民眾會感到困惑與無助。
         </p>
-        <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">我們的使命</h3>
         <p>
-          我們的使命是「讓房貸資訊透明化，讓購屋決策更安心」。除了提供強大的試算工具外，我們也持續撰寫並更新房貸相關的知識文章與市場趨勢指南，期望能成為您買房路上的最佳指南針。
+          如果沒有在簽約前做好完善的財務壓力測試，很容易在交屋後因為沉重的「房貸月付金」而犧牲了原有的生活品質，甚至面臨斷頭違約的風險。因此，我們致力於開發最直覺、最精準的試算工具，幫助您清晰地看見未來的財務藍圖。
         </p>
+
+        <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">我們的使命與願景</h3>
+        <p>
+          我們的使命是<strong>「讓房貸資訊透明化，讓購屋決策更安心」</strong>。
+        </p>
+        <p>
+          我們希望打破金融資訊的壁壘，讓每一位使用者都能輕鬆掌握自己的還款能力。除了提供強大的試算工具外，我們也深知「知識就是力量」。因此，我們的專業團隊持續撰寫並更新房貸相關的知識文章、市場趨勢指南、以及銀行貸款的談判技巧，期望能成為您買房路上的最佳指南針。
+        </p>
+
         <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">為什麼選擇我們？</h3>
-        <ul className="list-disc pl-5 space-y-2">
-          <li><strong>完全免費：</strong> 我們的所有工具與文章皆免費開放給大眾使用。</li>
-          <li><strong>隱私安全：</strong> 我們是一個純前端的應用程式，您的試算數據只會留在您的瀏覽器中，我們不會收集或儲存您的任何財務資訊。</li>
-          <li><strong>專業準確：</strong> 我們的計算邏輯嚴格遵循台灣銀行業的標準公式，確保試算結果的參考價值。</li>
+        <ul className="list-disc pl-5 space-y-4">
+          <li>
+            <strong>完全免費且無廣告干擾核心功能：</strong> 我們的所有核心試算工具與知識文章皆免費開放給大眾使用。我們致力於提供乾淨、流暢的使用者體驗。
+          </li>
+          <li>
+            <strong>絕對的隱私安全：</strong> 我們極度重視您的個人隱私。本站採用純前端 (Client-side) 技術架構，這意味著您輸入的所有試算數據（如貸款金額、利率、年限等）都只會留在您個人的瀏覽器中進行運算。我們<strong>絕對不會</strong>收集、上傳或儲存您的任何財務資訊至我們的伺服器。
+          </li>
+          <li>
+            <strong>專業與準確的計算邏輯：</strong> 我們的計算機底層邏輯嚴格遵循台灣銀行業標準的「年金法」與「平均攤還法」公式。無論是新青安貸款的特殊寬限期設定，或是複雜的本金攤還圖表，都能確保試算結果具備極高的參考價值。
+          </li>
+          <li>
+            <strong>豐富的在地化內容：</strong> 我們的文章與指南完全針對台灣的房地產市場與央行政策（如信用管制、新青安政策）量身打造，提供最接地氣的實用建議。
+          </li>
         </ul>
+
+        <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">免責聲明</h3>
+        <p className="text-sm text-slate-500 bg-slate-50 p-4 rounded-lg border border-slate-100">
+          本網站提供的所有試算結果與文章內容僅供參考。實際的貸款額度、利率、寬限期及每月還款金額，仍須以各家銀行最終核貸的條件為準。我們強烈建議您在做出任何重大財務決策前，應親自向各大金融機構或專業理財顧問進行諮詢。本網站不對任何因使用本站資訊而導致的直接或間接財務損失負責。
+        </p>
       </div>
     </div>
   );
@@ -658,7 +727,7 @@ export function ContactPage() {
         </p>
         <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 mt-8">
           <h3 className="font-bold text-slate-800 mb-2">電子郵件</h3>
-          <p className="text-indigo-600 font-medium">contact@taiwan-mortgage-calculator.com</p>
+          <p className="text-indigo-600 font-medium">contact@tryit158.dpdns.org</p>
           <p className="text-sm text-slate-500 mt-2">我們通常會在 1-2 個工作天內回覆您的信件。</p>
         </div>
         <p className="text-sm text-slate-500 mt-8">

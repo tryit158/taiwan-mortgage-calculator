@@ -80,6 +80,7 @@ function Layout({ children }: { children: React.ReactNode }) {
                 <li><Link to="/articles" className="hover:text-indigo-600 transition-colors">房貸專欄</Link></li>
                 <li><Link to="/about" className="hover:text-indigo-600 transition-colors">關於我們</Link></li>
                 <li><Link to="/contact" className="hover:text-indigo-600 transition-colors">聯絡我們</Link></li>
+                <li><a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 transition-colors">網站地圖 (Sitemap)</a></li>
               </ul>
             </div>
             <div>
