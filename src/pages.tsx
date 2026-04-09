@@ -640,37 +640,6 @@ function ComparisonModal({ loanAmount, onClose }: { loanAmount: number, onClose:
 
 // --- Pages ---
 
-function AdBanner() {
-  React.useEffect(() => {
-    // 每次元件載入時，動態建立並插入 script，確保 SPA 切換頁面時廣告能重新執行
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.async = true;
-    script.setAttribute('data-cfasync', 'false');
-    script.src = 'https://pl29078114.profitablecpmratenetwork.com/bdcaa1c0c90da2685ead8937b65bc674/invoke.js';
-    
-    document.body.appendChild(script);
-
-    // 元件卸載時清理 script，避免重複載入
-    return () => {
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-      // 清理可能殘留的廣告 DOM 內容
-      const container = document.getElementById('container-bdcaa1c0c90da2685ead8937b65bc674');
-      if (container) {
-        container.innerHTML = '';
-      }
-    };
-  }, []);
-
-  return (
-    <div className="my-8 w-full flex justify-center items-center min-h-[100px]">
-      <div id="container-bdcaa1c0c90da2685ead8937b65bc674"></div>
-    </div>
-  );
-}
-
 export function Home() {
   return (
     <div className="space-y-16">
@@ -732,7 +701,6 @@ export function Home() {
       </section>
 
       <section className="border-t border-slate-200 pt-16">
-        <AdBanner />
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-2">
             <BookOpen className="w-6 h-6 text-indigo-600" />
