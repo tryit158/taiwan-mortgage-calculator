@@ -4,7 +4,7 @@ import { articles } from './data/articles';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell
 } from 'recharts';
-import { Calculator, AlertCircle, PiggyBank, TrendingUp, BookOpen, ChevronDown, ChevronUp } from 'lucide-react';
+import { Calculator, AlertCircle, PiggyBank, TrendingUp, BookOpen, ChevronDown, ChevronUp, X } from 'lucide-react';
 import { cn } from './utils';
 
 // --- Calculator Component ---
@@ -28,6 +28,7 @@ export function CalculatorSection() {
   const [interestRate, setInterestRate] = useState<number>(2.06); // in %
   const [repaymentMethod, setRepaymentMethod] = useState<RepaymentMethod>('equal_payment');
   const [activeTab, setActiveTab] = useState<'chart' | 'table'>('chart');
+  const [showComparisonModal, setShowComparisonModal] = useState(false);
 
   const { schedule, summary } = useMemo(() => {
     const P = loanAmount * 10000;
@@ -301,6 +302,16 @@ export function CalculatorSection() {
                 </button>
               </div>
             </div>
+
+            <div className="pt-4 border-t border-slate-100">
+              <button
+                onClick={() => setShowComparisonModal(true)}
+                className="w-full py-3 px-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold rounded-xl shadow-sm hover:from-amber-600 hover:to-orange-600 transition-all flex items-center justify-center gap-2"
+              >
+                <TrendingUp className="w-5 h-5" />
+                傳統房貸 vs 新青安，哪個省？
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -479,6 +490,147 @@ export function CalculatorSection() {
                 </table>
               </div>
             )}
+          </div>
+        </div>
+      </div>
+
+      {showComparisonModal && (
+        <ComparisonModal 
+          loanAmount={loanAmount} 
+          onClose={() => setShowComparisonModal(false)} 
+        />
+      )}
+    </div>
+  );
+}
+
+function calculateMortgage(P: number, r_annual: number, n_years: number, g_years: number) {
+  const r = r_annual / 100 / 12;
+  const n = n_years * 12;
+  const g = g_years * 12;
+  const nPrime = n - g;
+
+  let totalInterest = 0;
+  let gracePayment = 0;
+  let normalPayment = 0;
+
+  if (g > 0) {
+    gracePayment = P * r;
+    totalInterest += gracePayment * g;
+  }
+
+  const M = (P * r * Math.pow(1 + r, nPrime)) / (Math.pow(1 + r, nPrime) - 1);
+  normalPayment = M;
+  
+  const totalNormalPayment = M * nPrime;
+  const principalPaid = P;
+  totalInterest += (totalNormalPayment - principalPaid);
+
+  return {
+    gracePayment: Math.round(gracePayment),
+    normalPayment: Math.round(normalPayment),
+    totalInterest: Math.round(totalInterest)
+  };
+}
+
+function ComparisonModal({ loanAmount, onClose }: { loanAmount: number, onClose: () => void }) {
+  // 傳統房貸: 30年, 無寬限期, 2.06%
+  const traditional = calculateMortgage(loanAmount * 10000, 2.06, 30, 0);
+  
+  // 新青安: 40年, 5年寬限期, 1.775% (最高1000萬)
+  const calcAmount = Math.min(loanAmount, 1000) * 10000;
+  const newYouth = calculateMortgage(calcAmount, 1.775, 40, 5);
+  
+  let newYouthTotalInterest = newYouth.totalInterest;
+  let newYouthGracePayment = newYouth.gracePayment;
+  let newYouthNormalPayment = newYouth.normalPayment;
+  
+  // 超過1000萬的部分，以一般房貸利率(2.06%)，同樣40年、5年寬限期計算
+  if (loanAmount > 1000) {
+    const remainingAmount = (loanAmount - 1000) * 10000;
+    const remainingCalc = calculateMortgage(remainingAmount, 2.06, 40, 5);
+    newYouthTotalInterest += remainingCalc.totalInterest;
+    newYouthGracePayment += remainingCalc.gracePayment;
+    newYouthNormalPayment += remainingCalc.normalPayment;
+  }
+
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat('zh-TW', {
+      style: 'currency',
+      currency: 'TWD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(value);
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
+      <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh]">
+        <div className="flex items-center justify-between p-6 border-b border-slate-100">
+          <h3 className="text-xl font-bold text-slate-800">傳統房貸 vs 新青安 比較表</h3>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 transition-colors">
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+        <div className="p-6 overflow-y-auto">
+          <p className="text-slate-600 mb-6">
+            以您輸入的貸款金額 <strong>{loanAmount} 萬元</strong> 進行試算。
+            {loanAmount > 1000 && <span className="text-amber-600 block mt-1">註：新青安最高額度為 1000 萬元，超過部分以一般房貸利率 (2.06%) 計算。</span>}
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Traditional */}
+            <div className="bg-slate-50 rounded-xl p-5 border border-slate-200">
+              <div className="text-center mb-4 pb-4 border-b border-slate-200">
+                <h4 className="font-bold text-slate-800 text-lg">傳統一般房貸</h4>
+                <p className="text-sm text-slate-500 mt-1">30年期 / 無寬限期 / 利率 2.06%</p>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <div className="text-sm text-slate-500 mb-1">每月還款金額</div>
+                  <div className="text-xl font-bold text-slate-800">{formatCurrency(traditional.normalPayment)}</div>
+                </div>
+                <div>
+                  <div className="text-sm text-slate-500 mb-1">總利息支出</div>
+                  <div className="text-xl font-bold text-slate-800">{formatCurrency(traditional.totalInterest)}</div>
+                </div>
+              </div>
+            </div>
+
+            {/* New Youth */}
+            <div className="bg-indigo-50 rounded-xl p-5 border border-indigo-100 relative overflow-hidden">
+              <div className="absolute top-0 right-0 bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                最輕鬆
+              </div>
+              <div className="text-center mb-4 pb-4 border-b border-indigo-200">
+                <h4 className="font-bold text-indigo-900 text-lg">新青安房貸</h4>
+                <p className="text-sm text-indigo-700 mt-1">40年期 / 5年寬限期 / 利率 1.775%</p>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <div className="text-sm text-indigo-700 mb-1">前 5 年每月還款 (僅繳息)</div>
+                  <div className="text-xl font-bold text-indigo-600">{formatCurrency(newYouthGracePayment)}</div>
+                </div>
+                <div>
+                  <div className="text-sm text-indigo-700 mb-1">第 6 年起每月還款</div>
+                  <div className="text-xl font-bold text-indigo-900">{formatCurrency(newYouthNormalPayment)}</div>
+                </div>
+                <div>
+                  <div className="text-sm text-indigo-700 mb-1">總利息支出</div>
+                  <div className="text-xl font-bold text-indigo-900">{formatCurrency(newYouthTotalInterest)}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 bg-amber-50 p-4 rounded-lg border border-amber-100">
+            <h5 className="font-bold text-amber-800 mb-2 flex items-center gap-2">
+              <AlertCircle className="w-4 h-4" />
+              試算結論
+            </h5>
+            <p className="text-sm text-amber-700 leading-relaxed">
+              新青安雖然前 5 年月付金極低，能大幅減輕初期壓力，但因為<strong>貸款年限拉長至 40 年</strong>，整體的<strong>總利息支出會比傳統 30 年房貸高出許多</strong>。建議您評估未來的換屋計畫與薪資成長幅度，若預計長期持有，可考慮提前還款以節省利息。
+            </p>
           </div>
         </div>
       </div>
@@ -727,7 +879,7 @@ export function ContactPage() {
         </p>
         <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 mt-8">
           <h3 className="font-bold text-slate-800 mb-2">電子郵件</h3>
-          <p className="text-indigo-600 font-medium">contact@tryit158.dpdns.org</p>
+          <p className="text-indigo-600 font-medium">contact@tryit.qzz.io</p>
           <p className="text-sm text-slate-500 mt-2">我們通常會在 1-2 個工作天內回覆您的信件。</p>
         </div>
         <p className="text-sm text-slate-500 mt-8">

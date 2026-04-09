@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tryit158.dpdns.org/sitemap.xml
+Sitemap: https://tryit.qzz.io/sitemap.xml
