@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Home as HomeIcon, BookOpen, Calculator, Info, Mail, Shield, FileText } from 'lucide-react';
+import { Home as HomeIcon, BookOpen, Calculator, Info, Mail, Shield, FileText, Menu, X } from 'lucide-react';
 import { Home, ArticlesPage, ArticleDetailPage, AboutPage, ContactPage, PrivacyPage, TermsPage } from './pages';
 import { cn } from './utils';
 
@@ -14,6 +14,7 @@ function ScrollToTop() {
 
 function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   const navLinks = [
     { name: '首頁試算', path: '/', icon: Calculator },
@@ -21,6 +22,11 @@ function Layout({ children }: { children: React.ReactNode }) {
     { name: '關於我們', path: '/about', icon: Info },
     { name: '聯絡我們', path: '/contact', icon: Mail },
   ];
+
+  // Close mobile menu when route changes
+  React.useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col">
@@ -52,7 +58,41 @@ function Layout({ children }: { children: React.ReactNode }) {
               );
             })}
           </nav>
+
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden p-2 -mr-2 text-indigo-100 hover:text-white transition-colors"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
+
+        {/* Mobile Navigation */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-indigo-700 border-t border-indigo-500">
+            <nav className="px-4 pt-2 pb-4 space-y-1">
+              {navLinks.map((link) => {
+                const Icon = link.icon;
+                const isActive = location.pathname === link.path || (link.path !== '/' && location.pathname.startsWith(link.path));
+                return (
+                  <Link 
+                    key={link.path} 
+                    to={link.path} 
+                    className={cn(
+                      "flex items-center gap-3 px-3 py-3 rounded-md text-base font-medium transition-colors",
+                      isActive ? "bg-indigo-800 text-white" : "text-indigo-100 hover:bg-indigo-600 hover:text-white"
+                    )}
+                  >
+                    <Icon className="w-5 h-5" />
+                    {link.name}
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* Main Content */}

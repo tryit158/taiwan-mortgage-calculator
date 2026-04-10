@@ -155,15 +155,15 @@ export function CalculatorSection() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
       {/* Left Column: Calculator Inputs */}
-      <div className="lg:col-span-4 space-y-6">
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+      <div className="lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-20 lg:h-fit lg:self-start">
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 order-2">
           <h2 className="text-lg font-bold text-slate-800 mb-2">關於本試算機</h2>
           <p className="text-sm text-slate-600 leading-relaxed">
             買房是人生大事，房貸往往伴隨我們 20 到 40 年。本工具專為台灣購屋族設計，提供最精準的<strong>本息平均攤還</strong>與<strong>本金平均攤還</strong>試算。無論您是適用 2026 最新<strong>新青安房貸</strong>的首購族，還是需要評估<strong>寬限期</strong>影響的換屋族，都能透過本系統的圖表與明細，快速掌握每月的財務負擔，做出最明智的理財決策。
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 order-1">
           <div className="flex items-center gap-2 mb-6">
             <Calculator className="w-5 h-5 text-indigo-600" aria-hidden="true" />
             <h2 className="text-lg font-bold text-slate-800">輸入貸款條件</h2>
@@ -318,6 +318,17 @@ export function CalculatorSection() {
 
       {/* Right Column: Results & Charts */}
       <div className="lg:col-span-8 space-y-6">
+        {/* Mobile Sticky Summary Bar */}
+        <div className="lg:hidden sticky top-16 z-40 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm px-4 py-3 -mx-4 sm:-mx-6 -mt-6 mb-2 flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <PiggyBank className="w-5 h-5 text-indigo-600" />
+            <span className="text-sm font-bold text-slate-700">首期月付金</span>
+          </div>
+          <div className="text-xl font-bold text-indigo-600">
+            {formatCurrency(summary.firstMonthPayment)}
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
             <div className="text-sm font-medium text-slate-500 mb-1 flex items-center gap-1.5">
@@ -401,7 +412,7 @@ export function CalculatorSection() {
               <div className="space-y-8">
                 <div>
                   <h3 className="text-base font-semibold text-slate-800 mb-4 text-center">每年還款金額變化 (本金 vs 利息)</h3>
-                  <div className="h-72 w-full">
+                  <div className="h-64 sm:h-72 w-full">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={chartData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
@@ -467,23 +478,23 @@ export function CalculatorSection() {
                 <table className="min-w-full divide-y divide-slate-200">
                   <thead className="bg-slate-50 sticky top-0 z-10">
                     <tr>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">期數</th>
-                      <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">本期本金</th>
-                      <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">本期利息</th>
-                      <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">本期本息和</th>
-                      <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">剩餘本金</th>
+                      <th scope="col" className="px-3 py-3 sm:px-6 sm:py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">期數</th>
+                      <th scope="col" className="px-3 py-3 sm:px-6 sm:py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">本期本金</th>
+                      <th scope="col" className="px-3 py-3 sm:px-6 sm:py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">本期利息</th>
+                      <th scope="col" className="px-3 py-3 sm:px-6 sm:py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">本期本息和</th>
+                      <th scope="col" className="px-3 py-3 sm:px-6 sm:py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">剩餘本金</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-slate-200">
                     {schedule.map((row) => (
                       <tr key={row.month} className="hover:bg-slate-50 transition-colors">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
-                          第 {row.month} 期 <span className="text-xs text-slate-400 ml-1">({row.year}年)</span>
+                        <td className="px-3 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-slate-500">
+                          第 {row.month} 期 <span className="text-[10px] sm:text-xs text-slate-400 ml-1">({row.year}年)</span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900 text-right">{formatCurrency(row.principal)}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900 text-right">{formatCurrency(row.interest)}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-indigo-600 text-right">{formatCurrency(row.payment)}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 text-right">{formatCurrency(row.remainingBalance)}</td>
+                        <td className="px-3 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-slate-900 text-right">{formatCurrency(row.principal)}</td>
+                        <td className="px-3 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-slate-900 text-right">{formatCurrency(row.interest)}</td>
+                        <td className="px-3 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-indigo-600 text-right">{formatCurrency(row.payment)}</td>
+                        <td className="px-3 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-slate-500 text-right">{formatCurrency(row.remainingBalance)}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -566,21 +577,21 @@ function ComparisonModal({ loanAmount, onClose }: { loanAmount: number, onClose:
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh]">
-        <div className="flex items-center justify-between p-6 border-b border-slate-100">
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-slate-100">
           <h3 className="text-xl font-bold text-slate-800">傳統房貸 vs 新青安 比較表</h3>
           <button onClick={onClose} className="text-slate-400 hover:text-slate-600 transition-colors">
             <X className="w-6 h-6" />
           </button>
         </div>
-        <div className="p-6 overflow-y-auto">
+        <div className="p-4 sm:p-6 overflow-y-auto">
           <p className="text-slate-600 mb-6">
             以您輸入的貸款金額 <strong>{loanAmount} 萬元</strong> 進行試算。
             {loanAmount > 1000 && <span className="text-amber-600 block mt-1">註：新青安最高額度為 1000 萬元，超過部分以一般房貸利率 (2.06%) 計算。</span>}
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {/* Traditional */}
-            <div className="bg-slate-50 rounded-xl p-5 border border-slate-200">
+            <div className="bg-slate-50 rounded-xl p-4 sm:p-5 border border-slate-200">
               <div className="text-center mb-4 pb-4 border-b border-slate-200">
                 <h4 className="font-bold text-slate-800 text-lg">傳統一般房貸</h4>
                 <p className="text-sm text-slate-500 mt-1">30年期 / 無寬限期 / 利率 2.06%</p>
@@ -598,7 +609,7 @@ function ComparisonModal({ loanAmount, onClose }: { loanAmount: number, onClose:
             </div>
 
             {/* New Youth */}
-            <div className="bg-indigo-50 rounded-xl p-5 border border-indigo-100 relative overflow-hidden">
+            <div className="bg-indigo-50 rounded-xl p-4 sm:p-5 border border-indigo-100 relative overflow-hidden">
               <div className="absolute top-0 right-0 bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
                 最輕鬆
               </div>
