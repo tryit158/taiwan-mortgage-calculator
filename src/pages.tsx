@@ -4,7 +4,7 @@ import { articles } from './data/articles';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell
 } from 'recharts';
-import { Calculator, AlertCircle, PiggyBank, TrendingUp, BookOpen, ChevronDown, ChevronUp, X } from 'lucide-react';
+import { Calculator, AlertCircle, PiggyBank, TrendingUp, BookOpen, ChevronDown, ChevronUp, X, Calendar } from 'lucide-react';
 import { cn } from './utils';
 
 // --- Calculator Component ---
@@ -152,8 +152,101 @@ export function CalculatorSection() {
     { name: '總利息', value: summary.totalInterest },
   ];
 
+  const currentDate = new Date();
+  const endDate = new Date(currentDate.getFullYear() + loanTerm, currentDate.getMonth(), 1);
+  const endDateString = `${endDate.getFullYear()}年${endDate.getMonth() + 1}月`;
+  
+  const principalRatio = (loanAmount * 10000) / summary.totalPayment;
+  const arcCircumference = Math.PI * 90;
+  const arcOffset = arcCircumference * (1 - principalRatio);
+
+  const resultCardNode = (
+    <div className="bg-gradient-to-br from-[#1a7b8c] to-[#2cb67d] rounded-3xl p-6 sm:p-8 shadow-xl text-white relative overflow-hidden">
+      <h3 className="text-center text-lg font-medium mb-6 opacity-90">台灣房貸神器 - 結果展示</h3>
+      
+      <div className="relative w-full max-w-[280px] mx-auto mb-8">
+        <svg viewBox="0 0 200 110" className="w-full overflow-visible drop-shadow-md">
+          <defs>
+            <linearGradient id="arcGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#86efac" />
+              <stop offset="100%" stopColor="#fde047" />
+            </linearGradient>
+          </defs>
+          <path 
+            d="M 10 100 A 90 90 0 0 1 190 100" 
+            fill="none" 
+            stroke="rgba(255,255,255,0.2)" 
+            strokeWidth="14" 
+            strokeLinecap="round" 
+          />
+          <path 
+            d="M 10 100 A 90 90 0 0 1 190 100" 
+            fill="none" 
+            stroke="url(#arcGradient)" 
+            strokeWidth="14" 
+            strokeLinecap="round" 
+            strokeDasharray={arcCircumference}
+            strokeDashoffset={arcOffset}
+            className="transition-all duration-1000 ease-out"
+          />
+        </svg>
+        
+        <div className="absolute inset-0 flex flex-col items-center justify-end pb-1">
+          <p className="text-sm opacity-90 mb-1">月付貸付</p>
+          <p className="text-4xl font-bold tracking-tight mb-1">
+            ${summary.firstMonthPayment.toLocaleString()} <span className="text-lg font-normal opacity-80">元</span>
+          </p>
+          <p className="text-xs opacity-80">
+            {repaymentMethod === 'equal_payment' ? '本息平均攤還' : '本金平均攤還'} ({loanTerm}年)
+          </p>
+          {gracePeriod > 0 && (
+            <p className="text-[10px] text-yellow-200 mt-1.5 bg-black/20 px-2.5 py-0.5 rounded-full">
+              寬限期後: ${summary.afterGracePeriodPayment.toLocaleString()}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3 sm:gap-4">
+        <div className="bg-white text-slate-800 rounded-2xl p-4 shadow-sm">
+          <div className="flex items-center gap-1.5 text-xs text-slate-500 mb-1">
+            <PiggyBank className="w-3.5 h-3.5 text-[#2cb67d]" />
+            貸款金額
+          </div>
+          <div className="text-lg font-bold">{loanAmount} 萬</div>
+        </div>
+        <div className="bg-white text-slate-800 rounded-2xl p-4 shadow-sm">
+          <div className="flex items-center gap-1.5 text-xs text-slate-500 mb-1">
+            <TrendingUp className="w-3.5 h-3.5 text-[#2cb67d]" />
+            年率
+          </div>
+          <div className="text-lg font-bold">{interestRate}%</div>
+        </div>
+        <div className="bg-white text-slate-800 rounded-2xl p-4 shadow-sm">
+          <div className="flex items-center gap-1.5 text-xs text-slate-500 mb-1">
+            <Calculator className="w-3.5 h-3.5 text-[#2cb67d]" />
+            全利息
+          </div>
+          <div className="text-lg font-bold">${summary.totalInterest.toLocaleString()} <span className="text-xs font-normal text-slate-500">元</span></div>
+        </div>
+        <div className="bg-white text-slate-800 rounded-2xl p-4 shadow-sm">
+          <div className="flex items-center gap-1.5 text-xs text-slate-500 mb-1">
+            <Calendar className="w-3.5 h-3.5 text-[#2cb67d]" />
+            上次支付日期
+          </div>
+          <div className="text-lg font-bold">{endDateString}</div>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      {/* Mobile Result Card (Top) */}
+      <div className="lg:hidden">
+        {resultCardNode}
+      </div>
+
       {/* Left Column: Calculator Inputs */}
       <div className="lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-20 lg:h-fit lg:self-start">
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 order-2">
@@ -329,54 +422,9 @@ export function CalculatorSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-            <div className="text-sm font-medium text-slate-500 mb-1 flex items-center gap-1.5">
-              <PiggyBank className="w-4 h-4" />
-              首期月付金
-            </div>
-            <div className="text-2xl font-bold text-indigo-600">
-              {formatCurrency(summary.firstMonthPayment)}
-            </div>
-            {gracePeriod > 0 && (
-              <div className="text-xs text-slate-500 mt-1">
-                (寬限期內僅繳息)
-              </div>
-            )}
-          </div>
-          
-          {gracePeriod > 0 && (
-            <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-              <div className="text-sm font-medium text-slate-500 mb-1 flex items-center gap-1.5">
-                <TrendingUp className="w-4 h-4" />
-                寬限期後月付金
-              </div>
-              <div className="text-2xl font-bold text-rose-600">
-                {formatCurrency(summary.afterGracePeriodPayment)}
-              </div>
-              <div className="text-xs text-slate-500 mt-1">
-                (第 {gracePeriod * 12 + 1} 期起)
-              </div>
-            </div>
-          )}
-
-          <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-            <div className="text-sm font-medium text-slate-500 mb-1">
-              總利息支出
-            </div>
-            <div className="text-2xl font-bold text-slate-800">
-              {formatCurrency(summary.totalInterest)}
-            </div>
-          </div>
-
-          <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-            <div className="text-sm font-medium text-slate-500 mb-1">
-              總還款金額
-            </div>
-            <div className="text-2xl font-bold text-slate-800">
-              {formatCurrency(summary.totalPayment)}
-            </div>
-          </div>
+        {/* Desktop Result Card */}
+        <div className="hidden lg:block">
+          {resultCardNode}
         </div>
 
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
