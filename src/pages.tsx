@@ -1,5 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { articles } from './data/articles';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell
@@ -828,21 +830,8 @@ export function ArticleDetailPage() {
       <Link to="/articles" className="text-sm text-indigo-600 hover:underline mb-8 inline-block">&larr; 返回文章列表</Link>
       <p className="text-sm text-slate-500 mb-3">{article.date}</p>
       <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8 leading-tight">{article.title}</h1>
-      <div className="prose prose-slate prose-indigo max-w-none">
-        {article.content.split('\\n\\n').map((paragraph, index) => {
-          if (paragraph.startsWith('### ')) {
-            return <h3 key={index} className="text-xl font-bold text-slate-800 mt-8 mb-4">{paragraph.replace('### ', '')}</h3>;
-          }
-          if (paragraph.startsWith('* ')) {
-            return <li key={index} className="ml-4 mb-2 text-slate-600">{paragraph.replace('* ', '')}</li>;
-          }
-          if (paragraph.match(/^[0-9]+\. \*\*/)) {
-             // Handle numbered bold lists
-             const parts = paragraph.split('**');
-             return <p key={index} className="mb-4 text-slate-600"><strong>{parts[1]}</strong>{parts[2]}</p>
-          }
-          return <p key={index} className="mb-4 text-slate-600 leading-relaxed">{paragraph}</p>;
-        })}
+      <div className="prose prose-slate prose-indigo max-w-none prose-img:rounded-2xl prose-img:shadow-md prose-img:w-full prose-img:object-cover prose-img:my-8 prose-headings:text-slate-800 prose-p:text-slate-600 prose-a:text-indigo-600 prose-li:text-slate-600 prose-table:w-full prose-table:border-collapse prose-th:bg-slate-50 prose-th:p-3 prose-th:border prose-th:border-slate-200 prose-td:p-3 prose-td:border prose-td:border-slate-200">
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content.replace(/\\n/g, '\n')}</ReactMarkdown>
       </div>
     </div>
   );
