@@ -1,22 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
   <defs>
+    <!-- Background Gradient (Matches App Theme) -->
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stopColor="#1a7b8c" />
       <stop offset="100%" stopColor="#2cb67d" />
     </linearGradient>
-    <linearGradient id="arc" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stopColor="#86efac" />
-      <stop offset="100%" stopColor="#fde047" />
+    
+    <!-- Golden Coin Gradient -->
+    <linearGradient id="money" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#fef08a" />
+      <stop offset="100%" stopColor="#eab308" />
     </linearGradient>
+
+    <!-- Drop Shadow for the Coin -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-opacity="0.3" />
+    </filter>
   </defs>
-  <rect width="100" height="100" rx="24" fill="url(#bg)" />
   
-  <!-- House Roof -->
-  <path d="M 20 48 L 50 22 L 80 48" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- Outer Rounded Rectangle (App Icon Style) -->
+  <rect width="24" height="24" rx="5.5" fill="url(#bg)" />
   
-  <!-- House Walls -->
-  <path d="M 30 42 L 30 70 A 4 4 0 0 0 34 74 L 66 74 A 4 4 0 0 0 70 70 L 70 42" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- Golden Coin Base -->
+  <circle cx="12" cy="12" r="8.5" fill="url(#money)" filter="url(#shadow)" />
   
-  <!-- Dashboard Arc Inside -->
-  <path d="M 38 62 A 12 12 0 0 1 62 62" fill="none" stroke="url(#arc)" stroke-width="6" stroke-linecap="round" />
+  <!-- Coin Inner Ring Detail -->
+  <circle cx="12" cy="12" r="7" fill="none" stroke="#ca8a04" stroke-width="0.5" opacity="0.7" />
+  
+  <!-- Center Dollar Sign ($) -->
+  <g stroke="#1a7b8c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <line x1="12" y1="5" x2="12" y2="19" />
+    <path d="M14.5 7 H 10.5 a 2.5 2.5 0 0 0 0 5 h 3 a 2.5 2.5 0 0 1 0 5 H 9.5" />
+  </g>
+  
+  <!-- Top Right Sparkle Detail -->
+  <path d="M 18 3 L 18.5 5.5 L 21 6 L 18.5 6.5 L 18 9 L 17.5 6.5 L 15 6 L 17.5 5.5 Z" fill="#ffffff" opacity="0.9" />
+  
+  <!-- Bottom Left Sparkle Detail -->
+  <path d="M 5 15 L 5.5 16.5 L 7 17 L 5.5 17.5 L 5 19 L 4.5 17.5 L 3 17 L 4.5 16.5 Z" fill="#ffffff" opacity="0.7" />
 </svg>
