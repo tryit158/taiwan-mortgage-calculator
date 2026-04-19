@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#1a7b8c" />
+      <stop offset="100%" stopColor="#2cb67d" />
+    </linearGradient>
+    <linearGradient id="arc" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stopColor="#86efac" />
+      <stop offset="100%" stopColor="#fde047" />
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="24" fill="url(#bg)" />
+  
+  <!-- House Roof -->
+  <path d="M 20 48 L 50 22 L 80 48" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  
+  <!-- House Walls -->
+  <path d="M 30 42 L 30 70 A 4 4 0 0 0 34 74 L 66 74 A 4 4 0 0 0 70 70 L 70 42" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  
+  <!-- Dashboard Arc Inside -->
+  <path d="M 38 62 A 12 12 0 0 1 62 62" fill="none" stroke="url(#arc)" stroke-width="6" stroke-linecap="round" />
+</svg>
