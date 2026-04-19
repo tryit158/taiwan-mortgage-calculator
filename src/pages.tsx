@@ -21,8 +21,8 @@ interface CalculationResult {
 
 const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444'];
 
-export function CalculatorSection() {
-  const [loanAmount, setLoanAmount] = useState<number>(1000); // in 10k
+export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmount?: number }) {
+  const [loanAmount, setLoanAmount] = useState<number>(initialLoanAmount); // in 10k
   const [loanTerm, setLoanTerm] = useState<number>(30); // in years
   const [gracePeriod, setGracePeriod] = useState<number>(0); // in years
   const [interestRate, setInterestRate] = useState<number>(2.06); // in %
@@ -704,7 +704,7 @@ export function Home() {
     <div className="space-y-16">
       <section>
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-slate-900 mb-4">台灣房貸試算神器 - 最專業的房屋貸款計算器</h1>
+          <h1 className="text-3xl font-bold text-slate-900 mb-4">台灣房貸試算神器｜2026新青安、寬限期、本息本金一鍵計算</h1>
           <p className="text-slate-600 max-w-2xl mx-auto">
             專為首購族貸款與轉貸需求設計的房貸試算工具，支援新青安試算、轉貸試算、寬限期評估。提供詳細的圖表分析與每月還款明細，幫助您輕鬆規劃購屋財務。
           </p>
@@ -961,6 +961,49 @@ export function TermsPage() {
         <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">3. 智慧財產權</h3>
         <p>本網站的介面設計、程式碼、圖表樣式及文字內容等，均受智慧財產權法保護。未經授權，請勿隨意複製、修改或用於商業用途。</p>
       </div>
+    </div>
+  );
+}
+
+export function Landing1200WPage() {
+  React.useEffect(() => {
+    document.title = "1200萬房貸試算 - 月付多少？利息多少？(2026更新)";
+    return () => {
+      document.title = "台灣房貸試算神器｜2026新青安、寬限期、本息本金一鍵計算";
+    };
+  }, []);
+
+  return (
+    <div className="space-y-16">
+      <section>
+        <div className="mb-8 text-center">
+          <h1 className="text-3xl font-bold text-slate-900 mb-4">1200萬房貸試算 - 月付多少？利息多少？(2026更新)</h1>
+          <p className="text-slate-600 max-w-2xl mx-auto">
+            買房預算抓 1200 萬，想知道每個月房貸要繳多少錢？如果搭配新青安貸款，寬限期內外月付金差多少？馬上使用專屬試算器為您解答！
+          </p>
+        </div>
+        <CalculatorSection initialLoanAmount={1200} />
+      </section>
+
+      <section className="border-t border-slate-200 pt-16">
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-slate-800 mb-6 text-center">1200萬房貸常見情形解析</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-slate-50 p-6 rounded-xl">
+              <h3 className="font-bold text-slate-800 mb-2">一般房貸 (無寬限期)</h3>
+              <p className="text-sm text-slate-600">
+                若以貸款 1200 萬、利率 2.06%、30 年期「本息平均攤還」試算，每個月約需繳款 <strong>44,716 元</strong>。建議家庭月收入至少要有 13～14 萬，才不會讓生活品質打折。
+              </p>
+            </div>
+            <div className="bg-slate-50 p-6 rounded-xl">
+               <h3 className="font-bold text-slate-800 mb-2">搭配新青安貸款</h3>
+              <p className="text-sm text-slate-600">
+                新青安最高額度為 1000 萬，剩餘 200 萬須用一般房貸。合併試算下，前 5 年寬限期可能每月只需兩萬出頭，但第 6 年起本金開始攤還，月付金會大幅跳升至 4 萬多，務必評估未來還款能力。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
