@@ -527,9 +527,9 @@ export function CalculatorSection() {
                   <thead className="bg-slate-50 sticky top-0 z-10">
                     <tr>
                       <th scope="col" className="px-3 py-3 sm:px-6 sm:py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">期數</th>
+                      <th scope="col" className="px-3 py-3 sm:px-6 sm:py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">本期本息和</th>
                       <th scope="col" className="px-3 py-3 sm:px-6 sm:py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">本期本金</th>
                       <th scope="col" className="px-3 py-3 sm:px-6 sm:py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">本期利息</th>
-                      <th scope="col" className="px-3 py-3 sm:px-6 sm:py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">本期本息和</th>
                       <th scope="col" className="px-3 py-3 sm:px-6 sm:py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">剩餘本金</th>
                     </tr>
                   </thead>
@@ -539,9 +539,9 @@ export function CalculatorSection() {
                         <td className="px-3 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-slate-500">
                           第 {row.month} 期 <span className="text-[10px] sm:text-xs text-slate-400 ml-1">({row.year}年)</span>
                         </td>
+                        <td className="px-3 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-indigo-600 text-right">{formatCurrency(row.payment)}</td>
                         <td className="px-3 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-slate-900 text-right">{formatCurrency(row.principal)}</td>
                         <td className="px-3 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-slate-900 text-right">{formatCurrency(row.interest)}</td>
-                        <td className="px-3 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-indigo-600 text-right">{formatCurrency(row.payment)}</td>
                         <td className="px-3 py-3 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-slate-500 text-right">{formatCurrency(row.remainingBalance)}</td>
                       </tr>
                     ))}
