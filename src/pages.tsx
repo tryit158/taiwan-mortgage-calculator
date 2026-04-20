@@ -242,6 +242,17 @@ export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmo
     </div>
   );
 
+  const shopeeLinksNode = (
+    <>
+      <p className="text-sm font-medium text-slate-500 mb-4">🏠 算好房貸了？看看網友推薦的入厝好物：</p>
+      <div className="flex gap-3 flex-wrap">
+        <a href="https://s.shopee.tw/1BIYUgJEOw" target="_blank" rel="noreferrer" className="px-4 py-2 bg-[#ee4d2d] text-white rounded-md font-medium text-sm hover:bg-[#d74326] transition-colors no-underline shadow-sm">智能門鎖</a>
+        <a href="https://s.shopee.tw/6fdV2GUWpQ" target="_blank" rel="noreferrer" className="px-4 py-2 bg-[#ee4d2d] text-white rounded-md font-medium text-sm hover:bg-[#d74326] transition-colors no-underline shadow-sm">抗通膨家電</a>
+        <a href="https://s.shopee.tw/AADNDqQGVv" target="_blank" rel="noreferrer" className="px-4 py-2 bg-[#ee4d2d] text-white rounded-md font-medium text-sm hover:bg-[#d74326] transition-colors no-underline shadow-sm">今日領取免運券</a>
+      </div>
+    </>
+  );
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
       {/* Mobile Result Card (Top) */}
@@ -251,7 +262,12 @@ export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmo
 
       {/* Left Column: Calculator Inputs */}
       <div className="lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-20 lg:h-fit lg:self-start">
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 order-2">
+        {/* Mobile Shopee Recommendations (Above "關於本試算機") */}
+        <div className="lg:hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-6 order-2">
+          {shopeeLinksNode}
+        </div>
+
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 order-3">
           <h2 className="text-lg font-bold text-slate-800 mb-2">關於本試算機</h2>
           <p className="text-sm text-slate-600 leading-relaxed">
             買房是人生大事，房貸往往伴隨我們 20 到 40 年。本工具專為台灣購屋族設計，提供最精準的<strong>本息平均攤還</strong>與<strong>本金平均攤還</strong>試算。無論您是適用 2026 最新<strong>新青安房貸</strong>的首購族，還是需要評估<strong>寬限期</strong>影響的換屋族，都能透過本系統的圖表與明細，快速掌握每月的財務負擔，做出最明智的理財決策。
@@ -554,14 +570,9 @@ export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmo
           </div>
         </div>
 
-        {/* Shopee Recommendations */}
-        <div id="shopee-recommend" className="mt-8 pt-6 border-t border-dashed border-slate-300">
-          <p className="text-sm font-medium text-slate-500 mb-4">🏠 算好房貸了？看看網友推薦的入厝好物：</p>
-          <div className="flex gap-3 flex-wrap">
-            <a href="https://s.shopee.tw/1BIYUgJEOw" target="_blank" rel="noreferrer" className="px-4 py-2 bg-[#ee4d2d] text-white rounded-md font-medium text-sm hover:bg-[#d74326] transition-colors no-underline shadow-sm">智能門鎖</a>
-            <a href="https://s.shopee.tw/6fdV2GUWpQ" target="_blank" rel="noreferrer" className="px-4 py-2 bg-[#ee4d2d] text-white rounded-md font-medium text-sm hover:bg-[#d74326] transition-colors no-underline shadow-sm">抗通膨家電</a>
-            <a href="https://s.shopee.tw/AADNDqQGVv" target="_blank" rel="noreferrer" className="px-4 py-2 bg-[#ee4d2d] text-white rounded-md font-medium text-sm hover:bg-[#d74326] transition-colors no-underline shadow-sm">今日領取免運券</a>
-          </div>
+        {/* Desktop Shopee Recommendations */}
+        <div id="shopee-recommend-desktop" className="hidden lg:block mt-8 pt-6 border-t border-dashed border-slate-300">
+          {shopeeLinksNode}
         </div>
 
       </div>
