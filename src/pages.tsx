@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -31,6 +31,17 @@ export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmo
   const [repaymentMethod, setRepaymentMethod] = useState<RepaymentMethod>('equal_payment');
   const [activeTab, setActiveTab] = useState<'chart' | 'table'>('chart');
   const [showComparisonModal, setShowComparisonModal] = useState(false);
+  const [rateData, setRateData] = useState<{updateDate: string, baseRate: string} | null>(null);
+
+  useEffect(() => {
+    fetch('/data/rate.json')
+      .then(response => response.json())
+      .then(data => {
+        document.title = `台灣房貸試算神器 - ${data.updateDate} 最新新青安利率 ${data.baseRate}%`;
+        setRateData(data);
+      })
+      .catch(err => console.error('Failed to fetch latest rate', err));
+  }, []);
 
   const { schedule, summary } = useMemo(() => {
     const P = loanAmount * 10000;
@@ -279,6 +290,12 @@ export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmo
             <Calculator className="w-5 h-5 text-indigo-600" aria-hidden="true" />
             <h2 className="text-lg font-bold text-slate-800">輸入貸款條件</h2>
           </div>
+
+          {rateData && (
+            <div id="current-rate-info" className="text-[13px] text-slate-600 bg-indigo-50/50 border border-indigo-100 px-3 py-2.5 rounded-lg mb-6 -mt-2 flex items-center gap-2">
+               <span className="shrink-0">📈</span> 目前銀行機動利率參考：<strong className="text-indigo-700">{rateData.baseRate}%</strong> <span className="text-slate-400 text-xs">(更新於 {rateData.updateDate})</span>
+            </div>
+          )}
 
           <div className="space-y-5">
             <div>
