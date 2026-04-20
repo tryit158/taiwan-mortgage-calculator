@@ -558,9 +558,9 @@ export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmo
         <div id="shopee-recommend" className="mt-8 pt-6 border-t border-dashed border-slate-300">
           <p className="text-sm font-medium text-slate-500 mb-4">🏠 算好房貸了？看看網友推薦的入厝好物：</p>
           <div className="flex gap-3 flex-wrap">
-            <a href="你的分潤連結1" target="_blank" rel="noreferrer" className="px-4 py-2 bg-[#ee4d2d] text-white rounded-md font-medium text-sm hover:bg-[#d74326] transition-colors no-underline shadow-sm">智能門鎖</a>
+            <a href="https://s.shopee.tw/1BIYUgJEOw" target="_blank" rel="noreferrer" className="px-4 py-2 bg-[#ee4d2d] text-white rounded-md font-medium text-sm hover:bg-[#d74326] transition-colors no-underline shadow-sm">智能門鎖</a>
             <a href="https://s.shopee.tw/6fdV2GUWpQ" target="_blank" rel="noreferrer" className="px-4 py-2 bg-[#ee4d2d] text-white rounded-md font-medium text-sm hover:bg-[#d74326] transition-colors no-underline shadow-sm">抗通膨家電</a>
-            <a href="你的分潤連結3" target="_blank" rel="noreferrer" className="px-4 py-2 bg-[#ee4d2d] text-white rounded-md font-medium text-sm hover:bg-[#d74326] transition-colors no-underline shadow-sm">今日領取免運券</a>
+            <a href="https://s.shopee.tw/AADNDqQGVv" target="_blank" rel="noreferrer" className="px-4 py-2 bg-[#ee4d2d] text-white rounded-md font-medium text-sm hover:bg-[#d74326] transition-colors no-underline shadow-sm">今日領取免運券</a>
           </div>
         </div>
 
