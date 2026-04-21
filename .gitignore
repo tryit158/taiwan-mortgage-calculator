@@ -6,3 +6,5 @@ coverage/
 *.log
 .env*
 !.env.example
+# 不要讓 AI Studio 的覆蓋影響到我們手動建的腳本
+.github/workflows/
