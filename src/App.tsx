@@ -152,6 +152,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  // Sync test triggered at 2026-04-21 12:46 PM (Taipei Time)
   return (
     <Router>
       <ScrollToTop />
