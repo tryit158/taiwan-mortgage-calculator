@@ -253,7 +253,7 @@ export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmo
         <div className="bg-white text-slate-800 rounded-2xl p-4 shadow-sm">
           <div className="flex items-center gap-1.5 text-xs text-slate-500 mb-1">
             <Calendar className="w-3.5 h-3.5 text-[#2cb67d]" />
-            上次支付日期
+            最後還款年月
           </div>
           <div className="text-lg font-bold">{endDateString}</div>
         </div>
