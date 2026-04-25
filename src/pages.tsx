@@ -213,22 +213,26 @@ export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmo
         </svg>
         
         <div className="absolute inset-0 flex flex-col items-center justify-end pb-1">
-          <p className="text-sm opacity-90 mb-1">月付貸付</p>
+          <p className="text-sm opacity-90 mb-1">{gracePeriod > 0 ? '寬限期月繳 (僅付息)' : '每月還款'}</p>
           <p className="text-4xl font-bold tracking-tight mb-1">
             ${summary.firstMonthPayment.toLocaleString()} <span className="text-lg font-normal opacity-80">元</span>
           </p>
-          <p className="text-xs opacity-80">
+          <p className="text-xs opacity-80 mb-3">
             {repaymentMethod === 'equal_payment' ? '本息平均攤還' : '本金平均攤還'} ({loanTerm}年)
           </p>
-          {gracePeriod > 0 && (
-            <p className="text-[10px] text-yellow-200 mt-1.5 bg-black/20 px-2.5 py-0.5 rounded-full">
-              寬限期後: ${summary.afterGracePeriodPayment.toLocaleString()}
-            </p>
-          )}
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-3 sm:gap-4">
+        {gracePeriod > 0 && (
+          <div className="bg-amber-50 text-slate-800 rounded-2xl p-4 shadow-sm col-span-2 border border-amber-100">
+            <div className="flex items-center gap-1.5 text-xs text-amber-600 mb-1 font-medium">
+              <AlertCircle className="w-4 h-4" />
+              寬限期滿後月付金 (第 {gracePeriod + 1} 年起)
+            </div>
+            <div className="text-2xl font-bold text-amber-700">${summary.afterGracePeriodPayment.toLocaleString()} <span className="text-base font-normal text-amber-600/70">元</span></div>
+          </div>
+        )}
         <div className="bg-white text-slate-800 rounded-2xl p-4 shadow-sm">
           <div className="flex items-center gap-1.5 text-xs text-slate-500 mb-1">
             <PiggyBank className="w-3.5 h-3.5 text-[#2cb67d]" />
