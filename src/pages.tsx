@@ -265,17 +265,6 @@ export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmo
     </div>
   );
 
-  const shopeeLinksNode = (
-    <>
-      <p className="text-sm font-medium text-slate-500 mb-4">🏠 算好房貸了？看看網友推薦的入厝好物：</p>
-      <div className="flex gap-3 flex-wrap">
-        <a href="https://s.shopee.tw/1BIYUgJEOw" target="_blank" rel="noreferrer" className="px-4 py-2 bg-[#ee4d2d] text-white rounded-md font-medium text-sm hover:bg-[#d74326] transition-colors no-underline shadow-sm">智能門鎖</a>
-        <a href="https://s.shopee.tw/6fdV2GUWpQ" target="_blank" rel="noreferrer" className="px-4 py-2 bg-[#ee4d2d] text-white rounded-md font-medium text-sm hover:bg-[#d74326] transition-colors no-underline shadow-sm">抗通膨家電</a>
-        <a href="https://s.shopee.tw/AADNDqQGVv" target="_blank" rel="noreferrer" className="px-4 py-2 bg-[#ee4d2d] text-white rounded-md font-medium text-sm hover:bg-[#d74326] transition-colors no-underline shadow-sm">今日領取免運券</a>
-      </div>
-    </>
-  );
-
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
       {/* Mobile Result Card (Top) */}
@@ -285,11 +274,6 @@ export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmo
 
       {/* Left Column: Calculator Inputs */}
       <div className="lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-20 lg:h-fit lg:self-start">
-        {/* Mobile Shopee Recommendations (Above "關於本試算機") */}
-        <div className="lg:hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-6 order-2">
-          {shopeeLinksNode}
-        </div>
-
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 order-3">
           <h2 className="text-lg font-bold text-slate-800 mb-2">關於本試算機</h2>
           <p className="text-sm text-slate-600 leading-relaxed">
@@ -597,11 +581,6 @@ export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmo
               </div>
             )}
           </div>
-        </div>
-
-        {/* Desktop Shopee Recommendations */}
-        <div id="shopee-recommend-desktop" className="hidden lg:block mt-8 pt-6 border-t border-dashed border-slate-300">
-          {shopeeLinksNode}
         </div>
 
       </div>
