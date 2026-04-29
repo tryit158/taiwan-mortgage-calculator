@@ -946,7 +946,9 @@ export function ContactPage() {
         </p>
         <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 mt-8">
           <h3 className="font-bold text-slate-800 mb-2">電子郵件</h3>
-          <p className="text-indigo-600 font-medium">contact@tryit.qzz.io</p>
+          <p className="text-indigo-600 font-medium hover:underline">
+            <a href="mailto:contact@tryit.qzz.io">contact@tryit.qzz.io</a>
+          </p>
           <p className="text-sm text-slate-500 mt-2">我們通常會在 1-2 個工作天內回覆您的信件。</p>
         </div>
         <p className="text-sm text-slate-500 mt-8">
@@ -968,11 +970,12 @@ export function PrivacyPage() {
         <p>本網站作為一個純前端的計算工具，<strong>不會</strong>主動收集、儲存或傳送您輸入的任何財務數據（如貸款金額、利率、年限等）至我們的伺服器。所有的計算過程皆在您的瀏覽器端（Client-side）完成，確保您的財務隱私絕對安全。</p>
 
         <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">2. Cookie 與第三方廣告 (Google AdSense)</h3>
-        <p>本網站使用 Google AdSense 服務來提供廣告。Google 及其合作夥伴會使用 Cookie 根據您先前對本網站或其他網站的造訪紀錄來放送廣告。</p>
-        <ul className="list-disc pl-5 space-y-2">
-          <li>Google 使用廣告 Cookie，可讓 Google 及其合作夥伴根據使用者造訪本網站和/或網際網路上其他網站的資料，向使用者放送合適的廣告。</li>
-          <li>使用者可以選擇停用個人化廣告。如要停用，請前往 <a href="https://www.google.com/settings/ads" target="_blank" rel="noreferrer" className="text-indigo-600 hover:underline">廣告設定</a>。</li>
-          <li>我們也可能使用分析工具（如 Google Analytics）的 Cookie 來分析網站流量並優化您的使用者體驗。</li>
+        <p>本網站使用 Google AdSense 服務來提供廣告，為了符合 Google 網站發布商規範，我們在此聲明：</p>
+        <ul className="list-disc pl-5 space-y-2 mt-4">
+          <li>第三方供應商（包括 Google）會使用 Cookie 來放送廣告，這些廣告是根據使用者先前對本網站或網際網路上其他網站的造訪結果來放送。</li>
+          <li>Google 使用廣告 Cookie 可讓 Google 及其合作夥伴根據使用者對本網站及網際網路上其他網站的造訪結果，向您的使用者放送合適的廣告。</li>
+          <li>使用者可以前往 <a href="https://www.google.com/settings/ads" target="_blank" rel="noreferrer" className="text-indigo-600 hover:underline">廣告設定</a>，選擇停用個人化廣告。</li>
+          <li>您也可以前往 <a href="https://www.aboutads.info/" target="_blank" rel="noreferrer" className="text-indigo-600 hover:underline">www.aboutads.info</a> 選擇停用第三方供應商用於個人化廣告的 Cookie。</li>
         </ul>
 
         <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">3. 外部連結</h3>

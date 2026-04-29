@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Home as HomeIcon, BookOpen, Calculator, Info, Mail, Shield, FileText, Menu, X } from 'lucide-react';
 import { Home, ArticlesPage, ArticleDetailPage, AboutPage, ContactPage, PrivacyPage, TermsPage, Landing1200WPage } from './pages';
@@ -10,6 +10,39 @@ function ScrollToTop() {
     window.scrollTo(0, 0);
   }, [pathname]);
   return null;
+}
+
+function CookieBanner() {
+  const [accepted, setAccepted] = useState(true);
+
+  useEffect(() => {
+    const hasAccepted = localStorage.getItem('cookie_consent');
+    if (!hasAccepted) {
+      setAccepted(false);
+    }
+  }, []);
+
+  if (accepted) return null;
+
+  return (
+    <div className="fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-700 p-4 md:p-6 z-[100] flex flex-col md:flex-row items-center justify-between gap-4 shadow-[0_-10px_40px_rgba(0,0,0,0.2)] animate-in slide-in-from-bottom-full duration-500">
+      <div className="text-slate-300 text-sm leading-relaxed max-w-5xl">
+        <strong className="text-white block mb-1 text-base">本網站使用 Cookies 與追蹤技術</strong>
+        我們使用 cookies 與其他追蹤技術來提升您的使用者體驗、分析網站流量，並透過 Google AdSense 提供個人化的廣告內容。為了符合 Google 廣告計畫政策，我們必須向您說明我們的資料使用方式。繼續使用本網站即表示您同意我們的 <Link to="/privacy" className="text-indigo-400 hover:text-indigo-300 underline">隱私權政策</Link> 與 <Link to="/terms" className="text-indigo-400 hover:text-indigo-300 underline">服務條款</Link>。
+      </div>
+      <div className="flex shrink-0 gap-3 w-full md:w-auto mt-2 md:mt-0">
+        <button 
+          onClick={() => {
+            localStorage.setItem('cookie_consent', 'true');
+            setAccepted(true);
+          }}
+          className="w-full md:w-auto px-8 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-lg transition-colors whitespace-nowrap shadow-sm"
+        >
+          我了解並同意 (Accept)
+        </button>
+      </div>
+    </div>
+  );
 }
 
 function Layout({ children }: { children: React.ReactNode }) {
@@ -168,6 +201,7 @@ export default function App() {
           <Route path="/terms" element={<TermsPage />} />
         </Routes>
       </Layout>
+      <CookieBanner />
     </Router>
   );
 }
