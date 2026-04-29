@@ -818,20 +818,51 @@ export function Home() {
 }
 
 export function ArticlesPage() {
+  const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
+
+  const sortedArticles = useMemo(() => {
+    return [...articles].sort((a, b) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+      return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+    });
+  }, [sortOrder]);
+
   return (
     <div className="max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold text-slate-900 mb-8">房貸知識專欄</h1>
-      <p className="text-slate-600 mb-10 text-lg">
-        我們提供最完整的購屋指南、房貸教學與市場趨勢分析，幫助您在買房路上不走冤枉路。
-      </p>
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 pb-6 border-b border-slate-200">
+        <div>
+          <h1 className="text-3xl font-bold text-slate-900 mb-3 flex items-center gap-2">
+            <BookOpen className="w-8 h-8 text-indigo-600" />
+            房貸知識部落格
+          </h1>
+          <p className="text-slate-600 text-lg max-w-2xl">
+            提供最完整的購屋指南、房貸教學與市場趨勢分析，幫助您在買房路上不走冤枉路。
+          </p>
+        </div>
+        <div className="shrink-0 flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-slate-200 shadow-sm">
+          <span className="text-sm font-medium text-slate-600">排序：</span>
+          <select 
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value as 'newest' | 'oldest')}
+            className="text-sm font-medium text-slate-800 bg-transparent border-none focus:ring-0 cursor-pointer outline-none"
+          >
+            <option value="newest">最新發布</option>
+            <option value="oldest">最舊發布</option>
+          </select>
+        </div>
+      </div>
       <div className="space-y-6">
-        {articles.map(article => (
+        {sortedArticles.map(article => (
           <Link key={article.id} to={`/articles/${article.id}`} className="block group">
             <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 transition-all hover:shadow-md hover:border-indigo-300">
-              <p className="text-sm text-indigo-600 font-medium mb-2">{article.date}</p>
+              <div className="flex items-center gap-2 text-sm text-indigo-600 font-medium mb-3">
+                <Calendar className="w-4 h-4" />
+                {article.date}
+              </div>
               <h2 className="text-2xl font-bold text-slate-800 mb-4 group-hover:text-indigo-600 transition-colors">{article.title}</h2>
-              <p className="text-slate-600 leading-relaxed">{article.excerpt}</p>
-              <div className="mt-4 text-indigo-600 font-medium text-sm flex items-center gap-1">
+              <p className="text-slate-600 leading-relaxed text-base">{article.excerpt}</p>
+              <div className="mt-5 text-indigo-600 font-medium text-sm flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                 閱讀全文 &rarr;
               </div>
             </div>
