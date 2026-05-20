@@ -760,6 +760,50 @@ export function Home() {
           </div>
         </div>
 
+        <div className="mb-12 bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+          <h2 className="text-2xl font-bold text-slate-800 mb-6 border-b pb-4">2026 台灣房貸申請與申辦全攻略</h2>
+          <div className="space-y-6 text-slate-600 leading-relaxed">
+            <div>
+              <h3 className="text-xl font-bold text-indigo-700 mb-2">步驟一：評估自身還款能力與頭期款準備</h3>
+              <p>
+                在開始看房之前，您必須先了解自己能負擔多少錢的房子。在台灣，通常需要準備房屋總價 20% 的資金作為「頭期款」，另外還需預留約 5% 作為裝潢、代書費、契稅、規費等雜支。剩餘的 80% 資金即為向銀行申請的房屋貸款。
+              </p>
+              <p className="mt-2">
+                利用上方的試算機，輸入您預計貸款的金額與市場平均利率，即可算出每月的月付金。專家建議：「房貸月付金不應超過家庭總月收入的三分之一」。這能確保您面對未來可能的升息或是家庭突發支出時，依然能保有安全餘裕。
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="text-xl font-bold text-indigo-700 mb-2">步驟二：了解你的貸款選擇：傳統房貸 vs 新青安</h3>
+              <p>
+                2026 年的房貸市場選擇多元。若您名下無房產且符合條件，政府主導的「新青安貸款方案」通常是首選。新青安提供最高 40 年的還款期限與長達 5 年的寬限期，初期購屋負擔壓力極小。
+              </p>
+              <p className="mt-2">
+                然而，天下沒有白吃的午餐。將貸款年限拉長至 40 年，意味著您一生中要繳給銀行的「總利息支出」也將大幅增加。若資金充裕，一般的傳統銀行房貸（20年或30年期）搭配本金平均攤還，長期來看能幫您省下驚人的利息。
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-bold text-indigo-700 mb-2">步驟三：準備財力證明與維持良好信用評分 (聯徵)</h3>
+              <p>
+                銀行在決定是否核貸、以及要給您多低的利率時，最看重的是您的「還款能力」與「信用分數」。在預計購屋的前半年到一年，請務必做到以下幾點：
+              </p>
+              <ul className="list-disc pl-5 mt-2 space-y-1">
+                <li><strong>穩定的薪資轉帳：</strong> 每個月固定有來自公司的薪資入帳，是最好的財力證明。</li>
+                <li><strong>避免使用信用卡循環利息：</strong> 信用卡費務必全額繳清，絕不要只繳最低應繳金額。</li>
+                <li><strong>暫緩申請其他貸款：</strong> 購屋前千萬別去申請個人信貸買車或消費，這會大幅削弱您的房貸額度。</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-bold text-indigo-700 mb-2">步驟四：比較銀行條件，大膽談判爭取優惠利率</h3>
+              <p>
+                當您付了房子的頭期款並正式簽約後，就可以開始找銀行對保。建議可以優先尋找您「薪資轉帳」所在的銀行，或是在該銀行擁有大額存款、理財 VIP 資格的金融機構，通常能爭取到更好的利率。另外，現在許多建商也會合作提供所謂的「整批房貸」，也能享有低於市場的優惠。
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-slate-800 mb-6 text-center">房貸常見問題 (FAQ)</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -801,8 +845,8 @@ export function Home() {
             查看全部文章 &rarr;
           </Link>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {articles.slice(0, 4).map(article => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {articles.slice(0, 6).map(article => (
             <Link key={article.id} to={`/articles/${article.id}`} className="block group">
               <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 h-full transition-all hover:shadow-md hover:border-indigo-300">
                 <p className="text-xs text-slate-400 mb-2">{article.date}</p>
