@@ -841,13 +841,13 @@ export function Home() {
             <BookOpen className="w-6 h-6 text-indigo-600" />
             <h2 className="text-2xl font-bold text-slate-800">最新房貸知識與文章</h2>
           </div>
-          <Link to="/articles" className="text-indigo-600 hover:text-indigo-800 font-medium text-sm">
+          <Link to="/blog" className="text-indigo-600 hover:text-indigo-800 font-medium text-sm">
             查看全部文章 &rarr;
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {articles.slice(0, 6).map(article => (
-            <Link key={article.id} to={`/articles/${article.id}`} className="block group">
+            <Link key={article.id} to={`/blog/${article.id}`} className="block group">
               <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 h-full transition-all hover:shadow-md hover:border-indigo-300">
                 <p className="text-xs text-slate-400 mb-2">{article.date}</p>
                 <h3 className="text-lg font-bold text-slate-800 mb-3 group-hover:text-indigo-600 transition-colors">{article.title}</h3>
@@ -898,7 +898,7 @@ export function ArticlesPage() {
       </div>
       <div className="space-y-6">
         {sortedArticles.map(article => (
-          <Link key={article.id} to={`/articles/${article.id}`} className="block group">
+          <Link key={article.id} to={`/blog/${article.id}`} className="block group">
             <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 transition-all hover:shadow-md hover:border-indigo-300">
               <div className="flex items-center gap-2 text-sm text-indigo-600 font-medium mb-3">
                 <Calendar className="w-4 h-4" />
@@ -925,14 +925,14 @@ export function ArticleDetailPage() {
     return (
       <div className="text-center py-20">
         <h2 className="text-2xl font-bold text-slate-800 mb-4">找不到該文章</h2>
-        <Link to="/articles" className="text-indigo-600 hover:underline">返回文章列表</Link>
+        <Link to="/blog" className="text-indigo-600 hover:underline">返回文章列表</Link>
       </div>
     );
   }
 
   return (
     <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-8 md:p-12">
-      <Link to="/articles" className="text-sm text-indigo-600 hover:underline mb-8 inline-block">&larr; 返回文章列表</Link>
+      <Link to="/blog" className="text-sm text-indigo-600 hover:underline mb-8 inline-block">&larr; 返回文章列表</Link>
       <p className="text-sm text-slate-500 mb-3">{article.date}</p>
       <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8 leading-tight">{article.title}</h1>
       <div className="prose prose-slate prose-indigo max-w-none prose-img:rounded-2xl prose-img:shadow-md prose-img:w-full prose-img:object-cover prose-img:my-8 prose-headings:text-slate-800 prose-p:text-slate-600 prose-a:text-indigo-600 prose-li:text-slate-600 prose-table:w-full prose-table:border-collapse prose-th:bg-slate-50 prose-th:p-3 prose-th:border prose-th:border-slate-200 prose-td:p-3 prose-td:border prose-td:border-slate-200">

@@ -51,7 +51,7 @@ function Layout({ children }: { children: React.ReactNode }) {
   
   const navLinks = [
     { name: '首頁試算', path: '/', icon: Calculator },
-    { name: '房貸專欄', path: '/articles', icon: BookOpen },
+    { name: '房貸知識部落格', path: '/blog', icon: BookOpen },
     { name: '關於我們', path: '/about', icon: Info },
     { name: '聯絡我們', path: '/contact', icon: Mail },
   ];
@@ -150,7 +150,7 @@ function Layout({ children }: { children: React.ReactNode }) {
               <h3 className="font-bold text-slate-800 mb-4">快速連結</h3>
               <ul className="space-y-2 text-sm text-slate-500">
                 <li><Link to="/" className="hover:text-indigo-600 transition-colors">首頁試算</Link></li>
-                <li><Link to="/articles" className="hover:text-indigo-600 transition-colors">房貸專欄</Link></li>
+                <li><Link to="/blog" className="hover:text-indigo-600 transition-colors">房貸知識部落格</Link></li>
                 <li><Link to="/about" className="hover:text-indigo-600 transition-colors">關於我們</Link></li>
                 <li><Link to="/contact" className="hover:text-indigo-600 transition-colors">聯絡我們</Link></li>
                 <li><a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 transition-colors">網站地圖 (Sitemap)</a></li>
@@ -193,8 +193,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/1200w" element={<Landing1200WPage />} />
-          <Route path="/articles" element={<ArticlesPage />} />
-          <Route path="/articles/:id" element={<ArticleDetailPage />} />
+          <Route path="/blog" element={<ArticlesPage />} />
+          <Route path="/blog/:id" element={<ArticleDetailPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
