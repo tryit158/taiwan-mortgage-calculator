@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react
 import { Home as HomeIcon, BookOpen, Calculator, Info, Mail, Shield, FileText, Menu, X } from 'lucide-react';
 import { Home, ArticlesPage, ArticleDetailPage, AboutPage, ContactPage, PrivacyPage, TermsPage, Landing1200WPage } from './pages';
 import { cn } from './utils';
+import { GeoMetadataInjector } from './components/GeoMetadataInjector';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -189,6 +190,7 @@ export default function App() {
   return (
     <Router>
       <ScrollToTop />
+      <GeoMetadataInjector />
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />

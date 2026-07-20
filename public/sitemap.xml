@@ -2,96 +2,102 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://tryit.qzz.io/</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://tryit.qzz.io/1200w</loc>
-    <lastmod>2026-04-19</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tryit.qzz.io/articles</loc>
-    <lastmod>2026-04-06</lastmod>
+    <loc>https://tryit.qzz.io/blog</loc>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tryit.qzz.io/about</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://tryit.qzz.io/contact</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://tryit.qzz.io/privacy</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://tryit.qzz.io/terms</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-07-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://tryit.qzz.io/articles/10-million-mortgage-monthly-payment</loc>
+    <loc>https://tryit.qzz.io/blog/new-youth-mortgage-3-0-complete-guide</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tryit.qzz.io/blog/10-million-mortgage-monthly-payment</loc>
     <lastmod>2026-04-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://tryit.qzz.io/articles/2026-taiwan-mortgage-trends</loc>
+    <loc>https://tryit.qzz.io/blog/2026-taiwan-mortgage-trends</loc>
+    <lastmod>2026-03-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tryit.qzz.io/blog/mortgage-application-process</loc>
     <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tryit.qzz.io/articles/mortgage-application-process</loc>
+    <loc>https://tryit.qzz.io/blog/credit-score-guide</loc>
     <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tryit.qzz.io/articles/credit-score-guide</loc>
+    <loc>https://tryit.qzz.io/blog/property-types-loan-ratio</loc>
     <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tryit.qzz.io/articles/property-types-loan-ratio</loc>
+    <loc>https://tryit.qzz.io/blog/hidden-costs-of-buying-a-house</loc>
     <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tryit.qzz.io/articles/hidden-costs-of-buying-a-house</loc>
+    <loc>https://tryit.qzz.io/blog/how-to-negotiate-mortgage-rates</loc>
     <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tryit.qzz.io/articles/how-to-negotiate-mortgage-rates</loc>
+    <loc>https://tryit.qzz.io/blog/grace-period-pros-and-cons</loc>
     <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tryit.qzz.io/articles/grace-period-pros-and-cons</loc>
-    <lastmod>2026-04-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://tryit.qzz.io/articles/equal-payment-vs-equal-principal</loc>
+    <loc>https://tryit.qzz.io/blog/equal-payment-vs-equal-principal</loc>
     <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

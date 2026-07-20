@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { articles } from './data/articles';
 import { NewYouth3VisualDashboard } from './components/NewYouth3VisualDashboard';
+import { GeoOptimizeCard } from './components/GeoOptimizeCard';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell
 } from 'recharts';
@@ -938,6 +939,8 @@ export function ArticleDetailPage() {
       <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8 leading-tight">{article.title}</h1>
       
       {article.id === 'new-youth-mortgage-3-0-complete-guide' && <NewYouth3VisualDashboard />}
+
+      <GeoOptimizeCard articleId={article.id} />
 
       <div className="prose prose-slate prose-indigo max-w-none prose-img:rounded-2xl prose-img:shadow-md prose-img:w-full prose-img:object-cover prose-img:my-8 prose-headings:text-slate-800 prose-p:text-slate-600 prose-a:text-indigo-600 prose-li:text-slate-600 prose-table:w-full prose-table:border-collapse prose-th:bg-slate-50 prose-th:p-3 prose-th:border prose-th:border-slate-200 prose-td:p-3 prose-td:border prose-td:border-slate-200">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content.replace(/\\n/g, '\n')}</ReactMarkdown>
