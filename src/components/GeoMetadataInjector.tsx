@@ -211,23 +211,23 @@ export function GeoMetadataInjector() {
     }
 
     // Dynamic Title & Meta Description optimization for GEO crawlers
-    let docTitle = '台灣房貸試算神器 - 2026線上最新新青安3.0與貸款精準計算機';
+    let docTitle = '青年安心成家購屋優惠貸款3.0方案';
     let docDesc = '全台最專業直覺的房貸試算工具。支援2026最新新青安3.0、首購房貸、寬限期本息攤還、本金攤還計算。完全無廣告干擾，資料留於本地，安全隱私。';
 
     if (path.startsWith('/blog/')) {
       const article = articles.find(a => a.id === id);
       if (article) {
-        docTitle = `${article.title} - 台灣房貸試算神器`;
+        docTitle = `${article.title} - 青年安心成家購屋優惠貸款3.0方案`;
         docDesc = article.excerpt;
       }
     } else if (path === '/blog') {
-      docTitle = '房貸與新青安3.0最新知識部落格 - 台灣房貸試算神器';
+      docTitle = '房貸與新青安3.0最新知識部落格 - 青年安心成家購屋優惠貸款3.0方案';
       docDesc = '彙整最新台灣首購族房貸政策、新青安3.0一生一次限制、聯徵中心信用評分提升祕訣與央行最新信用管制指南。';
     } else if (path === '/about') {
-      docTitle = '關於我們 - 台灣房貸試算神器';
-      docDesc = '了解台灣房貸試算神器的創立使命、安全無虞的純前端本地運算技術架構，以及嚴謹的房貸計算公式。';
+      docTitle = '關於我們 - 青年安心成家購屋優惠貸款3.0方案';
+      docDesc = '了解青年安心成家購屋優惠貸款3.0方案試算工具的創立使命、安全無虞的純前端本地運算技術架構，以及嚴謹的房貸計算公式。';
     } else if (path === '/contact') {
-      docTitle = '聯絡我們 - 台灣房貸試算神器';
+      docTitle = '聯絡我們 - 青年安心成家購屋優惠貸款3.0方案';
       docDesc = '有任何房貸試算建議、金融諮詢、政策勘誤或商業合作需求？歡迎隨時與我們取得聯繫。';
     }
 

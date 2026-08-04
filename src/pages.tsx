@@ -40,7 +40,7 @@ export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmo
       .then(response => response.json())
       .then(data => {
         // 更新網頁標題
-        document.title = `台灣房貸試算神器 - ${data.updateDate} 最新新青安利率 ${data.baseRate}%`;
+        document.title = `青年安心成家購屋優惠貸款3.0方案 - ${data.updateDate} 最新利率 ${data.baseRate}%`;
         
         // 更新 meta description
         const metaDescription = document.querySelector('meta[name="description"]');
@@ -1073,7 +1073,7 @@ export function Landing1200WPage() {
   React.useEffect(() => {
     document.title = "1200萬房貸試算 - 月付多少？利息多少？(2026更新)";
     return () => {
-      document.title = "台灣房貸試算神器｜2026新青安、寬限期、本息本金一鍵計算";
+      document.title = "青年安心成家購屋優惠貸款3.0方案";
     };
   }, []);
 
