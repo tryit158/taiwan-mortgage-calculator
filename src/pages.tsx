@@ -5,10 +5,12 @@ import remarkGfm from 'remark-gfm';
 import { articles } from './data/articles';
 import { NewYouth3VisualDashboard } from './components/NewYouth3VisualDashboard';
 import { GeoOptimizeCard } from './components/GeoOptimizeCard';
+import { TaiwanBankRateTable } from './components/TaiwanBankRateTable';
+import { SocialShareBar } from './components/SocialShareBar';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell
 } from 'recharts';
-import { Calculator, AlertCircle, PiggyBank, TrendingUp, BookOpen, ChevronDown, ChevronUp, X, Calendar } from 'lucide-react';
+import { Calculator, AlertCircle, PiggyBank, TrendingUp, BookOpen, ChevronDown, ChevronUp, X, Calendar, Zap, Sparkles } from 'lucide-react';
 import { cn } from './utils';
 
 // --- Calculator Component ---
@@ -51,6 +53,17 @@ export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmo
         setRateData(data);
       })
       .catch(err => console.error('Failed to fetch latest rate', err));
+
+    const handleApplyRate = (e: Event) => {
+      const customEv = e as CustomEvent<{rate: number, term: number, grace: number}>;
+      if (customEv.detail) {
+        if (customEv.detail.rate) setInterestRate(customEv.detail.rate);
+        if (customEv.detail.term) setLoanTerm(customEv.detail.term);
+        if (customEv.detail.grace !== undefined) setGracePeriod(customEv.detail.grace);
+      }
+    };
+    window.addEventListener('apply-bank-rate', handleApplyRate);
+    return () => window.removeEventListener('apply-bank-rate', handleApplyRate);
   }, []);
 
   const { schedule, summary } = useMemo(() => {
@@ -284,13 +297,74 @@ export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmo
         </div>
 
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 order-1">
-          <div className="flex items-center gap-2 mb-6">
+          <div className="flex items-center gap-2 mb-4">
             <Calculator className="w-5 h-5 text-indigo-600" aria-hidden="true" />
             <h2 className="text-lg font-bold text-slate-800">輸入貸款條件</h2>
           </div>
 
+          {/* Quick Preset Chips */}
+          <div className="mb-5 bg-slate-50 p-3 rounded-xl border border-slate-200">
+            <div className="flex items-center gap-1 text-[11px] font-bold text-slate-500 uppercase tracking-wide mb-2">
+              <Zap className="w-3.5 h-3.5 text-amber-500" /> 熱門台灣房貸情境快帶入
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              <button
+                type="button"
+                onClick={() => {
+                  setLoanAmount(1000);
+                  setLoanTerm(40);
+                  setGracePeriod(5);
+                  setInterestRate(1.775);
+                  setRepaymentMethod('equal_payment');
+                }}
+                className="text-[11px] font-medium bg-white hover:bg-indigo-50 text-indigo-700 border border-indigo-200 px-2.5 py-1 rounded-lg transition-colors flex items-center gap-1"
+              >
+                <span>🔥 1000萬新青安 (40年/5年寬限)</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setLoanAmount(1200);
+                  setLoanTerm(30);
+                  setGracePeriod(0);
+                  setInterestRate(2.06);
+                  setRepaymentMethod('equal_payment');
+                }}
+                className="text-[11px] font-medium bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 px-2.5 py-1 rounded-lg transition-colors"
+              >
+                🏠 1200萬標準首購 (30年)
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setLoanAmount(1500);
+                  setLoanTerm(30);
+                  setGracePeriod(1);
+                  setInterestRate(2.50);
+                  setRepaymentMethod('equal_payment');
+                }}
+                className="text-[11px] font-medium bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 px-2.5 py-1 rounded-lg transition-colors"
+              >
+                💰 1500萬換屋第二戶 (30年)
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setLoanAmount(1000);
+                  setLoanTerm(30);
+                  setGracePeriod(0);
+                  setInterestRate(2.06);
+                  setRepaymentMethod('equal_principal');
+                }}
+                className="text-[11px] font-medium bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 px-2.5 py-1 rounded-lg transition-colors"
+              >
+                🔄 1000萬省利息 (本金攤還)
+              </button>
+            </div>
+          </div>
+
           {rateData && (
-            <div id="current-rate-info" className="text-[13px] text-slate-600 bg-indigo-50/50 border border-indigo-100 px-3 py-2.5 rounded-lg mb-6 -mt-2 flex items-center gap-2">
+            <div id="current-rate-info" className="text-[13px] text-slate-600 bg-indigo-50/50 border border-indigo-100 px-3 py-2.5 rounded-lg mb-6 flex items-center gap-2">
                <span className="shrink-0">📈</span> 目前銀行機動利率參考：<strong className="text-indigo-700">{rateData.baseRate}%</strong> <span className="text-slate-400 text-xs">(更新於 {rateData.updateDate})</span>
             </div>
           )}
@@ -583,6 +657,18 @@ export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmo
               </div>
             )}
           </div>
+
+          {/* Social Share Bar for Taiwan Users */}
+          <SocialShareBar
+            loanAmount={loanAmount}
+            loanTerm={loanTerm}
+            gracePeriod={gracePeriod}
+            interestRate={interestRate}
+            repaymentMethod={repaymentMethod}
+            firstMonthPayment={summary.firstMonthPayment}
+            afterGracePeriodPayment={summary.afterGracePeriodPayment}
+            totalInterest={summary.totalInterest}
+          />
         </div>
 
       </div>
@@ -734,6 +820,14 @@ function ComparisonModal({ loanAmount, onClose }: { loanAmount: number, onClose:
 // --- Pages ---
 
 export function Home() {
+  const handleSelectBankRate = (rate: number, term: number, grace: number) => {
+    window.dispatchEvent(new CustomEvent('apply-bank-rate', { detail: { rate, term, grace } }));
+    const el = document.getElementById('loan-amount');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="space-y-16">
       <section>
@@ -746,7 +840,12 @@ export function Home() {
         <CalculatorSection />
       </section>
 
-      <section className="border-t border-slate-200 pt-16">
+      {/* Taiwan Top Banks Rate Comparison Table */}
+      <section>
+        <TaiwanBankRateTable onSelectRate={handleSelectBankRate} />
+      </section>
+
+      <section className="border-t border-slate-200 pt-12">
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-slate-800 mb-6 text-center">為什麼需要使用房貸試算工具？</h2>
           <div className="prose prose-slate max-w-none text-slate-600 space-y-4">
@@ -944,6 +1043,45 @@ export function ArticleDetailPage() {
 
       <div className="prose prose-slate prose-indigo max-w-none prose-img:rounded-2xl prose-img:shadow-md prose-img:w-full prose-img:object-cover prose-img:my-8 prose-headings:text-slate-800 prose-p:text-slate-600 prose-a:text-indigo-600 prose-li:text-slate-600 prose-table:w-full prose-table:border-collapse prose-th:bg-slate-50 prose-th:p-3 prose-th:border prose-th:border-slate-200 prose-td:p-3 prose-td:border prose-td:border-slate-200">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content.replace(/\\n/g, '\n')}</ReactMarkdown>
+      </div>
+
+      {/* Article Social Share Section */}
+      <div className="mt-12 pt-8 border-t border-slate-200 bg-slate-50 -mx-8 -mb-8 md:-mx-12 md:-mb-12 p-8 md:p-12 rounded-b-2xl">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <h3 className="text-base font-bold text-slate-800">喜歡這篇文章？分享給準備買房的朋友</h3>
+            <p className="text-xs text-slate-500 mt-1">一鍵分享至 LINE 或社群，讓更多首購族買房不踩雷</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(`【${article.title}】\n${article.excerpt}\n👉 閱讀全文：${window.location.href}`)}`;
+                window.open(lineUrl, '_blank');
+              }}
+              className="bg-[#00B900] hover:bg-[#009900] text-white px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs"
+            >
+              LINE 分享
+            </button>
+            <button
+              onClick={() => {
+                const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+                window.open(fbUrl, '_blank');
+              }}
+              className="bg-[#1877F2] hover:bg-[#166FE5] text-white px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs"
+            >
+              FB 分享
+            </button>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(window.location.href);
+                alert('已複製文章連結！');
+              }}
+              className="bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-xs"
+            >
+              複製連結
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
