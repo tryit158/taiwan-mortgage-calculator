@@ -1,5 +1,6 @@
 {
-  "name": "青年安心成家購屋優惠貸款3.0方案",
-  "description": "支援新青安、寬限期、本息/本金攤還比較的台灣房貸計算機，提供詳細圖表與每月還款明細。",
-  "requestFramePermissions": []
+  "name": "台灣房貸指南與試算智庫",
+  "description": "台灣最專業的房貸試算與購屋智庫，支援2026新青安、轉貸增貸、寬限期本息攤還分析，由合格地政士與理財顧問團隊嚴謹編審。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

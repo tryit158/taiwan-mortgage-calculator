@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Home as HomeIcon, BookOpen, Calculator, Info, Mail, Shield, FileText, Menu, X } from 'lucide-react';
+import { Home as HomeIcon, BookOpen, Calculator, Info, Mail, Shield, FileText, Menu, X, Award } from 'lucide-react';
 import { Home, ArticlesPage, ArticleDetailPage, AboutPage, ContactPage, PrivacyPage, TermsPage, Landing1200WPage } from './pages';
+import { EditorialPolicyPage } from './components/EditorialPolicyPage';
 import { cn } from './utils';
 import { GeoMetadataInjector } from './components/GeoMetadataInjector';
 
@@ -52,8 +53,8 @@ function Layout({ children }: { children: React.ReactNode }) {
   
   const navLinks = [
     { name: '首頁試算', path: '/', icon: Calculator },
-    { name: '房貸知識部落格', path: '/blog', icon: BookOpen },
-    { name: '關於我們', path: '/about', icon: Info },
+    { name: '房貸知識庫', path: '/blog', icon: BookOpen },
+    { name: '關於智庫', path: '/about', icon: Info },
     { name: '聯絡我們', path: '/contact', icon: Mail },
   ];
 
@@ -69,7 +70,7 @@ function Layout({ children }: { children: React.ReactNode }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
             <HomeIcon className="w-6 h-6" aria-hidden="true" />
-            <span className="text-xl font-bold tracking-tight">台灣房貸試算神器</span>
+            <span className="text-lg sm:text-xl font-bold tracking-tight">台灣房貸指南與試算智庫</span>
           </Link>
           
           {/* Desktop Navigation */}
@@ -141,35 +142,41 @@ function Layout({ children }: { children: React.ReactNode }) {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <HomeIcon className="w-5 h-5 text-indigo-600" />
-                <span className="text-lg font-bold text-slate-800">台灣房貸試算神器</span>
+                <span className="text-lg font-bold text-slate-800">台灣房貸指南與試算智庫</span>
               </div>
               <p className="text-slate-500 text-sm leading-relaxed">
-                最專業的房貸試算工具，支援新青安、寬限期、本息攤還與本金攤還。提供詳細的圖表分析與每月還款明細，幫助您輕鬆規劃購屋財務。
+                國家特考合格地政士與估價師共同審查之房貸金融智庫。提供新青安優惠試算、銀行法 72-2 額度排隊檢測、DTI 收支比壓力測試與全台行庫利率對照，保障購屋者的知情權與財務安全。
               </p>
             </div>
             <div>
               <h3 className="font-bold text-slate-800 mb-4">快速連結</h3>
               <ul className="space-y-2 text-sm text-slate-500">
                 <li><Link to="/" className="hover:text-indigo-600 transition-colors">首頁試算</Link></li>
-                <li><Link to="/blog" className="hover:text-indigo-600 transition-colors">房貸知識部落格</Link></li>
-                <li><Link to="/about" className="hover:text-indigo-600 transition-colors">關於我們</Link></li>
-                <li><Link to="/contact" className="hover:text-indigo-600 transition-colors">聯絡我們</Link></li>
+                <li><Link to="/blog" className="hover:text-indigo-600 transition-colors">房貸知識專題庫</Link></li>
+                <li><Link to="/about" className="hover:text-indigo-600 transition-colors">關於智庫與編審團</Link></li>
+                <li><Link to="/contact" className="hover:text-indigo-600 transition-colors">讀者反饋與勘誤</Link></li>
                 <li><a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 transition-colors">網站地圖 (Sitemap)</a></li>
               </ul>
             </div>
             <div>
-              <h3 className="font-bold text-slate-800 mb-4">法律與政策</h3>
+              <h3 className="font-bold text-slate-800 mb-4">法律與政策規範</h3>
               <ul className="space-y-2 text-sm text-slate-500">
                 <li>
+                  <Link to="/editorial-policy" className="flex items-center gap-1.5 hover:text-indigo-600 transition-colors">
+                    <Award className="w-4 h-4 text-indigo-600" />
+                    編審方針與廣告政策
+                  </Link>
+                </li>
+                <li>
                   <Link to="/privacy" className="flex items-center gap-1.5 hover:text-indigo-600 transition-colors">
-                    <Shield className="w-4 h-4" />
-                    隱私權政策
+                    <Shield className="w-4 h-4 text-indigo-600" />
+                    隱私權政策 (Privacy)
                   </Link>
                 </li>
                 <li>
                   <Link to="/terms" className="flex items-center gap-1.5 hover:text-indigo-600 transition-colors">
-                    <FileText className="w-4 h-4" />
-                    服務條款
+                    <FileText className="w-4 h-4 text-indigo-600" />
+                    服務條款 (Terms)
                   </Link>
                 </li>
               </ul>
@@ -177,7 +184,7 @@ function Layout({ children }: { children: React.ReactNode }) {
           </div>
           <div className="border-t border-slate-100 pt-8 text-center text-slate-400 text-sm">
             <p>本試算結果僅供參考，實際貸款條件與還款金額請以各家銀行核貸結果為準。</p>
-            <p className="mt-2">© 2026 台灣房貸試算神器. All rights reserved.</p>
+            <p className="mt-2">© 2026 台灣房貸指南與試算智庫. All rights reserved.</p>
           </div>
         </div>
       </footer>
@@ -186,7 +193,6 @@ function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  // Sync test triggered at 2026-04-21 12:46 PM (Taipei Time)
   return (
     <Router>
       <ScrollToTop />
@@ -199,6 +205,7 @@ export default function App() {
           <Route path="/blog/:id" element={<ArticleDetailPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/editorial-policy" element={<EditorialPolicyPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
         </Routes>

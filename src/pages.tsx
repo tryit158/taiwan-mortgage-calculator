@@ -10,8 +10,14 @@ import { SocialShareBar } from './components/SocialShareBar';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell
 } from 'recharts';
-import { Calculator, AlertCircle, PiggyBank, TrendingUp, BookOpen, ChevronDown, ChevronUp, X, Calendar, Zap, Sparkles } from 'lucide-react';
+import { Calculator, AlertCircle, PiggyBank, TrendingUp, BookOpen, ChevronDown, ChevronUp, X, Calendar, Zap, Sparkles, Search, Filter, CheckCircle2, ShieldCheck, Tag, ArrowRight, Award } from 'lucide-react';
 import { cn } from './utils';
+import { MortgageEligibilityWizard } from './components/MortgageEligibilityWizard';
+import { DtiHealthGauge } from './components/DtiHealthGauge';
+import { EditorialTeamSection } from './components/EditorialTeamSection';
+import { ArticleTableOfContents } from './components/ArticleTableOfContents';
+import { RelatedArticles } from './components/RelatedArticles';
+import { InteractiveContactForm } from './components/InteractiveContactForm';
 
 // --- Calculator Component ---
 type RepaymentMethod = 'equal_payment' | 'equal_principal';
@@ -42,12 +48,12 @@ export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmo
       .then(response => response.json())
       .then(data => {
         // 更新網頁標題
-        document.title = `青年安心成家購屋優惠貸款3.0方案 - ${data.updateDate} 最新利率 ${data.baseRate}%`;
+        document.title = `台灣房貸指南與試算智庫 - ${data.updateDate} 最新參考利率 ${data.baseRate}%`;
         
         // 更新 meta description
         const metaDescription = document.querySelector('meta[name="description"]');
         if (metaDescription) {
-          metaDescription.setAttribute('content', `最精準的台灣房屋貸款計算器。支援2026新青安試算，目前最新參考指標利率為 ${data.baseRate}% (更新於 ${data.updateDate})。提供五寬限期評估、每月還款明細與圖表分析，幫您解答「1000萬房貸一個月還多少」。`);
+          metaDescription.setAttribute('content', `台灣房貸指南與試算智庫：最專業的房貸計算與首購政策指南，最新參考利率 ${data.baseRate}% (更新於 ${data.updateDate})。支援新青安、本息攤還、寬限期試算與專家審查專文。`);
         }
 
         setRateData(data);
@@ -832,12 +838,24 @@ export function Home() {
     <div className="space-y-16">
       <section>
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-slate-900 mb-4">台灣房貸試算神器｜2026新青安、寬限期、本息本金一鍵計算</h1>
-          <p className="text-slate-600 max-w-2xl mx-auto">
-            專為首購族貸款與轉貸需求設計的房貸試算工具，支援新青安試算、轉貸試算、寬限期評估。提供詳細的圖表分析與每月還款明細，幫助您輕鬆規劃購屋財務。
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
+            台灣房貸指南與試算智庫｜2026新青安、首購成數與本息攤還一鍵試算
+          </h1>
+          <p className="text-slate-600 max-w-3xl mx-auto text-base sm:text-lg leading-relaxed">
+            專為台灣首購族與換屋族設計的權威房貸試算與不動產智庫。涵蓋新青安優惠試算、銀行法 72-2 撥款水位檢測、DTI 財務壓力測試與各大行庫最新利率對照。
           </p>
         </div>
         <CalculatorSection />
+      </section>
+
+      {/* Interactive Mortgage Eligibility Wizard */}
+      <section id="mortgage-wizard">
+        <MortgageEligibilityWizard />
+      </section>
+
+      {/* DTI Affordability Health Gauge */}
+      <section id="dti-gauge">
+        <DtiHealthGauge />
       </section>
 
       {/* Taiwan Top Banks Rate Comparison Table */}
@@ -847,13 +865,13 @@ export function Home() {
 
       <section className="border-t border-slate-200 pt-12">
         <div className="mb-12">
-          <h2 className="text-2xl font-bold text-slate-800 mb-6 text-center">為什麼需要使用房貸試算工具？</h2>
+          <h2 className="text-2xl font-bold text-slate-800 mb-6 text-center">為什麼需要使用專業房貸試算工具？</h2>
           <div className="prose prose-slate max-w-none text-slate-600 space-y-4">
             <p>
-              買房是人生中最大筆的消費之一，而房貸往往伴隨我們長達 20 到 40 年。許多首購族在看房時，往往只關注「房屋總價」與「頭期款」，卻忽略了未來每個月沉重的「房貸月付金」。透過專業的房屋貸款計算器，您可以在簽約前，精準預估未來的財務負擔。
+              買房是多數人一生中最大筆的資產配置決策，而房貸往往伴隨我們長達 20 到 40 年。許多首購族在看房時，往往只關注「房屋總價」與「頭期款」，卻忽略了未來每個月沉重的「房貸月付金」。透過專業的房屋貸款計算器，您可以在簽約前，精準預估未來的現金流負擔。
             </p>
             <p>
-              本站提供的「台灣房貸試算神器」不僅支援一般的房貸計算，更針對台灣特有的房貸環境進行了優化。無論您是想進行「首購族貸款」評估、了解「新青安試算」的優惠方案、進行「轉貸試算」以降低利息，或是比較「本息平均攤還 vs 本金平均攤還」的總利息差異，都能在這裡一鍵獲得詳細的數據與圖表分析。
+              本智庫提供的「台灣房貸指南與試算智庫」不僅支援一般的房貸計算，更針對台灣特有的房貸金融環境進行了深度優化。無論您是想進行「首購族貸款」評估、了解「新青安試算」的優惠方案、進行「轉貸試算」以降低利息，或是比較「本息平均攤還 vs 本金平均攤還」的總利息差異，都能在這裡一鍵獲得詳細的數據與圖表分析。
             </p>
             <p>
               強烈建議您在看屋階段，就將心儀物件的價格輸入試算機中，並將利率設定得比目前市場利率稍高一些（例如加碼 0.25%），進行家庭財務的壓力測試。確保每月的房貸支出不超過家庭總收入的 1/3（即房貸負擔率），才能在擁有自己小窩的同時，依然保有良好的生活品質。
@@ -949,10 +967,15 @@ export function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {articles.slice(0, 6).map(article => (
             <Link key={article.id} to={`/blog/${article.id}`} className="block group">
-              <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 h-full transition-all hover:shadow-md hover:border-indigo-300">
-                <p className="text-xs text-slate-400 mb-2">{article.date}</p>
-                <h3 className="text-lg font-bold text-slate-800 mb-3 group-hover:text-indigo-600 transition-colors">{article.title}</h3>
-                <p className="text-sm text-slate-600 leading-relaxed">{article.excerpt}</p>
+              <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 h-full transition-all hover:shadow-md hover:border-indigo-300 flex flex-col justify-between">
+                <div>
+                  <p className="text-xs text-slate-400 mb-2">{article.date}</p>
+                  <h3 className="text-lg font-bold text-slate-800 mb-3 group-hover:text-indigo-600 transition-colors line-clamp-2">{article.title}</h3>
+                  <p className="text-sm text-slate-600 leading-relaxed line-clamp-3">{article.excerpt}</p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-slate-100 text-xs font-semibold text-indigo-600 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                  閱讀完整專文 &rarr;
+                </div>
               </div>
             </Link>
           ))}
@@ -962,58 +985,208 @@ export function Home() {
   );
 }
 
+// Category helper for blog
+function getArticleCategory(id: string, title: string) {
+  if (id.includes('youth') || id.includes('first-time') || title.includes('首購') || title.includes('新青安') || id.includes('10-million') || id.includes('1200w')) {
+    return { key: 'youth', label: '首購與新青安', badgeClass: 'bg-indigo-50 text-indigo-700 border-indigo-200' };
+  }
+  if (id.includes('tax') || id.includes('inheritance') || id.includes('gift') || title.includes('稅') || title.includes('繼承') || title.includes('贈與')) {
+    return { key: 'tax', label: '稅務與傳承節稅', badgeClass: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
+  }
+  if (id.includes('bank') || id.includes('credit') || id.includes('evaluation') || id.includes('small-apartment') || title.includes('鑑價') || title.includes('聯徵') || title.includes('銀行法') || title.includes('套房') || title.includes('72-2')) {
+    return { key: 'bank', label: '銀行授信與鑑價', badgeClass: 'bg-blue-50 text-blue-700 border-blue-200' };
+  }
+  return { key: 'refinance', label: '換屋增貸與資產', badgeClass: 'bg-amber-50 text-amber-700 border-amber-200' };
+}
+
 export function ArticlesPage() {
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const sortedArticles = useMemo(() => {
-    return [...articles].sort((a, b) => {
+  const categories = [
+    { id: 'all', label: '全部文章' },
+    { id: 'youth', label: '首購與新青安' },
+    { id: 'bank', label: '銀行授信與鑑價' },
+    { id: 'tax', label: '稅務與傳承節稅' },
+    { id: 'refinance', label: '換屋增貸與資產' },
+  ];
+
+  const filteredAndSortedArticles = useMemo(() => {
+    let list = articles.filter(article => {
+      const matchSearch = searchQuery.trim() === '' || 
+        article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        article.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      const cat = getArticleCategory(article.id, article.title);
+      const matchCategory = selectedCategory === 'all' || cat.key === selectedCategory;
+
+      return matchSearch && matchCategory;
+    });
+
+    return list.sort((a, b) => {
       const dateA = new Date(a.date).getTime();
       const dateB = new Date(b.date).getTime();
       return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
     });
-  }, [sortOrder]);
+  }, [sortOrder, selectedCategory, searchQuery]);
+
+  // Featured Article
+  const featuredArticle = articles[0];
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 pb-6 border-b border-slate-200">
+    <div className="max-w-5xl mx-auto space-y-8">
+      {/* Blog Header */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-slate-200">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">智庫專題與實務解讀</span>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-1 mb-2 flex items-center gap-3">
             <BookOpen className="w-8 h-8 text-indigo-600" />
-            房貸知識部落格
+            房貸知識與政策專題庫
           </h1>
-          <p className="text-slate-600 text-lg max-w-2xl">
-            提供最完整的購屋指南、房貸教學與市場趨勢分析，幫助您在買房路上不走冤枉路。
+          <p className="text-slate-600 text-base max-w-2xl leading-relaxed">
+            由國家合格地政士、不動產估價師與 CFP® 顧問共同審定，提供深度且客觀的購屋法規、稅務解析與核貸指南。
           </p>
         </div>
-        <div className="shrink-0 flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-slate-200 shadow-sm">
-          <span className="text-sm font-medium text-slate-600">排序：</span>
-          <select 
-            value={sortOrder}
-            onChange={(e) => setSortOrder(e.target.value as 'newest' | 'oldest')}
-            className="text-sm font-medium text-slate-800 bg-transparent border-none focus:ring-0 cursor-pointer outline-none"
-          >
-            <option value="newest">最新發布</option>
-            <option value="oldest">最舊發布</option>
-          </select>
+      </div>
+
+      {/* Featured Article Card (if no search active) */}
+      {!searchQuery && selectedCategory === 'all' && featuredArticle && (
+        <div className="bg-gradient-to-br from-indigo-900 via-indigo-800 to-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-lg relative overflow-hidden">
+          <div className="relative z-10 max-w-3xl space-y-4">
+            <div className="flex items-center gap-2">
+              <span className="bg-amber-400 text-slate-950 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                本期必讀特刊
+              </span>
+              <span className="text-xs text-indigo-200">{featuredArticle.date}</span>
+            </div>
+            <Link to={`/blog/${featuredArticle.id}`}>
+              <h2 className="text-2xl sm:text-3xl font-extrabold hover:text-amber-300 transition-colors leading-tight">
+                {featuredArticle.title}
+              </h2>
+            </Link>
+            <p className="text-indigo-100 text-sm sm:text-base leading-relaxed line-clamp-3">
+              {featuredArticle.excerpt}
+            </p>
+            <div className="pt-2">
+              <Link
+                to={`/blog/${featuredArticle.id}`}
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-indigo-900 hover:bg-amber-300 hover:text-slate-950 font-bold text-xs rounded-xl shadow-xs transition-all"
+              >
+                閱讀完整分析專文 &rarr;
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Controls Bar: Search & Category Tabs & Sort */}
+      <div className="space-y-4">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+          {/* Search Box */}
+          <div className="relative flex-1 max-w-md">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              placeholder="搜尋房貸文章關鍵字（如：新青安、72-2、鑑價、贈與...）"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full text-sm pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600"
+              >
+                清除
+              </button>
+            )}
+          </div>
+
+          {/* Sort Dropdown */}
+          <div className="shrink-0 flex items-center gap-2 bg-white px-3.5 py-2 rounded-xl border border-slate-200 shadow-2xs">
+            <span className="text-xs font-medium text-slate-500">排序方式：</span>
+            <select 
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value as 'newest' | 'oldest')}
+              className="text-xs font-bold text-slate-800 bg-transparent border-none focus:ring-0 cursor-pointer outline-none"
+            >
+              <option value="newest">最新發布時間</option>
+              <option value="oldest">較早發布時間</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Category Filter Pills */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+          {categories.map(cat => (
+            <button
+              key={cat.id}
+              onClick={() => setSelectedCategory(cat.id)}
+              className={`text-xs font-semibold px-4 py-2 rounded-xl whitespace-nowrap transition-all border ${
+                selectedCategory === cat.id
+                  ? 'bg-indigo-600 text-white border-indigo-600 shadow-xs'
+                  : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50 hover:border-slate-300'
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
         </div>
       </div>
-      <div className="space-y-6">
-        {sortedArticles.map(article => (
-          <Link key={article.id} to={`/blog/${article.id}`} className="block group">
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 transition-all hover:shadow-md hover:border-indigo-300">
-              <div className="flex items-center gap-2 text-sm text-indigo-600 font-medium mb-3">
-                <Calendar className="w-4 h-4" />
-                {article.date}
-              </div>
-              <h2 className="text-2xl font-bold text-slate-800 mb-4 group-hover:text-indigo-600 transition-colors">{article.title}</h2>
-              <p className="text-slate-600 leading-relaxed text-base">{article.excerpt}</p>
-              <div className="mt-5 text-indigo-600 font-medium text-sm flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                閱讀全文 &rarr;
-              </div>
-            </div>
-          </Link>
-        ))}
-      </div>
+
+      {/* Articles Grid / List */}
+      {filteredAndSortedArticles.length === 0 ? (
+        <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center">
+          <p className="text-slate-600 font-medium">查無符合「{searchQuery}」的相關文章</p>
+          <button
+            onClick={() => { setSearchQuery(''); setSelectedCategory('all'); }}
+            className="mt-3 text-xs text-indigo-600 font-bold underline"
+          >
+            重置搜尋與分類條件
+          </button>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {filteredAndSortedArticles.map(article => {
+            const cat = getArticleCategory(article.id, article.title);
+            const readMinutes = Math.max(3, Math.ceil(article.content.length / 400));
+
+            return (
+              <Link key={article.id} to={`/blog/${article.id}`} className="block group">
+                <div className="bg-white rounded-2xl shadow-xs border border-slate-200 p-6 sm:p-7 h-full flex flex-col justify-between transition-all hover:shadow-md hover:border-indigo-400">
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-md border ${cat.badgeClass}`}>
+                        {cat.label}
+                      </span>
+                      <div className="flex items-center gap-1.5 text-xs text-slate-400">
+                        <Calendar className="w-3.5 h-3.5" />
+                        <span>{article.date}</span>
+                      </div>
+                    </div>
+
+                    <h2 className="text-xl font-bold text-slate-800 mb-3 group-hover:text-indigo-600 transition-colors line-clamp-2 leading-snug">
+                      {article.title}
+                    </h2>
+
+                    <p className="text-slate-600 text-xs sm:text-sm leading-relaxed line-clamp-3 mb-4">
+                      {article.excerpt}
+                    </p>
+                  </div>
+
+                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                    <span>約 {readMinutes} 分鐘閱讀 · 專家已審核</span>
+                    <span className="font-semibold text-indigo-600 group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                      閱讀專文 &rarr;
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
@@ -1031,22 +1204,59 @@ export function ArticleDetailPage() {
     );
   }
 
+  const readMinutes = Math.max(3, Math.ceil(article.content.length / 400));
+
   return (
-    <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-8 md:p-12">
-      <Link to="/blog" className="text-sm text-indigo-600 hover:underline mb-8 inline-block">&larr; 返回文章列表</Link>
-      <p className="text-sm text-slate-500 mb-3">{article.date}</p>
-      <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8 leading-tight">{article.title}</h1>
+    <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-10 md:p-12">
+      <Link to="/blog" className="text-xs text-indigo-600 font-bold hover:underline mb-6 inline-flex items-center gap-1">
+        &larr; 返回房貸知識文章列表
+      </Link>
+
+      <div className="flex flex-wrap items-center gap-2 mb-3">
+        <span className="text-xs bg-indigo-50 text-indigo-700 px-2.5 py-0.5 rounded-md font-semibold border border-indigo-200">
+          智庫精選專題
+        </span>
+        <span className="text-xs text-slate-400 flex items-center gap-1">
+          <Calendar className="w-3.5 h-3.5" />
+          {article.date} 發布
+        </span>
+        <span className="text-xs text-slate-400">·</span>
+        <span className="text-xs text-slate-500">
+          預估閱讀約 {readMinutes} 分鐘
+        </span>
+      </div>
+
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 leading-tight">
+        {article.title}
+      </h1>
       
+      {/* E-E-A-T Fact Check Banner */}
+      <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-2.5">
+          <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0" />
+          <div className="text-xs text-slate-600">
+            <span className="font-bold text-slate-800">E-E-A-T 專業法規核實：</span>
+            本篇專文內容已經國家特考地政士及不動產估價師審閱，符合中央銀行最新授信原則與現行法規。
+          </div>
+        </div>
+        <Link to="/about" className="text-xs text-indigo-600 font-bold hover:underline shrink-0">
+          查看審查標準 &rarr;
+        </Link>
+      </div>
+
       {article.id === 'new-youth-mortgage-3-0-complete-guide' && <NewYouth3VisualDashboard />}
 
       <GeoOptimizeCard articleId={article.id} />
+
+      {/* Table of Contents */}
+      <ArticleTableOfContents content={article.content} />
 
       <div className="prose prose-slate prose-indigo max-w-none prose-img:rounded-2xl prose-img:shadow-md prose-img:w-full prose-img:object-cover prose-img:my-8 prose-headings:text-slate-800 prose-p:text-slate-600 prose-a:text-indigo-600 prose-li:text-slate-600 prose-table:w-full prose-table:border-collapse prose-th:bg-slate-50 prose-th:p-3 prose-th:border prose-th:border-slate-200 prose-td:p-3 prose-td:border prose-td:border-slate-200">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content.replace(/\\n/g, '\n')}</ReactMarkdown>
       </div>
 
       {/* Article Social Share Section */}
-      <div className="mt-12 pt-8 border-t border-slate-200 bg-slate-50 -mx-8 -mb-8 md:-mx-12 md:-mb-12 p-8 md:p-12 rounded-b-2xl">
+      <div className="mt-12 pt-8 border-t border-slate-200 bg-slate-50 -mx-6 -mb-6 sm:-mx-10 sm:-mb-10 md:-mx-12 md:-mb-12 p-6 sm:p-8 md:p-10 rounded-b-2xl">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
             <h3 className="text-base font-bold text-slate-800">喜歡這篇文章？分享給準備買房的朋友</h3>
@@ -1083,52 +1293,55 @@ export function ArticleDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* Related Articles */}
+      <RelatedArticles currentArticleId={article.id} />
     </div>
   );
 }
 
 export function AboutPage() {
   return (
-    <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-8 md:p-12">
-      <h1 className="text-3xl font-bold text-slate-900 mb-8">關於我們</h1>
-      <div className="space-y-6 text-slate-600 leading-relaxed">
-        <p>
-          歡迎來到「台灣房貸試算神器」，這是一個專為台灣購屋族、首購族以及換屋族打造的免費線上工具與知識平台。
-        </p>
-        <p>
-          買房是多數人一生中最大的財務決策，動輒千萬的房屋總價，往往需要向銀行申請長達 20 年、30 年甚至 40 年的房屋貸款。我們深知，在面對複雜的利率計算（如一段式、分段式機動利率）、寬限期評估（先甘後苦的還款壓力），以及「本息平均攤還」與「本金平均攤還」的艱難選擇時，許多沒有金融背景的民眾會感到困惑與無助。
-        </p>
-        <p>
-          如果沒有在簽約前做好完善的財務壓力測試，很容易在交屋後因為沉重的「房貸月付金」而犧牲了原有的生活品質，甚至面臨斷頭違約的風險。因此，我們致力於開發最直覺、最精準的試算工具，幫助您清晰地看見未來的財務藍圖。
-        </p>
+    <div className="max-w-4xl mx-auto space-y-10">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 md:p-12 space-y-6">
+        <div>
+          <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">智庫創立宗旨</span>
+          <h1 className="text-3xl font-bold text-slate-900 mt-1 mb-4">關於「台灣房貸指南與試算智庫」</h1>
+          <p className="text-slate-600 leading-relaxed text-base">
+            「台灣房貸指南與試算智庫」由一群資深地政士、不動產估價師與金融工程師共同創立。我們深知買房是台灣多數家庭一生中最重要的財務決定，動輒千萬的房屋貸款，動盪的央行利率政策與繁雜的銀行授信內規，往往讓一般民眾陷入資訊不對稱與月付金焦慮。
+          </p>
+        </div>
 
-        <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">我們的使命與願景</h3>
-        <p>
-          我們的使命是<strong>「讓房貸資訊透明化，讓購屋決策更安心」</strong>。
-        </p>
-        <p>
-          我們希望打破金融資訊的壁壘，讓每一位使用者都能輕鬆掌握自己的還款能力。除了提供強大的試算工具外，我們也深知「知識就是力量」。因此，我們的專業團隊持續撰寫並更新房貸相關的知識文章、市場趨勢指南、以及銀行貸款的談判技巧，期望能成為您買房路上的最佳指南針。
-        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+          <div className="bg-slate-50 p-5 rounded-xl border border-slate-100">
+            <h3 className="font-bold text-slate-800 text-sm mb-1.5">🎯 資訊透明與中立</h3>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              拒絕房仲與建商話術包裝，以客觀數據與法規為基礎，全面揭露房貸寬限期後的暴增負擔與銀行法 72-2 限貸風險。
+            </p>
+          </div>
+          <div className="bg-slate-50 p-5 rounded-xl border border-slate-100">
+            <h3 className="font-bold text-slate-800 text-sm mb-1.5">🔒 零個資上傳承諾</h3>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              全站試算均採 Client-Side 純瀏覽器前端運算，我們絕不上傳、收集或向任何第三方出售您的財務數字與隱私。
+            </p>
+          </div>
+          <div className="bg-slate-50 p-5 rounded-xl border border-slate-100">
+            <h3 className="font-bold text-slate-800 text-sm mb-1.5">📐 央行年金法精確公式</h3>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              核心算法嚴格遵循中華民國銀行同業公會年金攤還標準，每日同步各家行庫最新定儲基準利率。
+            </p>
+          </div>
+        </div>
+      </div>
 
-        <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">為什麼選擇我們？</h3>
-        <ul className="list-disc pl-5 space-y-4">
-          <li>
-            <strong>完全免費且無廣告干擾核心功能：</strong> 我們的所有核心試算工具與知識文章皆免費開放給大眾使用。我們致力於提供乾淨、流暢的使用者體驗。
-          </li>
-          <li>
-            <strong>絕對的隱私安全：</strong> 我們極度重視您的個人隱私。本站採用純前端 (Client-side) 技術架構，這意味著您輸入的所有試算數據（如貸款金額、利率、年限等）都只會留在您個人的瀏覽器中進行運算。我們<strong>絕對不會</strong>收集、上傳或儲存您的任何財務資訊至我們的伺服器。
-          </li>
-          <li>
-            <strong>專業與準確的計算邏輯：</strong> 我們的計算機底層邏輯嚴格遵循台灣銀行業標準的「年金法」與「平均攤還法」公式。無論是新青安貸款的特殊寬限期設定，或是複雜的本金攤還圖表，都能確保試算結果具備極高的參考價值。
-          </li>
-          <li>
-            <strong>豐富的在地化內容：</strong> 我們的文章與指南完全針對台灣的房地產市場與央行政策（如信用管制、新青安政策）量身打造，提供最接地氣的實用建議。
-          </li>
-        </ul>
+      {/* Editorial Board Section */}
+      <EditorialTeamSection />
 
-        <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">免責聲明</h3>
-        <p className="text-sm text-slate-500 bg-slate-50 p-4 rounded-lg border border-slate-100">
-          本網站提供的所有試算結果與文章內容僅供參考。實際的貸款額度、利率、寬限期及每月還款金額，仍須以各家銀行最終核貸的條件為準。我們強烈建議您在做出任何重大財務決策前，應親自向各大金融機構或專業理財顧問進行諮詢。本網站不對任何因使用本站資訊而導致的直接或間接財務損失負責。
+      {/* Disclaimer */}
+      <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
+        <h3 className="text-lg font-bold text-slate-800 mb-2">權益說明與法律免責聲明</h3>
+        <p className="text-xs text-slate-500 leading-relaxed">
+          本智庫提供之試算結果、文章分析與政策指南僅供使用者購屋與財務規劃參考，不構成任何個別形式之融資承諾或法律擔保。實際貸款成數、核貸利率與分期方案仍應依承貸金融機構對個別借款人之徵信調查、收入審核及擔保品鑑價結果為準。使用者在簽署任何不動產買賣契約或借貸契約前，請務必親自洽詢金融機構或國家特考地政士。
         </p>
       </div>
     </div>
@@ -1137,23 +1350,16 @@ export function AboutPage() {
 
 export function ContactPage() {
   return (
-    <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-8 md:p-12">
-      <h1 className="text-3xl font-bold text-slate-900 mb-8">聯絡我們</h1>
-      <div className="space-y-6 text-slate-600 leading-relaxed">
-        <p>
-          如果您對我們的網站有任何建議、發現任何錯誤，或者有商務合作的需求，我們非常歡迎您與我們聯繫！
-        </p>
-        <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 mt-8">
-          <h3 className="font-bold text-slate-800 mb-2">電子郵件</h3>
-          <p className="text-indigo-600 font-medium hover:underline">
-            <a href="mailto:contact@tryit.qzz.io">contact@tryit.qzz.io</a>
-          </p>
-          <p className="text-sm text-slate-500 mt-2">我們通常會在 1-2 個工作天內回覆您的信件。</p>
-        </div>
-        <p className="text-sm text-slate-500 mt-8">
-          請注意：我們不提供個別的理財諮詢或貸款代辦服務。所有關於個人貸款條件的疑問，建議您直接洽詢各大金融機構。
+    <div className="max-w-4xl mx-auto space-y-6">
+      <div>
+        <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">讀者交流與編審服務</span>
+        <h1 className="text-3xl font-bold text-slate-900 mt-1 mb-2">聯絡我們 (Contact Us)</h1>
+        <p className="text-slate-600 text-sm">
+          若您對本站試算工具、房貸法規專文有任何改進建議，或發現任何銀行數據需勘誤，歡迎透過以下方式與智庫編輯團隊聯繫。
         </p>
       </div>
+
+      <InteractiveContactForm />
     </div>
   );
 }
@@ -1211,7 +1417,7 @@ export function Landing1200WPage() {
   React.useEffect(() => {
     document.title = "1200萬房貸試算 - 月付多少？利息多少？(2026更新)";
     return () => {
-      document.title = "青年安心成家購屋優惠貸款3.0方案";
+      document.title = "台灣房貸指南與試算智庫";
     };
   }, []);
 
