@@ -42,8 +42,8 @@ export function InteractiveContactForm() {
             <span>官方電子信箱</span>
           </div>
           <p className="text-sm font-semibold text-slate-900">
-            <a href="mailto:contact@tryit.qzz.io" className="hover:underline">
-              contact@tryit.qzz.io
+            <a href="mailto:111@tryit.qzz.io" className="hover:underline">
+              111@tryit.qzz.io
             </a>
           </p>
           <p className="text-xs text-slate-500 mt-1">一般讀者反饋與政策勘誤</p>

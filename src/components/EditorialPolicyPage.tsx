@@ -62,7 +62,7 @@ export function EditorialPolicyPage() {
             四、更正與勘誤政策 (Correction Policy)
           </h2>
           <p>
-            若本站發布之文章、利率數據或政策說明出現錯誤，我們承諾以最快速度予以公開更正，並於文章頂端或底端標註最後更新與修訂時間。讀者若發現任何疑問或需修正之處，歡迎透過 <a href="mailto:contact@tryit.qzz.io" className="text-indigo-600 underline">contact@tryit.qzz.io</a> 向編輯部反映。
+            若本站發布之文章、利率數據或政策說明出現錯誤，我們承諾以最快速度予以公開更正，並於文章頂端或底端標註最後更新與修訂時間。讀者若發現任何疑問或需修正之處，歡迎透過 <a href="mailto:111@tryit.qzz.io" className="text-indigo-600 underline">111@tryit.qzz.io</a> 向編輯部反映。
           </p>
         </section>
       </div>
