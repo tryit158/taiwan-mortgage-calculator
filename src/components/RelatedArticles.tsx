@@ -10,10 +10,13 @@ interface RelatedArticlesProps {
 export function RelatedArticles({ currentArticleId }: RelatedArticlesProps) {
   // Find related articles (excluding the current one)
   const otherArticles = articles.filter(a => a.id !== currentArticleId);
-  // Pick 3 related articles
-  const current = articles.find(a => a.id === currentArticleId);
   
-  const related = otherArticles.slice(0, 3);
+  // Sort by newest date to recommend latest high-value guides
+  const sortedNewest = [...otherArticles].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+  
+  const related = sortedNewest.slice(0, 3);
 
   if (related.length === 0) return null;
 

@@ -965,7 +965,10 @@ export function Home() {
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {articles.slice(0, 6).map(article => (
+          {[...articles]
+            .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+            .slice(0, 6)
+            .map(article => (
             <Link key={article.id} to={`/blog/${article.id}`} className="block group">
               <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 h-full transition-all hover:shadow-md hover:border-indigo-300 flex flex-col justify-between">
                 <div>
@@ -987,13 +990,13 @@ export function Home() {
 
 // Category helper for blog
 function getArticleCategory(id: string, title: string) {
-  if (id.includes('youth') || id.includes('first-time') || title.includes('首購') || title.includes('新青安') || id.includes('10-million') || id.includes('1200w')) {
+  if (id.includes('youth') || id.includes('first-time') || id.includes('presale') || id.includes('under-table') || title.includes('首購') || title.includes('新青安') || title.includes('10-million') || title.includes('1200w') || title.includes('預售屋') || title.includes('對保') || title.includes('AB約') || title.includes('假合約')) {
     return { key: 'youth', label: '首購與新青安', badgeClass: 'bg-indigo-50 text-indigo-700 border-indigo-200' };
   }
   if (id.includes('tax') || id.includes('inheritance') || id.includes('gift') || title.includes('稅') || title.includes('繼承') || title.includes('贈與')) {
     return { key: 'tax', label: '稅務與傳承節稅', badgeClass: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
   }
-  if (id.includes('bank') || id.includes('credit') || id.includes('evaluation') || id.includes('small-apartment') || title.includes('鑑價') || title.includes('聯徵') || title.includes('銀行法') || title.includes('套房') || title.includes('72-2')) {
+  if (id.includes('bank') || id.includes('credit') || id.includes('evaluation') || id.includes('small-apartment') || id.includes('apartment') || id.includes('dti') || title.includes('鑑價') || title.includes('聯徵') || title.includes('銀行法') || title.includes('套房') || title.includes('72-2') || title.includes('公寓') || title.includes('老屋') || title.includes('負債比') || title.includes('收支比')) {
     return { key: 'bank', label: '銀行授信與鑑價', badgeClass: 'bg-blue-50 text-blue-700 border-blue-200' };
   }
   return { key: 'refinance', label: '換屋增貸與資產', badgeClass: 'bg-amber-50 text-amber-700 border-amber-200' };
@@ -1031,8 +1034,8 @@ export function ArticlesPage() {
     });
   }, [sortOrder, selectedCategory, searchQuery]);
 
-  // Featured Article
-  const featuredArticle = articles[0];
+  // Featured Article: pick the newest article in filtered/sorted list
+  const featuredArticle = filteredAndSortedArticles[0] || articles[0];
 
   return (
     <div className="max-w-5xl mx-auto space-y-8">
