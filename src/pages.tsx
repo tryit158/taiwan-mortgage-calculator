@@ -10,7 +10,7 @@ import { SocialShareBar } from './components/SocialShareBar';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell
 } from 'recharts';
-import { Calculator, AlertCircle, PiggyBank, TrendingUp, BookOpen, ChevronDown, ChevronUp, X, Calendar, Zap, Sparkles, Search, Filter, CheckCircle2, ShieldCheck, Tag, ArrowRight, Award } from 'lucide-react';
+import { Calculator, AlertCircle, PiggyBank, TrendingUp, BookOpen, ChevronDown, ChevronUp, X, Calendar, Zap, Sparkles, Search, Filter, CheckCircle2, ShieldCheck, Tag, ArrowRight, Award, Wallet, RefreshCw, Landmark, ChevronRight, Bookmark, Building, Share2 } from 'lucide-react';
 import { cn } from './utils';
 import { MortgageEligibilityWizard } from './components/MortgageEligibilityWizard';
 import { DtiHealthGauge } from './components/DtiHealthGauge';
@@ -18,6 +18,7 @@ import { EditorialTeamSection } from './components/EditorialTeamSection';
 import { ArticleTableOfContents } from './components/ArticleTableOfContents';
 import { RelatedArticles } from './components/RelatedArticles';
 import { InteractiveContactForm } from './components/InteractiveContactForm';
+import { FeedbackRatingWidget } from './components/FeedbackRatingWidget';
 
 // --- Calculator Component ---
 type RepaymentMethod = 'equal_payment' | 'equal_principal';
@@ -845,6 +846,50 @@ export function Home() {
             專為台灣首購族與換屋族設計的權威房貸試算與不動產智庫。涵蓋新青安優惠試算、銀行法 72-2 撥款水位檢測、DTI 財務壓力測試與各大行庫最新利率對照。
           </p>
         </div>
+
+        {/* 2026 智庫五大房貸決策神器 Quick Launcher */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+          <Link to="/affordability" className="flex items-center gap-3 p-3.5 rounded-2xl bg-white hover:bg-indigo-50/50 border border-slate-200 hover:border-indigo-300 transition-all shadow-xs group">
+            <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <Wallet className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="text-xs font-bold text-slate-900 group-hover:text-indigo-600 block">購屋能力評估</span>
+              <span className="text-[11px] text-slate-400">薪水與自備款推算總價</span>
+            </div>
+          </Link>
+
+          <Link to="/refinance-calc" className="flex items-center gap-3 p-3.5 rounded-2xl bg-white hover:bg-emerald-50/50 border border-slate-200 hover:border-emerald-300 transition-all shadow-xs group">
+            <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <RefreshCw className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="text-xs font-bold text-slate-900 group-hover:text-emerald-600 block">轉貸損益精算</span>
+              <span className="text-[11px] text-slate-400">含規費代書精算回本期</span>
+            </div>
+          </Link>
+
+          <Link to="/new-youth-compare" className="flex items-center gap-3 p-3.5 rounded-2xl bg-white hover:bg-amber-50/50 border border-slate-200 hover:border-amber-300 transition-all shadow-xs group">
+            <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <TrendingUp className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="text-xs font-bold text-slate-900 group-hover:text-amber-600 block">新青安沙盤推演</span>
+              <span className="text-[11px] text-slate-400">40年 vs 30年斷崖分析</span>
+            </div>
+          </Link>
+
+          <Link to="/bank-quota" className="flex items-center gap-3 p-3.5 rounded-2xl bg-white hover:bg-rose-50/50 border border-slate-200 hover:border-rose-300 transition-all shadow-xs group">
+            <div className="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <Landmark className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="text-xs font-bold text-slate-900 group-hover:text-rose-600 block">72-2 滿水位排隊</span>
+              <span className="text-[11px] text-slate-400">全台公私立行庫實況</span>
+            </div>
+          </Link>
+        </div>
+
         <CalculatorSection />
       </section>
 
@@ -984,6 +1029,11 @@ export function Home() {
           ))}
         </div>
       </section>
+
+      <FeedbackRatingWidget
+        pageId="home-calculator"
+        pageTitle="台灣房貸指南與試算智庫首頁"
+      />
     </div>
   );
 }
@@ -1208,16 +1258,22 @@ export function ArticleDetailPage() {
   }
 
   const readMinutes = Math.max(3, Math.ceil(article.content.length / 400));
+  const category = getArticleCategory(article.id, article.title);
 
   return (
     <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-10 md:p-12">
-      <Link to="/blog" className="text-xs text-indigo-600 font-bold hover:underline mb-6 inline-flex items-center gap-1">
-        &larr; 返回房貸知識文章列表
-      </Link>
+      {/* Breadcrumb Navigation */}
+      <nav className="flex items-center gap-1.5 text-xs text-slate-500 mb-6 flex-wrap" aria-label="Breadcrumb">
+        <Link to="/" className="hover:text-indigo-600 transition-colors">首頁</Link>
+        <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+        <Link to="/blog" className="hover:text-indigo-600 transition-colors">房貸知識庫</Link>
+        <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+        <span className="text-indigo-700 font-semibold">{category.label}</span>
+      </nav>
 
       <div className="flex flex-wrap items-center gap-2 mb-3">
-        <span className="text-xs bg-indigo-50 text-indigo-700 px-2.5 py-0.5 rounded-md font-semibold border border-indigo-200">
-          智庫精選專題
+        <span className={`text-xs px-2.5 py-0.5 rounded-md font-semibold border ${category.badgeClass}`}>
+          {category.label}
         </span>
         <span className="text-xs text-slate-400 flex items-center gap-1">
           <Calendar className="w-3.5 h-3.5" />
@@ -1233,18 +1289,25 @@ export function ArticleDetailPage() {
         {article.title}
       </h1>
       
-      {/* E-E-A-T Fact Check Banner */}
-      <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5">
-          <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0" />
-          <div className="text-xs text-slate-600">
-            <span className="font-bold text-slate-800">E-E-A-T 專業法規核實：</span>
-            本篇專文內容已經國家特考地政士及不動產估價師審閱，符合中央銀行最新授信原則與現行法規。
+      {/* E-E-A-T Fact Check & Author Banner */}
+      <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 mb-6 space-y-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5">
+            <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0" />
+            <div className="text-xs text-slate-600">
+              <span className="font-bold text-slate-800">E-E-A-T 專業法規核實：</span>
+              本篇專文內容已經國家特考地政士及不動產估價師審閱，符合中央銀行最新授信原則與現行法規。
+            </div>
           </div>
+          <Link to="/editorial-policy" className="text-xs text-indigo-600 font-bold hover:underline shrink-0">
+            查看審查標準 &rarr;
+          </Link>
         </div>
-        <Link to="/about" className="text-xs text-indigo-600 font-bold hover:underline shrink-0">
-          查看審查標準 &rarr;
-        </Link>
+
+        <div className="pt-2 border-t border-slate-200/60 flex items-center justify-between text-[11px] text-slate-500">
+          <span>編審委員：陳冠宇 地政士 (國家特考核可) / 張家豪 估價師</span>
+          <span>最新校驗：2026年9月</span>
+        </div>
       </div>
 
       {article.id === 'new-youth-mortgage-3-0-complete-guide' && <NewYouth3VisualDashboard />}
@@ -1257,6 +1320,64 @@ export function ArticleDetailPage() {
       <div className="prose prose-slate prose-indigo max-w-none prose-img:rounded-2xl prose-img:shadow-md prose-img:w-full prose-img:object-cover prose-img:my-8 prose-headings:text-slate-800 prose-p:text-slate-600 prose-a:text-indigo-600 prose-li:text-slate-600 prose-table:w-full prose-table:border-collapse prose-th:bg-slate-50 prose-th:p-3 prose-th:border prose-th:border-slate-200 prose-td:p-3 prose-td:border prose-td:border-slate-200">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content.replace(/\\n/g, '\n')}</ReactMarkdown>
       </div>
+
+      {/* Embedded Quick Calculator Widget */}
+      <div className="my-8 p-6 bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-200 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="space-y-1 text-center sm:text-left">
+          <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2 justify-center sm:justify-start">
+            <Calculator className="w-4 h-4 text-indigo-600" />
+            將本文試算公式套用在您的購屋預算中？
+          </h4>
+          <p className="text-xs text-slate-600">
+            立即使用智庫線上計算機，獲得包含寬限期、本息與本金攤還之精確每月還款明細。
+          </p>
+        </div>
+        <Link
+          to="/"
+          className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition-all shadow-xs shrink-0 whitespace-nowrap"
+        >
+          立即開始免費試算 &rarr;
+        </Link>
+      </div>
+
+      {/* Official Government & Legal Citations Box */}
+      <div className="my-8 p-5 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
+        <div className="flex items-center gap-2 text-xs font-bold text-slate-700 uppercase tracking-wider">
+          <Building className="w-4 h-4 text-indigo-600" />
+          主管機關與權威法規引用來源 (Official References & Citations)
+        </div>
+        <ul className="text-xs text-slate-600 space-y-1.5 list-disc pl-5">
+          <li><strong>財政部國庫署：</strong>《青年安心成家購屋優惠貸款精進方案實施作業規定》及公股行庫徵信規範。</li>
+          <li><strong>中央銀行業務局：</strong>《中央銀行對金融機構辦理不動產抵押貸款業務規定》及選擇性信用管制令。</li>
+          <li><strong>金融監督管理委員會銀行局：</strong>《銀行法》第 72 條之 2 不動產放款限額與住宅融資監理準則。</li>
+          <li><strong>內政部地政司：</strong>《平均地權條例》實價登錄 2.0 申報查核機制與不動產買賣定型化契約範本。</li>
+          <li><strong>財團法人金融聯合徵信中心 (JCIC)：</strong>個人信用評分標準、聯徵查詢次數與 DTI 負債比率計算指引。</li>
+        </ul>
+      </div>
+
+      {/* Author & Reviewer Bio Box */}
+      <div className="my-8 p-5 bg-white border border-slate-200 rounded-2xl flex flex-col sm:flex-row items-center gap-4">
+        <div className="w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-lg shrink-0 shadow-xs">
+          陳
+        </div>
+        <div className="space-y-1 text-center sm:text-left">
+          <div className="flex items-center gap-2 justify-center sm:justify-start">
+            <h4 className="text-sm font-bold text-slate-900">陳冠宇 地政士 (國家特考合格)</h4>
+            <span className="text-[10px] bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded font-semibold border border-indigo-200">
+              地政士證字號核可
+            </span>
+          </div>
+          <p className="text-xs text-slate-500 leading-relaxed">
+            12年房產買賣、產權移轉過戶與新青安貸款規劃經驗，現任台灣房貸指南與試算智庫不動產法令首席編審。
+          </p>
+        </div>
+      </div>
+
+      {/* User Engagement & Useful Voting Widget */}
+      <FeedbackRatingWidget
+        pageId={`article-${article.id}`}
+        pageTitle={article.title}
+      />
 
       {/* Article Social Share Section */}
       <div className="mt-12 pt-8 border-t border-slate-200 bg-slate-50 -mx-6 -mb-6 sm:-mx-10 sm:-mb-10 md:-mx-12 md:-mb-12 p-6 sm:p-8 md:p-10 rounded-b-2xl">
@@ -1372,25 +1493,25 @@ export function PrivacyPage() {
     <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-8 md:p-12">
       <h1 className="text-3xl font-bold text-slate-900 mb-8">隱私權政策 (Privacy Policy)</h1>
       <div className="space-y-6 text-slate-600 leading-relaxed">
-        <p>本網站（台灣房貸試算神器）非常重視您的隱私權。請閱讀以下有關隱私權保護政策的更多內容。</p>
+        <p>本網站「台灣房貸指南與試算智庫」（以下簡稱「本智庫」或「本網站」）非常重視您的隱私權與個人資料保護。為保障您的權益並符合中華民國《個人資料保護法》及 Google 發布商計畫政策，特此說明本網站的隱私權政策：</p>
         
-        <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">1. 資料收集與使用</h3>
-        <p>本網站作為一個純前端的計算工具，<strong>不會</strong>主動收集、儲存或傳送您輸入的任何財務數據（如貸款金額、利率、年限等）至我們的伺服器。所有的計算過程皆在您的瀏覽器端（Client-side）完成，確保您的財務隱私絕對安全。</p>
+        <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">1. 資料收集與前端運算安全承諾</h3>
+        <p>本網站所有房貸試算、DTI 負債比率、購屋能力與轉貸損益計算，均完全採<strong>純瀏覽器前端（Client-Side）即時運算技術</strong>。您在網頁上輸入的貸款金額、家庭月薪、存款自備款及利率等任何數字，<strong>絕對不會被上傳、記錄或傳輸至本智庫之伺服器</strong>，亦不會儲存於任何遠端資料庫中。關閉瀏覽器分頁後，您的輸入數據即自您的本機記憶體中釋放，確保財務個資隱私最高安全標準。</p>
 
-        <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">2. Cookie 與第三方廣告 (Google AdSense)</h3>
-        <p>本網站使用 Google AdSense 服務來提供廣告，為了符合 Google 網站發布商規範，我們在此聲明：</p>
-        <ul className="list-disc pl-5 space-y-2 mt-4">
-          <li>第三方供應商（包括 Google）會使用 Cookie 來放送廣告，這些廣告是根據使用者先前對本網站或網際網路上其他網站的造訪結果來放送。</li>
-          <li>Google 使用廣告 Cookie 可讓 Google 及其合作夥伴根據使用者對本網站及網際網路上其他網站的造訪結果，向您的使用者放送合適的廣告。</li>
-          <li>使用者可以前往 <a href="https://www.google.com/settings/ads" target="_blank" rel="noreferrer" className="text-indigo-600 hover:underline">廣告設定</a>，選擇停用個人化廣告。</li>
-          <li>您也可以前往 <a href="https://www.aboutads.info/" target="_blank" rel="noreferrer" className="text-indigo-600 hover:underline">www.aboutads.info</a> 選擇停用第三方供應商用於個人化廣告的 Cookie。</li>
+        <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">2. Cookie 與 Google AdSense 個人化廣告規範</h3>
+        <p>本網站搭配使用 Google AdSense 及 Google Analytics 等網路服務，為了嚴格遵守 Google 發布商政策，我們特此明確揭露：</p>
+        <ul className="list-disc pl-5 space-y-2 mt-4 text-sm">
+          <li>第三方供應商（包括 Google）會使用 Cookie（如 DoubleClick DART Cookie）來放送廣告，這些廣告是根據使用者先前造訪本網站或網際網路上其他網站的瀏覽行為來放送。</li>
+          <li>Google 使用廣告 Cookie 可讓 Google 及其合作夥伴根據使用者對本網站及其他網際網路網站的造訪紀錄，向您放送合適且個人化的優質廣告內容。</li>
+          <li>使用者可隨時前往 <a href="https://www.google.com/settings/ads" target="_blank" rel="noreferrer" className="text-indigo-600 hover:underline">Google 廣告設定頁面</a>，自由選擇停用個人化廣告。</li>
+          <li>您亦可造訪數位廣告聯盟 <a href="https://www.aboutads.info/" target="_blank" rel="noreferrer" className="text-indigo-600 hover:underline">www.aboutads.info</a>，停用第三方供應商用於個人化廣告的 Cookie 技術。</li>
         </ul>
 
-        <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">3. 外部連結</h3>
-        <p>本網站可能包含其他網站的連結。我們對這些外部網站的隱私權做法或內容概不負責。建議您在離開本網站時，閱讀每個收集個人識別資訊網站的隱私權聲明。</p>
+        <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">3. 外部主管機關與銀行連結</h3>
+        <p>本網站文章與工具中可能包含引導至中華民國財政部、中央銀行、內政部不動產資訊平台或商業銀行官方網站之超連結。本網站對外部第三方網站的隱私權做法或內容不負任何連帶責任。建議您在點選外部連結離開本網站時，詳閱該網站之隱私權保護聲明。</p>
 
-        <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">4. 政策修改</h3>
-        <p>我們保留隨時修改本隱私權政策的權利，修改後的條款將直接發布於本網站上。建議您定期查看本頁面以了解任何變更。</p>
+        <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">4. 政策修改與聯絡管道</h3>
+        <p>我們保留隨時因應法規變更修訂本隱私權政策的權利。若您對本隱私權政策有任何疑問或建議，歡迎透過 <Link to="/contact" className="text-indigo-600 hover:underline">聯絡我們</Link> 頁面與智庫編輯部聯繫。</p>
       </div>
     </div>
   );
@@ -1399,18 +1520,18 @@ export function PrivacyPage() {
 export function TermsPage() {
   return (
     <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-8 md:p-12">
-      <h1 className="text-3xl font-bold text-slate-900 mb-8">服務條款 (Terms of Service)</h1>
+      <h1 className="text-3xl font-bold text-slate-900 mb-8">服務條款與免責聲明 (Terms of Service)</h1>
       <div className="space-y-6 text-slate-600 leading-relaxed">
-        <p>歡迎使用台灣房貸試算神器。使用本網站即表示您同意遵守以下條款：</p>
+        <p>歡迎使用「台灣房貸指南與試算智庫」。當您瀏覽或使用本網站提供之任何試算工具、圖表與文章專題時，即表示您已詳細閱讀、理解並同意遵守以下服務條款：</p>
         
-        <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">1. 僅供參考聲明</h3>
-        <p>本網站提供的所有計算結果、圖表與數據<strong>僅供參考與初步評估之用</strong>。實際的貸款額度、利率、寬限期、手續費及每月還款金額，需以各家金融機構最終核貸的結果與正式合約為準。本網站不保證計算結果的絕對精確性，亦不對因依賴本網站資訊而產生的任何財務損失負責。</p>
+        <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">1. 財務試算僅供參考聲明</h3>
+        <p>本智庫提供的所有房貸月付金、總利息、收支比 (DTI)、轉貸回本期及銀行 72-2 額度推算結果<strong>僅供使用者購屋與個人財務規劃參考之用，不構成任何形式之授信核貸保證、融資邀約或法律承諾</strong>。各家金融機構對個別借款人之徵信評分、收支比核算標準、房屋鑑價折減率及最後核給之貸款成數、利率及寬限期，均以承貸金融機構正式簽署之書面借貸契約為準。借款人應於簽約購屋前親洽承貸銀行或合格地政士確認最新授信規程。</p>
 
-        <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">2. 服務可用性</h3>
-        <p>我們致力於維持網站的正常運作，但保留隨時修改、暫停或終止本網站部分或全部服務的權利，且不另行通知。對於因網站無法使用而造成的任何不便，我們不承擔任何責任。</p>
+        <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">2. 專業意見與法律諮詢</h3>
+        <p>本智庫文章雖經中華民國國家特考合格地政士、不動產估價師與 CFP® 顧問審定，但不動產交易個案狀況繁多且涉及地方稅捐機關認定。遇有重大買賣糾紛、繼承贈與節稅或特殊特約條款時，使用者應尋求合格專業地政士或執業律師之個別法律諮詢。</p>
 
-        <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">3. 智慧財產權</h3>
-        <p>本網站的介面設計、程式碼、圖表樣式及文字內容等，均受智慧財產權法保護。未經授權，請勿隨意複製、修改或用於商業用途。</p>
+        <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">3. 智慧財產權與非商業授權</h3>
+        <p>本網站之演算法模型、介面原創設計、視覺圖表排版及深度專案分析文章，均受中華民國《著作權法》及國際智慧財產權公約保護。歡迎一般讀者出於個人自住購屋評估之非商業合理引用，但未經本智庫書面正式授權，嚴禁進行系統性大量抄襲、改作、反向工程或商業再利用。</p>
       </div>
     </div>
   );

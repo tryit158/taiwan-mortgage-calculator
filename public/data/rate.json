@@ -1,4 +1,6 @@
 {
-  "updateDate": "2026/4/21",
-  "baseRate": "2.06"
+  "updateDate": "2026/09/26",
+  "baseRate": "2.185",
+  "newYouthRate": "1.775",
+  "centralBankRate": "2.00"
 }

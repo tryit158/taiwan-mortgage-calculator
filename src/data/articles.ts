@@ -1613,7 +1613,7 @@ export const articles: Article[] = [
     `
   },
   {
-    id: 'hidden-costs-of-buying-a-house',
+    id: 'first-time-home-buyer-10-hidden-costs-checklist',
     title: '買房不只付頭期款！首購族必看的10大「隱藏成本」與「規費雜支」清單',
     date: '2026-07-05',
     excerpt: '辛辛苦苦存到了頭期款，結果交屋時才發現代書費、契稅、政府規費、管理費預繳、履保費等雜支竟然還要多付十幾萬！一表看懂所有買房隱藏費用。',
