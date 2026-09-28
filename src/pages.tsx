@@ -10,7 +10,7 @@ import { SocialShareBar } from './components/SocialShareBar';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell
 } from 'recharts';
-import { Calculator, AlertCircle, PiggyBank, TrendingUp, BookOpen, ChevronDown, ChevronUp, X, Calendar, Zap, Sparkles, Search, Filter, CheckCircle2, ShieldCheck, Tag, ArrowRight, Award, Wallet, RefreshCw, Landmark, ChevronRight, Bookmark, Building, Share2 } from 'lucide-react';
+import { Calculator, AlertCircle, PiggyBank, TrendingUp, BookOpen, ChevronDown, ChevronUp, X, Calendar, Zap, Sparkles, Search, Filter, CheckCircle2, ShieldCheck, Tag, ArrowRight, Award, Wallet, RefreshCw, Landmark, ChevronRight, Bookmark, Building, Share2, Building2, Scale } from 'lucide-react';
 import { cn } from './utils';
 import { MortgageEligibilityWizard } from './components/MortgageEligibilityWizard';
 import { DtiHealthGauge } from './components/DtiHealthGauge';
@@ -847,45 +847,65 @@ export function Home() {
           </p>
         </div>
 
-        {/* 2026 智庫五大房貸決策神器 Quick Launcher */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
-          <Link to="/affordability" className="flex items-center gap-3 p-3.5 rounded-2xl bg-white hover:bg-indigo-50/50 border border-slate-200 hover:border-indigo-300 transition-all shadow-xs group">
-            <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-              <Wallet className="w-5 h-5" />
+        {/* 2026 智庫六大房貸決策神器 Quick Launcher */}
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3 mb-8">
+          <Link to="/affordability" className="flex flex-col sm:flex-row items-center sm:items-start gap-2.5 p-3 rounded-2xl bg-white hover:bg-indigo-50/50 border border-slate-200 hover:border-indigo-300 transition-all shadow-xs group text-center sm:text-left">
+            <div className="w-9 h-9 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <Wallet className="w-4 h-4" />
             </div>
             <div>
               <span className="text-xs font-bold text-slate-900 group-hover:text-indigo-600 block">購屋能力評估</span>
-              <span className="text-[11px] text-slate-400">薪水與自備款推算總價</span>
+              <span className="text-[10px] text-slate-400">薪資反推可負擔總價</span>
             </div>
           </Link>
 
-          <Link to="/refinance-calc" className="flex items-center gap-3 p-3.5 rounded-2xl bg-white hover:bg-emerald-50/50 border border-slate-200 hover:border-emerald-300 transition-all shadow-xs group">
-            <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-              <RefreshCw className="w-5 h-5" />
+          <Link to="/closing-costs" className="flex flex-col sm:flex-row items-center sm:items-start gap-2.5 p-3 rounded-2xl bg-white hover:bg-blue-50/50 border border-slate-200 hover:border-blue-300 transition-all shadow-xs group text-center sm:text-left">
+            <div className="w-9 h-9 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <Building2 className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600 block">買房規費精算</span>
+              <span className="text-[10px] text-slate-400">契稅代書履保完整明細</span>
+            </div>
+          </Link>
+
+          <Link to="/early-repay-vs-invest" className="flex flex-col sm:flex-row items-center sm:items-start gap-2.5 p-3 rounded-2xl bg-white hover:bg-purple-50/50 border border-slate-200 hover:border-purple-300 transition-all shadow-xs group text-center sm:text-left">
+            <div className="w-9 h-9 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <Scale className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="text-xs font-bold text-slate-900 group-hover:text-purple-600 block">房貸vs存股0050</span>
+              <span className="text-[10px] text-slate-400">提前還款vs複利決策</span>
+            </div>
+          </Link>
+
+          <Link to="/refinance-calc" className="flex flex-col sm:flex-row items-center sm:items-start gap-2.5 p-3 rounded-2xl bg-white hover:bg-emerald-50/50 border border-slate-200 hover:border-emerald-300 transition-all shadow-xs group text-center sm:text-left">
+            <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <RefreshCw className="w-4 h-4" />
             </div>
             <div>
               <span className="text-xs font-bold text-slate-900 group-hover:text-emerald-600 block">轉貸損益精算</span>
-              <span className="text-[11px] text-slate-400">含規費代書精算回本期</span>
+              <span className="text-[10px] text-slate-400">含塗銷代書回本期</span>
             </div>
           </Link>
 
-          <Link to="/new-youth-compare" className="flex items-center gap-3 p-3.5 rounded-2xl bg-white hover:bg-amber-50/50 border border-slate-200 hover:border-amber-300 transition-all shadow-xs group">
-            <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-              <TrendingUp className="w-5 h-5" />
+          <Link to="/new-youth-compare" className="flex flex-col sm:flex-row items-center sm:items-start gap-2.5 p-3 rounded-2xl bg-white hover:bg-amber-50/50 border border-slate-200 hover:border-amber-300 transition-all shadow-xs group text-center sm:text-left">
+            <div className="w-9 h-9 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <TrendingUp className="w-4 h-4" />
             </div>
             <div>
               <span className="text-xs font-bold text-slate-900 group-hover:text-amber-600 block">新青安沙盤推演</span>
-              <span className="text-[11px] text-slate-400">40年 vs 30年斷崖分析</span>
+              <span className="text-[10px] text-slate-400">40年 vs 30年斷崖分析</span>
             </div>
           </Link>
 
-          <Link to="/bank-quota" className="flex items-center gap-3 p-3.5 rounded-2xl bg-white hover:bg-rose-50/50 border border-slate-200 hover:border-rose-300 transition-all shadow-xs group">
-            <div className="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-              <Landmark className="w-5 h-5" />
+          <Link to="/bank-quota" className="flex flex-col sm:flex-row items-center sm:items-start gap-2.5 p-3 rounded-2xl bg-white hover:bg-rose-50/50 border border-slate-200 hover:border-rose-300 transition-all shadow-xs group text-center sm:text-left">
+            <div className="w-9 h-9 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <Landmark className="w-4 h-4" />
             </div>
             <div>
               <span className="text-xs font-bold text-slate-900 group-hover:text-rose-600 block">72-2 滿水位排隊</span>
-              <span className="text-[11px] text-slate-400">全台公私立行庫實況</span>
+              <span className="text-[10px] text-slate-400">全台公私立行庫實況</span>
             </div>
           </Link>
         </div>

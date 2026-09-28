@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { 
   Home as HomeIcon, BookOpen, Calculator, Info, Mail, Shield, FileText, Menu, X, Award, 
-  Wallet, RefreshCw, TrendingUp, Landmark, ExternalLink
+  Wallet, RefreshCw, TrendingUp, Landmark, ExternalLink, Building2, Scale
 } from 'lucide-react';
 import { Home, ArticlesPage, ArticleDetailPage, AboutPage, ContactPage, PrivacyPage, TermsPage, Landing1200WPage } from './pages';
 import { EditorialPolicyPage } from './components/EditorialPolicyPage';
@@ -10,6 +10,8 @@ import { AffordabilityCalculator } from './components/AffordabilityCalculator';
 import { RefinanceCalculator } from './components/RefinanceCalculator';
 import { NewYouthSimulator } from './components/NewYouthSimulator';
 import { BankQuotaTracker } from './components/BankQuotaTracker';
+import { HomePurchaseCostCalculator } from './components/HomePurchaseCostCalculator';
+import { MortgageVsInvestmentSimulator } from './components/MortgageVsInvestmentSimulator';
 import { cn } from './utils';
 import { GeoMetadataInjector } from './components/GeoMetadataInjector';
 
@@ -61,10 +63,12 @@ function Layout({ children }: { children: React.ReactNode }) {
   const navLinks = [
     { name: '房貸試算', path: '/', icon: Calculator },
     { name: '購屋能力評估', path: '/affordability', icon: Wallet },
+    { name: '買房總規費精算', path: '/closing-costs', icon: Building2 },
+    { name: '房貸vs存股0050', path: '/early-repay-vs-invest', icon: Scale },
     { name: '轉貸省息試算', path: '/refinance-calc', icon: RefreshCw },
-    { name: '新青安沙盤推演', path: '/new-youth-compare', icon: TrendingUp },
-    { name: '72-2 銀行排隊看板', path: '/bank-quota', icon: Landmark },
-    { name: '房貸知識庫', path: '/blog', icon: BookOpen },
+    { name: '新青安推演', path: '/new-youth-compare', icon: TrendingUp },
+    { name: '72-2 銀行看板', path: '/bank-quota', icon: Landmark },
+    { name: '知識庫', path: '/blog', icon: BookOpen },
   ];
 
   // Close mobile menu when route changes
@@ -199,6 +203,8 @@ function Layout({ children }: { children: React.ReactNode }) {
               <ul className="space-y-2 text-xs text-slate-500">
                 <li><Link to="/" className="hover:text-indigo-600 transition-colors">台灣房貸本息平均攤還試算</Link></li>
                 <li><Link to="/affordability" className="hover:text-indigo-600 transition-colors">購屋負擔能力與自備款推算器</Link></li>
+                <li><Link to="/closing-costs" className="hover:text-indigo-600 transition-colors">買房交屋總成本與隱形規費精算</Link></li>
+                <li><Link to="/early-repay-vs-invest" className="hover:text-indigo-600 transition-colors">房貸提早還清 vs 存股 0050 決策模型</Link></li>
                 <li><Link to="/refinance-calc" className="hover:text-indigo-600 transition-colors">房貸轉貸損益與回本期精算器</Link></li>
                 <li><Link to="/new-youth-compare" className="hover:text-indigo-600 transition-colors">新青安 40年 vs 30年 沙盤推演</Link></li>
                 <li><Link to="/bank-quota" className="hover:text-indigo-600 transition-colors">全台銀行 72-2 滿水位排隊看板</Link></li>
@@ -265,6 +271,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/affordability" element={<AffordabilityCalculator />} />
+          <Route path="/closing-costs" element={<HomePurchaseCostCalculator />} />
+          <Route path="/early-repay-vs-invest" element={<MortgageVsInvestmentSimulator />} />
           <Route path="/refinance-calc" element={<RefinanceCalculator />} />
           <Route path="/new-youth-compare" element={<NewYouthSimulator />} />
           <Route path="/bank-quota" element={<BankQuotaTracker />} />
