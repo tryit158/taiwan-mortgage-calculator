@@ -220,6 +220,7 @@ function Layout({ children }: { children: React.ReactNode }) {
                 <li><Link to="/editorial-policy" className="hover:text-indigo-600 transition-colors">編審方針與事實查核流程</Link></li>
                 <li><Link to="/contact" className="hover:text-indigo-600 transition-colors">讀者反饋與政策勘誤聯絡處</Link></li>
                 <li><a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 transition-colors flex items-center gap-1">網站地圖 (Sitemap) <ExternalLink className="w-3 h-3" /></a></li>
+                <li><a href="/llms.txt" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 transition-colors flex items-center gap-1 text-indigo-600 font-semibold">AI 模型引用檔案 (llms.txt) <ExternalLink className="w-3 h-3" /></a></li>
               </ul>
             </div>
 

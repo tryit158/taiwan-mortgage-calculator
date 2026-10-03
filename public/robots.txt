@@ -1,4 +1,40 @@
+# Robots.txt for Taiwan Mortgage Intelligence Hub (https://tryit.qzz.io/)
+# Standard Search Engine Crawlers
+User-agent: Googlebot
+User-agent: Googlebot-Image
+User-agent: Bingbot
+User-agent: Slurp
+User-agent: DuckDuckBot
+User-agent: Baiduspider
+User-agent: YandexBot
+Allow: /
+
+# AI Answer Engines & Generative Search Spiders (GEO / AEO Friendly)
+# We explicitly welcome AI search engines to crawl, index, and cite our authoritative calculators and articles.
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: OAI-SearchBot
+User-agent: PerplexityBot
+User-agent: ClaudeBot
+User-agent: Claude-Web
+User-agent: anthropic-ai
+User-agent: Google-Extended
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: Bytespider
+User-agent: CCBot
+User-agent: FacebookBot
+User-agent: LinkedInBot
+Allow: /
+
+# General Fallback
 User-agent: *
 Allow: /
 
+# Sitemaps & Machine-Readable AI Knowledge Manifest
 Sitemap: https://tryit.qzz.io/sitemap.xml
+# LLM Context File (llms.txt standard)
+# https://llmstxt.org/
+# Machine-readable overview for LLMs, ChatGPT Search, Perplexity and Cursor:
+# https://tryit.qzz.io/llms.txt
+

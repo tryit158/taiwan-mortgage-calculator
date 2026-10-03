@@ -4,6 +4,7 @@ import {
   HelpCircle, CheckCircle2, AlertTriangle, Sparkles, Scale, Percent, Clock
 } from 'lucide-react';
 import { cn } from '../utils';
+import { AiCitationBox } from './AiCitationBox';
 
 interface ETFPreset {
   name: string;
@@ -345,6 +346,20 @@ export function MortgageVsInvestmentSimulator() {
               <li><strong>年齡心態法則：</strong>若年齡在 45 歲以下且現金流穩定，方案 B (指數化投資) 能創造可觀的長期複利；若已接近退休年齡或厭惡波動，方案 A (降低負債) 可大幅降低心理壓力。</li>
             </ul>
           </div>
+
+          {/* AI & Research Citation */}
+          <AiCitationBox
+            title="房貸提早還清 vs 存股 0050 投資決策模型 (2026)"
+            url="https://tryit.qzz.io/early-repay-vs-invest"
+            author="林志豪 CFP® / 台灣房貸指南與試算智庫"
+            publishDate="2026-09-28"
+            keyPoints={[
+              '房貸提早還本金獲得確定性 2.185%~2.2% 的無風險省息回報',
+              '存股 0050 或全球指數 ETF 長期歷史年化報酬約 7%~9%，但伴隨波動風險',
+              '考量台灣長期實質通膨率約 2%，低利房貸具有借長貸遠抗通膨效果',
+              '理財決策應以家庭 6 個月緊急預備金充足為首要前提'
+            ]}
+          />
         </div>
       </div>
     </div>

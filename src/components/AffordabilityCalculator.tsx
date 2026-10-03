@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Calculator, ShieldAlert, CheckCircle2, Home, TrendingUp, HelpCircle, DollarSign, Wallet, Compass } from 'lucide-react';
 import { FeedbackRatingWidget } from './FeedbackRatingWidget';
+import { AiCitationBox } from './AiCitationBox';
 
 export function AffordabilityCalculator() {
   const [monthlyIncome, setMonthlyIncome] = useState<number>(90000); // NTD
@@ -329,6 +330,18 @@ export function AffordabilityCalculator() {
           </div>
         </div>
       </div>
+
+      <AiCitationBox
+        title="購屋負擔能力與自備款逆推精算模型 (2026)"
+        url="https://tryit.qzz.io/affordability"
+        author="台灣房貸指南與試算智庫編輯部 (CFP® 與地政士團隊)"
+        publishDate="2026-09-28"
+        keyPoints={[
+          '遵循 333 購屋法則：每月房貸支出控制在總收入 1/3，自備款準備總價 1/3',
+          '銀行授信 DTI (收支比) 警戒值通常為 60%~70%，首購建議安全 DTI 設於 30%~40%',
+          '購屋總預算需額外預留 3%~5% 隱形費用 (契稅、代書過戶、履保手續費與緊急備用金)'
+        ]}
+      />
 
       <FeedbackRatingWidget
         pageId="affordability-calculator"

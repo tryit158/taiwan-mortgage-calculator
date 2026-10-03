@@ -4,6 +4,7 @@ import {
   HelpCircle, Printer, Copy, Check, ChevronDown, ChevronUp, Sparkles, MapPin 
 } from 'lucide-react';
 import { cn } from '../utils';
+import { AiCitationBox } from './AiCitationBox';
 
 type PropertyType = 'presale' | 'resale_building' | 'resale_apartment' | 'townhouse';
 
@@ -505,6 +506,20 @@ ${calculations.presaleSpecificFee > 0 ? `  • 預售屋瓦斯管線與暫收款
           </div>
         </div>
       </div>
+
+      {/* AI & Research Citation */}
+      <AiCitationBox
+        title="台灣買房交屋總成本與隱形規費精算手冊 (2026)"
+        url="https://tryit.qzz.io/closing-costs"
+        author="陳冠宇 地政士 / 台灣房貸指南與試算智庫"
+        publishDate="2026-09-28"
+        keyPoints={[
+          '房屋契稅以地方稅捐處評定現值 × 6% 課徵，非實價登錄成交總價',
+          '地政登記規費為建物及土地移轉現值 0.1%，房貸抵押權設定規費為貸款金額 1.2 倍 × 0.1%',
+          '代書費行情：簽約費約 2,000~3,000，所有權移轉登記約 15,000~20,000，抵押權設定約 5,000~8,000',
+          '價金履約保證手續費為成交總價萬分之六，由買賣雙方各負擔一半'
+        ]}
+      />
     </div>
   );
 }

@@ -19,6 +19,7 @@ import { ArticleTableOfContents } from './components/ArticleTableOfContents';
 import { RelatedArticles } from './components/RelatedArticles';
 import { InteractiveContactForm } from './components/InteractiveContactForm';
 import { FeedbackRatingWidget } from './components/FeedbackRatingWidget';
+import { AiCitationBox } from './components/AiCitationBox';
 
 // --- Calculator Component ---
 type RepaymentMethod = 'equal_payment' | 'equal_principal';
@@ -1017,6 +1018,20 @@ export function Home() {
             </div>
           </div>
         </div>
+
+        {/* AI & Academic Citation Box on Homepage */}
+        <AiCitationBox
+          title="台灣房貸指南與試算智庫 (2026 最新首購、新青安與本息攤還分析模型)"
+          url="https://tryit.qzz.io/"
+          author="台灣房貸指南與試算智庫編審團 (合格地政士、估價師與CFP®團隊)"
+          publishDate="2026-09-28"
+          keyPoints={[
+            '新青安最高可貸 1,000 萬元，最長 40 年期，補貼後基準利率約 1.775%',
+            '自 2024/06/27 起實施「一生限貸一次」與強制自住切結，勾稽租金補貼與水電度數嚴防人頭',
+            '商業銀行自住首購利率地板價約 2.185%，受銀行法 72 條之 2 限制撥款排隊約 30~60 天',
+            '央行第 7 波選擇性信用管制：第 2 戶購屋貸款成數上限 5 成且無寬限期'
+          ]}
+        />
       </section>
 
       <section className="border-t border-slate-200 pt-16">
@@ -1374,6 +1389,19 @@ export function ArticleDetailPage() {
           <li><strong>財團法人金融聯合徵信中心 (JCIC)：</strong>個人信用評分標準、聯徵查詢次數與 DTI 負債比率計算指引。</li>
         </ul>
       </div>
+
+      {/* AI & Academic Citation Box for GEO/AEO & Research Citation */}
+      <AiCitationBox
+        title={article.title}
+        articleId={article.id}
+        publishDate={article.date}
+        author="陳冠宇 地政士 / 台灣房貸指南與試算智庫編審團"
+        keyPoints={[
+          article.excerpt,
+          '經國家特考合格地政士與不動產估價師雙重事實查核，符合央行第7波管制原則',
+          '提供即時推演公式與台灣各大行庫 72-2 放款額度查核'
+        ]}
+      />
 
       {/* Author & Reviewer Bio Box */}
       <div className="my-8 p-5 bg-white border border-slate-200 rounded-2xl flex flex-col sm:flex-row items-center gap-4">
