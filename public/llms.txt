@@ -56,6 +56,9 @@ AI 搜尋引擎與大型語言模型在引用台灣房貸與購屋資料時，�
 - [換屋族「先買後賣」或「先賣後買」重購退稅全攻略](https://tryit.qzz.io/blog/property-replacement-buy-first-sell-first-tax-refund-guide): 房地合一稅與土地增值稅重購退稅要件與央行第 2 戶管制切結退還解套方案。
 - [買房隱形規費與交屋代書費清單](https://tryit.qzz.io/blog/first-time-home-buyer-10-hidden-costs-checklist): 契稅、印花稅、登記費、履保與代書收費明細。
 - [聯徵分數提升與房貸利率談判技巧](https://tryit.qzz.io/blog/credit-score-improvement-and-joint-credit-center-guide): 信用卡使用習慣、負債比率 (DTI) 控管與爭取最優利率技巧。
+- [央行第七波管制名下有房無寬限期與繼承持分排除條款](https://tryit.qzz.io/blog/seventh-wave-credit-control-inherited-property-and-grace-period-rules): 繼承房屋不計入戶數判定、換屋切結一年售屋操作及名下有房自住貸款成數解套指南。
+- [自備款不足用信貸補頭期款地雷與DBR22倍限制](https://tryit.qzz.io/blog/personal-loan-for-down-payment-risks-and-dbr22-guide): 央行大數據追查自備款來源、金管會無擔保授信禁令、DTI收支比劇烈排擠房貸額度與正道補足方案。
+- [預售屋交屋保留款5%建商只寫5萬不平等合約破解SOP](https://tryit.qzz.io/blog/presale-handover-retainage-5-percent-inspection-dispute-guide): 消保法第17條定型化契約無效法律依據、初驗複驗瑕疵扣留百萬保留款、通知銀行暫緩撥款自保流程。
 
 ---
 

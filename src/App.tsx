@@ -14,6 +14,7 @@ import { HomePurchaseCostCalculator } from './components/HomePurchaseCostCalcula
 import { MortgageVsInvestmentSimulator } from './components/MortgageVsInvestmentSimulator';
 import { cn } from './utils';
 import { GeoMetadataInjector } from './components/GeoMetadataInjector';
+import { articles } from './data/articles';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -215,7 +216,7 @@ function Layout({ children }: { children: React.ReactNode }) {
             <div>
               <h3 className="font-bold text-slate-800 text-sm mb-4">知識庫與組織</h3>
               <ul className="space-y-2 text-xs text-slate-500">
-                <li><Link to="/blog" className="hover:text-indigo-600 transition-colors">房貸知識專題庫 (56篇完整專文)</Link></li>
+                <li><Link to="/blog" className="hover:text-indigo-600 transition-colors">房貸知識專題庫 ({articles.length}篇完整專文)</Link></li>
                 <li><Link to="/about" className="hover:text-indigo-600 transition-colors">關於智庫與編審團證照資歷</Link></li>
                 <li><Link to="/editorial-policy" className="hover:text-indigo-600 transition-colors">編審方針與事實查核流程</Link></li>
                 <li><Link to="/contact" className="hover:text-indigo-600 transition-colors">讀者反饋與政策勘誤聯絡處</Link></li>

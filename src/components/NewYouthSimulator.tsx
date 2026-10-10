@@ -21,17 +21,17 @@ export function NewYouthSimulator() {
     // 寬限期月付金 (純息)
     const nyGraceMonthly = P * rNY;
     // 寬限期後月付金 (本息攤還)
-    const nyAfterGraceMonthly = (P * rNY * Math.pow(1 + rNY, nNYPrime)) / (Math.pow(1 + rNY, nNYPrime) - 1);
-    const nyTotalInterest = (nyGraceMonthly * gNY) + (nyAfterGraceMonthly * nNYPrime) - P;
+    const nyAfterGraceMonthly = rNY <= 0 ? P / Math.max(1, nNYPrime) : (P * rNY * Math.pow(1 + rNY, nNYPrime)) / (Math.pow(1 + rNY, nNYPrime) - 1);
+    const nyTotalInterest = Math.max(0, (nyGraceMonthly * gNY) + (nyAfterGraceMonthly * nNYPrime) - P);
 
     // 2. 傳統房貸: 30年 (360期), 寬限期 gTrad
     const nTrad = 30 * 12;
     const gTrad = tradGrace * 12;
-    const nTradPrime = nTrad - gTrad;
+    const nTradPrime = Math.max(1, nTrad - gTrad);
 
     const tradGraceMonthly = P * rTrad;
-    const tradAfterGraceMonthly = (P * rTrad * Math.pow(1 + rTrad, nTradPrime)) / (Math.pow(1 + rTrad, nTradPrime) - 1);
-    const tradTotalInterest = (tradGraceMonthly * gTrad) + (tradAfterGraceMonthly * nTradPrime) - P;
+    const tradAfterGraceMonthly = rTrad <= 0 ? P / Math.max(1, nTradPrime) : (P * rTrad * Math.pow(1 + rTrad, nTradPrime)) / (Math.pow(1 + rTrad, nTradPrime) - 1);
+    const tradTotalInterest = Math.max(0, (tradGraceMonthly * gTrad) + (tradAfterGraceMonthly * nTradPrime) - P);
 
     // 月付金斷崖暴增百分比 (新青安)
     const cliffJumpPercent = nyGraceMonthly > 0 ? (((nyAfterGraceMonthly - nyGraceMonthly) / nyGraceMonthly) * 100).toFixed(0) : '0';

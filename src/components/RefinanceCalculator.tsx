@@ -17,15 +17,15 @@ export function RefinanceCalculator() {
 
     // 原房貸月付金
     const rOld = currentRate / 100 / 12;
-    const oldMonthlyPayment = (P * rOld * Math.pow(1 + rOld, n)) / (Math.pow(1 + rOld, n) - 1);
+    const oldMonthlyPayment = rOld <= 0 ? P / Math.max(1, n) : (P * rOld * Math.pow(1 + rOld, n)) / (Math.pow(1 + rOld, n) - 1);
     const oldTotalPayment = oldMonthlyPayment * n;
-    const oldTotalInterest = oldTotalPayment - P;
+    const oldTotalInterest = Math.max(0, oldTotalPayment - P);
 
     // 新房貸月付金
     const rNew = newRate / 100 / 12;
-    const newMonthlyPayment = (P * rNew * Math.pow(1 + rNew, n)) / (Math.pow(1 + rNew, n) - 1);
+    const newMonthlyPayment = rNew <= 0 ? P / Math.max(1, n) : (P * rNew * Math.pow(1 + rNew, n)) / (Math.pow(1 + rNew, n) - 1);
     const newTotalPayment = newMonthlyPayment * n;
-    const newTotalInterest = newTotalPayment - P;
+    const newTotalInterest = Math.max(0, newTotalPayment - P);
 
     // 每月省下金額
     const monthlySavings = oldMonthlyPayment - newMonthlyPayment;

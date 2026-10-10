@@ -265,24 +265,11 @@ export function GeoMetadataInjector() {
         description = article.excerpt;
 
         const isNewYouth = article.id === 'new-youth-mortgage-3-0-complete-guide';
-        const articleFaqs = isNewYouth ? [
-          {
-            '@type': 'Question',
-            'name': '新青安 3.0 的「一生限貸一次」政策如何認定？',
-            'acceptedAnswer': {
-              '@type': 'Answer',
-              'text': '自 2024 年 6 月 27 日起，每人一生僅可申辦並撥款一次新青安優惠房貸，即使後續售屋結清，亦不可再次使用。申請時，本人、配偶及未成年子女名下均必須無自有住宅。'
-            }
-          },
-          {
-            '@type': 'Question',
-            'name': '銀行是如何查核新青安是否違規轉租或非自住？',
-            'acceptedAnswer': {
-              '@type': 'Answer',
-              'text': '銀行、財政部與國稅局建立多重勾稽大數據系統：1. 自動勾稽租金補貼申請資料；2. 核對設籍異常；3. 篩選台電與自來水帳單度數，若用水用電極低或無居住事實，將進行實地調查。'
-            }
-          }
-        ] : [
+        const isSeventhWave = article.id === 'seventh-wave-credit-control-inherited-property-and-grace-period-rules';
+        const isPersonalLoan = article.id === 'personal-loan-for-down-payment-risks-and-dbr22-guide';
+        const isRetainage = article.id === 'presale-handover-retainage-5-percent-inspection-dispute-guide';
+
+        let articleFaqs = [
           {
             '@type': 'Question',
             'name': '1000萬房貸一個月要還多少錢？',
@@ -292,6 +279,84 @@ export function GeoMetadataInjector() {
             }
           }
         ];
+
+        if (isNewYouth) {
+          articleFaqs = [
+            {
+              '@type': 'Question',
+              'name': '新青安 3.0 的「一生限貸一次」政策如何認定？',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': '自 2024 年 6 月 27 日起，每人一生僅可申辦並撥款一次新青安優惠房貸，即使後續售屋結清，亦不可再次使用。申請時，本人、配偶及未成年子女名下均必須無自有住宅。'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': '銀行是如何查核新青安是否違規轉租或非自住？',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': '銀行、財政部與國稅局建立多重勾稽大數據系統：1. 自動勾稽租金補貼申請資料；2. 核對設籍異常；3. 篩選台電與自來水帳單度數，若用水用電極低或無居住事實，將進行實地調查。'
+              }
+            }
+          ];
+        } else if (isSeventhWave) {
+          articleFaqs = [
+            {
+              '@type': 'Question',
+              'name': '繼承老家房屋持分，新買自住房產可以享有房貸寬限期嗎？',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': '可以。依中央銀行第七波選擇性信用管制之最新豁免規定，因繼承取得之房屋及房貸，於新申辦自用購屋貸款時完全不計入名下房屋戶數，仍享有首購自住資格與最長3~5年寬限期。'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': '換屋族簽署切結書一年內售屋，若超過一年未賣出有什麼處罰？',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': '承貸銀行將強制收回成數差額（將成數自8成降為5成，要求即刻償還3成差額現金）、追溯取消寬限期並加計利息差額與懲罰性違約金。'
+              }
+            }
+          ];
+        } else if (isPersonalLoan) {
+          articleFaqs = [
+            {
+              '@type': 'Question',
+              'name': '買房自備款不夠，可以先借信用貸款來補頭期款嗎？',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': '金管會與央行明文禁止以無擔保信用貸款充當購屋自備款。銀行會嚴格審查自備款帳戶前3~6個月金流，且信貸月付金會嚴重壓縮房貸收支比（DTI），甚至導致房貸最高可貸額度暴跌上百萬元。'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': '什麼是 DBR 22 倍天花板？會如何影響房貸審核？',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': '金管會規定個人在全體金融機構之無擔保債務總餘額不得超過月收入22倍。若先借信貸，不僅逼近DBR上限，其7年期高額本利攤還月繳更會直接吃垮房貸核貸成數。'
+              }
+            }
+          ];
+        } else if (isRetainage) {
+          articleFaqs = [
+            {
+              '@type': 'Question',
+              'name': '預售屋合約交屋保留款被建商寫成5萬元，在法律上有效嗎？',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': '無效。依《消費者保護法》第17條規定，定型化契約條款牴觸內政部規定者無效，法律上強制直接適用內政部公告之「房地總價百分之五」作為法定交屋保留款。'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': '預售屋驗收發現重大缺失未修繕，買方可以暫緩撥款嗎？',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': '可以。買方得依民法同時履行抗辯權及物之瑕疵擔保責任，檢附初驗瑕疵報告書面通知承貸銀行暫緩撥付貸款，待建商修繕完畢並經雙方複驗合格後再行撥款。'
+              }
+            }
+          ];
+        }
 
         pageSchemas.push(
           {
@@ -341,7 +406,7 @@ export function GeoMetadataInjector() {
         );
       }
     } else if (path === '/blog') {
-      title = '房貸知識庫與買房政策專題庫｜56篇地政士與估價師專業審定文章';
+      title = `房貸知識庫與買房政策專題庫｜${articles.length}篇地政士與估價師專業審定文章`;
       description = '深入淺出的房貸知識、央行選擇性信用管制、新青安一生一次防坑指南、聯徵分數提升法與重購退稅全攻略。';
       pageSchemas.push(
         {

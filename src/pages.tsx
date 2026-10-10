@@ -101,7 +101,7 @@ export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmo
         if (i === 1) gracePeriodPayment = payment;
       } else {
         if (repaymentMethod === 'equal_payment') {
-          const M = (P * r * Math.pow(1 + r, nPrime)) / (Math.pow(1 + r, nPrime) - 1);
+          const M = r <= 0 ? P / nPrime : (P * r * Math.pow(1 + r, nPrime)) / (Math.pow(1 + r, nPrime) - 1);
           payment = M;
           principal = payment - interest;
           if (i === g + 1) afterGracePeriodPayment = payment;
@@ -695,7 +695,7 @@ function calculateMortgage(P: number, r_annual: number, n_years: number, g_years
   const r = r_annual / 100 / 12;
   const n = n_years * 12;
   const g = g_years * 12;
-  const nPrime = n - g;
+  const nPrime = Math.max(1, n - g);
 
   let totalInterest = 0;
   let gracePayment = 0;
@@ -706,12 +706,17 @@ function calculateMortgage(P: number, r_annual: number, n_years: number, g_years
     totalInterest += gracePayment * g;
   }
 
-  const M = (P * r * Math.pow(1 + r, nPrime)) / (Math.pow(1 + r, nPrime) - 1);
+  let M = 0;
+  if (r <= 0) {
+    M = P / nPrime;
+  } else {
+    M = (P * r * Math.pow(1 + r, nPrime)) / (Math.pow(1 + r, nPrime) - 1);
+  }
   normalPayment = M;
   
   const totalNormalPayment = M * nPrime;
   const principalPaid = P;
-  totalInterest += (totalNormalPayment - principalPaid);
+  totalInterest += Math.max(0, totalNormalPayment - principalPaid);
 
   return {
     gracePayment: Math.round(gracePayment),
@@ -1075,13 +1080,13 @@ export function Home() {
 
 // Category helper for blog
 function getArticleCategory(id: string, title: string) {
-  if (id.includes('youth') || id.includes('first-time') || id.includes('presale') || id.includes('under-table') || title.includes('首購') || title.includes('新青安') || title.includes('10-million') || title.includes('1200w') || title.includes('預售屋') || title.includes('對保') || title.includes('AB約') || title.includes('假合約')) {
+  if (id.includes('youth') || id.includes('first-time') || id.includes('presale') || id.includes('under-table') || id.includes('retainage') || id.includes('seventh-wave') || title.includes('首購') || title.includes('新青安') || title.includes('10-million') || title.includes('1200w') || title.includes('預售屋') || title.includes('對保') || title.includes('AB約') || title.includes('假合約') || title.includes('保留款')) {
     return { key: 'youth', label: '首購與新青安', badgeClass: 'bg-indigo-50 text-indigo-700 border-indigo-200' };
   }
   if (id.includes('tax') || id.includes('inheritance') || id.includes('gift') || title.includes('稅') || title.includes('繼承') || title.includes('贈與')) {
     return { key: 'tax', label: '稅務與傳承節稅', badgeClass: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
   }
-  if (id.includes('bank') || id.includes('credit') || id.includes('evaluation') || id.includes('small-apartment') || id.includes('apartment') || id.includes('dti') || title.includes('鑑價') || title.includes('聯徵') || title.includes('銀行法') || title.includes('套房') || title.includes('72-2') || title.includes('公寓') || title.includes('老屋') || title.includes('負債比') || title.includes('收支比')) {
+  if (id.includes('bank') || id.includes('credit') || id.includes('evaluation') || id.includes('small-apartment') || id.includes('apartment') || id.includes('dti') || id.includes('dbr') || id.includes('personal-loan') || title.includes('鑑價') || title.includes('聯徵') || title.includes('銀行法') || title.includes('套房') || title.includes('72-2') || title.includes('公寓') || title.includes('老屋') || title.includes('負債比') || title.includes('收支比') || title.includes('信貸')) {
     return { key: 'bank', label: '銀行授信與鑑價', badgeClass: 'bg-blue-50 text-blue-700 border-blue-200' };
   }
   return { key: 'refinance', label: '換屋增貸與資產', badgeClass: 'bg-amber-50 text-amber-700 border-amber-200' };
@@ -1281,6 +1286,7 @@ export function ArticlesPage() {
 
 export function ArticleDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const [copiedLink, setCopiedLink] = useState(false);
   const article = articles.find(a => a.id === id);
 
   if (!article) {
@@ -1435,32 +1441,40 @@ export function ArticleDetailPage() {
             <p className="text-xs text-slate-500 mt-1">一鍵分享至 LINE 或社群，讓更多首購族買房不踩雷</p>
           </div>
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => {
-                const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(`【${article.title}】\n${article.excerpt}\n👉 閱讀全文：${window.location.href}`)}`;
-                window.open(lineUrl, '_blank');
-              }}
+            <a
+              href={`https://line.me/R/msg/text/?${encodeURIComponent(`【${article.title}】\n${article.excerpt}\n👉 閱讀全文：${typeof window !== 'undefined' ? window.location.href : 'https://tryit.qzz.io/'}`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-[#00B900] hover:bg-[#009900] text-white px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs"
             >
               LINE 分享
-            </button>
-            <button
-              onClick={() => {
-                const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
-                window.open(fbUrl, '_blank');
-              }}
+            </a>
+            <a
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : 'https://tryit.qzz.io/')}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-[#1877F2] hover:bg-[#166FE5] text-white px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs"
             >
               FB 分享
-            </button>
+            </a>
             <button
               onClick={() => {
-                navigator.clipboard.writeText(window.location.href);
-                alert('已複製文章連結！');
+                if (typeof window !== 'undefined') {
+                  navigator.clipboard.writeText(window.location.href);
+                  setCopiedLink(true);
+                  setTimeout(() => setCopiedLink(false), 2500);
+                }
               }}
-              className="bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-xs"
+              className="bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5"
             >
-              複製連結
+              {copiedLink ? (
+                <>
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                  <span className="text-emerald-700">已複製！</span>
+                </>
+              ) : (
+                <span>複製連結</span>
+              )}
             </button>
           </div>
         </div>

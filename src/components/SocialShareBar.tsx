@@ -25,31 +25,26 @@ export function SocialShareBar({
   const [copiedText, setCopiedText] = useState(false);
   const [copiedUrl, setCopiedUrl] = useState(false);
 
-  const pageUrl = window.location.href;
+  const pageUrl = typeof window !== 'undefined' ? window.location.href : 'https://tryit.qzz.io/';
   const methodText = repaymentMethod === 'equal_payment' ? '本息平均攤還' : '本金平均攤還';
 
-  const shareSummaryText = `🏠 【青年安心成家房貸 3.0 試算結果】
+  const shareSummaryText = `🏠 【台灣房貸指南與試算智庫 · 精算結果】
 💵 貸款金額：${loanAmount} 萬元 (${loanTerm}年期)
 📈 參考利率：${interestRate}% (${methodText})
 ${gracePeriod > 0 ? `⏳ 寬限期月繳：$${firstMonthPayment.toLocaleString()} 元/月 (${gracePeriod}年寬限)\n💥 寬限期後月繳：$${afterGracePeriodPayment.toLocaleString()} 元/月\n` : `💰 每月還款：$${firstMonthPayment.toLocaleString()} 元/月\n`}💸 總利息支出：約 ${(totalInterest / 10000).toFixed(1)} 萬元
 ------------------
 👉 一鍵試算你的房貸條件：${pageUrl}`;
 
-  const handleLineShare = () => {
-    const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(shareSummaryText)}`;
-    window.open(lineUrl, '_blank', 'noopener,noreferrer');
-  };
-
-  const handleFbShare = () => {
-    const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`;
-    window.open(fbUrl, '_blank', 'noopener,noreferrer');
-  };
+  const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(shareSummaryText)}`;
+  const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`;
 
   const handleCopyText = async () => {
     try {
-      await navigator.clipboard.writeText(shareSummaryText);
-      setCopiedText(true);
-      setTimeout(() => setCopiedText(false), 2500);
+      if (typeof window !== 'undefined') {
+        await navigator.clipboard.writeText(shareSummaryText);
+        setCopiedText(true);
+        setTimeout(() => setCopiedText(false), 2500);
+      }
     } catch (err) {
       console.error('Failed to copy', err);
     }
@@ -57,9 +52,11 @@ ${gracePeriod > 0 ? `⏳ 寬限期月繳：$${firstMonthPayment.toLocaleString()
 
   const handleCopyUrl = async () => {
     try {
-      await navigator.clipboard.writeText(pageUrl);
-      setCopiedUrl(true);
-      setTimeout(() => setCopiedUrl(false), 2500);
+      if (typeof window !== 'undefined') {
+        await navigator.clipboard.writeText(pageUrl);
+        setCopiedUrl(true);
+        setTimeout(() => setCopiedUrl(false), 2500);
+      }
     } catch (err) {
       console.error('Failed to copy url', err);
     }
@@ -82,24 +79,28 @@ ${gracePeriod > 0 ? `⏳ 寬限期月繳：$${firstMonthPayment.toLocaleString()
 
         <div className="flex flex-wrap items-center gap-2">
           {/* LINE Share Button */}
-          <button
-            onClick={handleLineShare}
+          <a
+            href={lineUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-1.5 bg-[#00B900] hover:bg-[#009900] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-sm active:scale-95 cursor-pointer"
             title="分享至 LINE 群組"
           >
             <MessageCircle className="w-4 h-4 fill-white" />
             <span>LINE 分享</span>
-          </button>
+          </a>
 
           {/* FB Share Button */}
-          <button
-            onClick={handleFbShare}
+          <a
+            href={fbUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-1.5 bg-[#1877F2] hover:bg-[#166FE5] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-sm active:scale-95 cursor-pointer"
             title="分享至 Facebook"
           >
             <Facebook className="w-4 h-4 fill-white" />
             <span>FB 分享</span>
-          </button>
+          </a>
 
           {/* Copy Text Summary Card */}
           <button
