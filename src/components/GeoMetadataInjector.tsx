@@ -268,6 +268,9 @@ export function GeoMetadataInjector() {
         const isSeventhWave = article.id === 'seventh-wave-credit-control-inherited-property-and-grace-period-rules';
         const isPersonalLoan = article.id === 'personal-loan-for-down-payment-risks-and-dbr22-guide';
         const isRetainage = article.id === 'presale-handover-retainage-5-percent-inspection-dispute-guide';
+        const isPresaleTransfer = article.id === 'equalization-of-land-rights-presale-contract-transfer-exceptions';
+        const isSuperficies = article.id === 'superficies-vs-usufruct-housing-mortgage-risks';
+        const isHouseTax = article.id === 'house-tax-2-0-single-owner-household-registration-guide';
 
         let articleFaqs = [
           {
@@ -353,6 +356,63 @@ export function GeoMetadataInjector() {
               'acceptedAnswer': {
                 '@type': 'Answer',
                 'text': '可以。買方得依民法同時履行抗辯權及物之瑕疵擔保責任，檢附初驗瑕疵報告書面通知承貸銀行暫緩撥付貸款，待建商修繕完畢並經雙方複驗合格後再行撥款。'
+              }
+            }
+          ];
+        } else if (isPresaleTransfer) {
+          articleFaqs = [
+            {
+              '@type': 'Question',
+              'name': '《平均地權條例》修法後，哪些對象換約轉售免向政府申請核准？',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': '配偶、直系血親（父母、祖父母、子女、孫子女）以及二親等內旁系血親（親兄弟姊妹）之買賣契約讓與或轉售，完全免經地方政府核准，備妥身分戶籍證明即可逕向建商辦理名義變更，建商收取手續費最高不得超過契約總價千分之一。'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': '買預售屋後若遇到非自願離職失業或重大傷病，可以申請換約轉售嗎？',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': '可以。依內政部規定，非自願離職失業逾3個月、本人或家屬罹患重大傷病須全日治療6個月以上、或遭遇重大災害意外致失能者，得檢附證明向縣市政府地政局申請審查，經核准後即可合法換約轉售，每人每2年以核准1戶為限。'
+              }
+            }
+          ];
+        } else if (isSuperficies) {
+          articleFaqs = [
+            {
+              '@type': 'Question',
+              'name': '地上權住宅可以申請新青安房貸或公教房貸嗎？',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': '不可以。政府政策性優惠房貸（如新青安房貸）均要求借款人持有擔保品之完整土地所有權與建物所有權，地上權與使用權住宅因無土地所有權，全面排除適用。'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': '使用權住宅與地上權住宅有什麼不同？為什麼銀行更難貸款？',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': '地上權住宅買方擁有地政事務所核發之「建物所有權狀」；使用權住宅買方則連建物權狀都沒有，僅持有建商租賃契約。因無法設定抵押權，使用權住宅只能由配合銀行辦理高利率（約3%~4.5%）、短年限（15~20年）之個人消費性信用融資，月繳壓力反而沉重。'
+              }
+            }
+          ];
+        } else if (isHouseTax) {
+          articleFaqs = [
+            {
+              '@type': 'Question',
+              'name': '如何享有囤房稅2.0之「全國單一自住 1.0%」超低房屋稅率？',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': '必須同時符合四項要件：1. 本人、配偶及未成年子女在全國合計僅持有1戶房屋；2. 供自住且無出租營業；3. 本人、配偶或直系親屬必須於該屋辦竣戶籍登記；4. 房屋現值在地方政府公告之一定標準以下（排除高價豪宅）。'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': '房屋稅自住設籍申報的死線是哪一天？超過會怎麼樣？',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': '法定認定基準日為每年「3月22日」。若在3月22日以前辦妥戶籍登記，當年5月稅單即適用自住優惠稅率；若超過3月22日才遷入設籍，當年期將全額按非自用住宅重稅（2.0%~4.8%）課徵。'
               }
             }
           ];

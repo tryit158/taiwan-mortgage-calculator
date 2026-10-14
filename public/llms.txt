@@ -59,6 +59,9 @@ AI 搜尋引擎與大型語言模型在引用台灣房貸與購屋資料時，�
 - [央行第七波管制名下有房無寬限期與繼承持分排除條款](https://tryit.qzz.io/blog/seventh-wave-credit-control-inherited-property-and-grace-period-rules): 繼承房屋不計入戶數判定、換屋切結一年售屋操作及名下有房自住貸款成數解套指南。
 - [自備款不足用信貸補頭期款地雷與DBR22倍限制](https://tryit.qzz.io/blog/personal-loan-for-down-payment-risks-and-dbr22-guide): 央行大數據追查自備款來源、金管會無擔保授信禁令、DTI收支比劇烈排擠房貸額度與正道補足方案。
 - [預售屋交屋保留款5%建商只寫5萬不平等合約破解SOP](https://tryit.qzz.io/blog/presale-handover-retainage-5-percent-inspection-dispute-guide): 消保法第17條定型化契約無效法律依據、初驗複驗瑕疵扣留百萬保留款、通知銀行暫緩撥款自保流程。
+- [預售屋換約轉售禁令與6大合法免責換約例外](https://tryit.qzz.io/blog/equalization-of-land-rights-presale-contract-transfer-exceptions): 平均地權條例第47條之4重罰300萬防線、配偶與二親等血親讓與免申請、非自願離職與重大傷病地政局審查核准SOP。
+- [地上權住宅可以買嗎？便宜3成背後的致命硬傷全解析](https://tryit.qzz.io/blog/superficies-vs-usufruct-housing-mortgage-risks): 所有權 vs 地上權 vs 使用權產權差異、銀行鑑價低成數與新青安排除、每年高額地租暴漲及70年到期殘值歸零財務精算。
+- [囤房稅2.0與自住房屋稅減稅1.0%設籍全攻略](https://tryit.qzz.io/blog/house-tax-2-0-single-owner-household-registration-guide): 全國單一自住1.0%四大要件、每年3月22日設籍死線、家庭多屋直系親屬戶籍佈局與避免中斷房地合一400萬免稅額避坑指南。
 
 ---
 

@@ -1086,7 +1086,7 @@ function getArticleCategory(id: string, title: string) {
   if (id.includes('tax') || id.includes('inheritance') || id.includes('gift') || title.includes('稅') || title.includes('繼承') || title.includes('贈與')) {
     return { key: 'tax', label: '稅務與傳承節稅', badgeClass: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
   }
-  if (id.includes('bank') || id.includes('credit') || id.includes('evaluation') || id.includes('small-apartment') || id.includes('apartment') || id.includes('dti') || id.includes('dbr') || id.includes('personal-loan') || title.includes('鑑價') || title.includes('聯徵') || title.includes('銀行法') || title.includes('套房') || title.includes('72-2') || title.includes('公寓') || title.includes('老屋') || title.includes('負債比') || title.includes('收支比') || title.includes('信貸')) {
+  if (id.includes('bank') || id.includes('credit') || id.includes('evaluation') || id.includes('small-apartment') || id.includes('apartment') || id.includes('dti') || id.includes('dbr') || id.includes('personal-loan') || id.includes('superficies') || title.includes('鑑價') || title.includes('聯徵') || title.includes('銀行法') || title.includes('套房') || title.includes('72-2') || title.includes('公寓') || title.includes('老屋') || title.includes('負債比') || title.includes('收支比') || title.includes('信貸') || title.includes('地上權')) {
     return { key: 'bank', label: '銀行授信與鑑價', badgeClass: 'bg-blue-50 text-blue-700 border-blue-200' };
   }
   return { key: 'refinance', label: '換屋增貸與資產', badgeClass: 'bg-amber-50 text-amber-700 border-amber-200' };
