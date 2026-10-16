@@ -15,6 +15,7 @@ import { MortgageVsInvestmentSimulator } from './components/MortgageVsInvestment
 import { cn } from './utils';
 import { GeoMetadataInjector } from './components/GeoMetadataInjector';
 import { articles } from './data/articles';
+import { TopAnnouncementBanner, AFFILIATE_LINK } from './components/AffiliatePartnerBanner';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -79,6 +80,9 @@ function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col">
+      {/* Top Affiliate Announcement Banner */}
+      <TopAnnouncementBanner />
+
       {/* Header */}
       <header className="bg-indigo-600 text-white shadow-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -106,6 +110,14 @@ function Layout({ children }: { children: React.ReactNode }) {
                 </Link>
               );
             })}
+            <a
+              href={AFFILIATE_LINK}
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              className="flex items-center gap-1.5 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-300 hover:to-orange-300 text-slate-950 font-bold py-1.5 px-2.5 rounded-lg shadow-xs transition-all ml-1 whitespace-nowrap"
+            >
+              成家好康特惠
+            </a>
             <Link
               to="/about"
               className="text-indigo-200 hover:text-white text-xs pl-2 border-l border-indigo-500/70"
@@ -128,6 +140,14 @@ function Layout({ children }: { children: React.ReactNode }) {
             <Link to="/blog" className={cn("px-2 py-1 rounded", location.pathname.startsWith('/blog') ? "bg-indigo-700 text-white" : "text-indigo-100")}>
               知識庫
             </Link>
+            <a
+              href={AFFILIATE_LINK}
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              className="px-2 py-1 rounded bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold"
+            >
+              成家好康
+            </a>
             <Link to="/about" className="text-indigo-200 hover:text-white">
               關於
             </Link>
@@ -147,6 +167,15 @@ function Layout({ children }: { children: React.ReactNode }) {
         {isMobileMenuOpen && (
           <div className="md:hidden bg-indigo-700 border-t border-indigo-500">
             <nav className="px-4 pt-2 pb-4 space-y-1">
+              <a
+                href={AFFILIATE_LINK}
+                target="_blank"
+                rel="noopener noreferrer sponsored"
+                className="flex items-center justify-between px-3 py-2.5 rounded-md text-sm font-bold bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 shadow-xs mb-2"
+              >
+                <span>🎉 2026 成家好康特惠 (官方商城)</span>
+                <ExternalLink className="w-4 h-4 text-slate-950" />
+              </a>
               {navLinks.map((link) => {
                 const Icon = link.icon;
                 const isActive = location.pathname === link.path || (link.path !== '/' && location.pathname.startsWith(link.path));
@@ -210,6 +239,7 @@ function Layout({ children }: { children: React.ReactNode }) {
                 <li><Link to="/new-youth-compare" className="hover:text-indigo-600 transition-colors">新青安 40年 vs 30年 沙盤推演</Link></li>
                 <li><Link to="/bank-quota" className="hover:text-indigo-600 transition-colors">全台銀行 72-2 滿水位排隊看板</Link></li>
                 <li><Link to="/1200w" className="hover:text-indigo-600 transition-colors">1200萬房貸專題精算</Link></li>
+                <li><a href={AFFILIATE_LINK} target="_blank" rel="noopener noreferrer sponsored" className="text-amber-600 hover:text-amber-700 font-bold transition-colors flex items-center gap-1">買房成家家電家具特惠專區 <ExternalLink className="w-3 h-3" /></a></li>
               </ul>
             </div>
 

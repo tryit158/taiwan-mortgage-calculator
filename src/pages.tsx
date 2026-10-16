@@ -20,6 +20,7 @@ import { RelatedArticles } from './components/RelatedArticles';
 import { InteractiveContactForm } from './components/InteractiveContactForm';
 import { FeedbackRatingWidget } from './components/FeedbackRatingWidget';
 import { AiCitationBox } from './components/AiCitationBox';
+import { CalculatorPartnerCard, ArticlePartnerCard } from './components/AffiliatePartnerBanner';
 
 // --- Calculator Component ---
 type RepaymentMethod = 'equal_payment' | 'equal_principal';
@@ -541,6 +542,9 @@ export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmo
         <div className="hidden lg:block">
           {resultCardNode}
         </div>
+
+        {/* 成家家電家具省錢夥伴推薦卡 */}
+        <CalculatorPartnerCard />
 
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
           <div className="border-b border-slate-200">
@@ -1380,6 +1384,9 @@ export function ArticleDetailPage() {
           立即開始免費試算 &rarr;
         </Link>
       </div>
+
+      {/* 專題文章讀者成家福利推薦卡 */}
+      <ArticlePartnerCard />
 
       {/* Official Government & Legal Citations Box */}
       <div className="my-8 p-5 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">

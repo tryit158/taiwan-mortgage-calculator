@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { cn } from '../utils';
 import { AiCitationBox } from './AiCitationBox';
+import { RenovationPartnerCallout } from './AffiliatePartnerBanner';
 
 type PropertyType = 'presale' | 'resale_building' | 'resale_apartment' | 'townhouse';
 
@@ -285,15 +286,18 @@ ${calculations.presaleSpecificFee > 0 ? `  • 預售屋瓦斯管線與暫收款
               )}
             </div>
             {includeRenovation && (
-              <input
-                type="range"
-                min={10}
-                max={200}
-                step={10}
-                value={renovationBudget}
-                onChange={(e) => setRenovationBudget(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600"
-              />
+              <>
+                <input
+                  type="range"
+                  min={10}
+                  max={200}
+                  step={10}
+                  value={renovationBudget}
+                  onChange={(e) => setRenovationBudget(Number(e.target.value))}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600"
+                />
+                <RenovationPartnerCallout />
+              </>
             )}
           </div>
         </div>
