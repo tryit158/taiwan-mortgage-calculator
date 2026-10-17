@@ -264,6 +264,8 @@ export function GeoMetadataInjector() {
         title = `${article.title}｜台灣房貸指南與試算智庫`;
         description = article.excerpt;
 
+        const isNewYouthFormula = article.id === '2026-new-youth-mortgage-rate-limit-and-monthly-payment-formula';
+        const isDownPaymentGuide = article.id === 'how-much-down-payment-needed-with-hidden-costs-calculator';
         const isNewYouth = article.id === 'new-youth-mortgage-3-0-complete-guide';
         const isSeventhWave = article.id === 'seventh-wave-credit-control-inherited-property-and-grace-period-rules';
         const isPersonalLoan = article.id === 'personal-loan-for-down-payment-risks-and-dbr22-guide';
@@ -283,7 +285,61 @@ export function GeoMetadataInjector() {
           }
         ];
 
-        if (isNewYouth) {
+        if (isNewYouthFormula) {
+          articleFaqs = [
+            {
+              '@type': 'Question',
+              'name': '2026 新青安房貸利率是多少？每個月要繳多少錢？',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': '2026 年新青安房貸一段式機動利率目前為 1.775%（政府補貼 0.375% 後的地板價）。以貸款 1,000 萬元、40 年本息平均攤還為例，若無寬限期，每月還款約 29,228 元；若使用最長 5 年寬限期，前 5 年每月僅需繳息 14,792 元，第 6 年起恢復還本，月付金跳增至 32,323 元。'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': '新青安房貸寬限期 5 年真的適合每個人嗎？會有斷崖風險嗎？',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': '不一定。寬限期是「先甘後苦」的財務槓桿。前 5 年雖然輕鬆，但本金完全沒減少，導致剩餘 35 年每期要分攤的本金更多，月付金漲幅高達 118.5%，全期總利息也會多出數十萬元。建議手頭現金流不充裕、未來 5 年內薪資無明顯成長預期的首購族，寬限期設定 1~2 年即可。'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': '房貸超過 1000 萬元上限時，新青安怎麼處理？',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': '超過 1,000 萬元的差額部分，八大公股行庫會以一般商業房貸（首購地板價約 2.185% 起）合併承作，兩筆貸款可在同一家銀行合併扣款，期數與還款方式亦可同步規劃。'
+              }
+            }
+          ];
+        } else if (isDownPaymentGuide) {
+          articleFaqs = [
+            {
+              '@type': 'Question',
+              'name': '買房頭期款一定要準備 2 成嗎？只存 2 成自備款真的夠嗎？',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': '絕對不夠！雖然首購無自用住宅最高可貸 8 成（自備款 2 成），但交屋時必須額外支付契稅、代書費、仲介費（1%~2%）、地政登記規費、印花稅、火險地震險及基本裝潢家具。實務上至少需準備「房屋總價的 25% ~ 28%」現金才算安全，否則交屋時極易面臨違約金風險。'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': '買房交屋當天還要交哪些額外的隱藏費用？',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': '交屋結算時，買方需現場結清代書費（約 1.8~2.5 萬）、契稅代墊款（房屋評定現值的 6%，約 3~8 萬）、地政登記規費與印花稅（約 1.5~3 萬）、火險地震保險費（約 3,000 元），並依交屋日按比例分攤當年度的房屋稅與地價稅。預售屋通常還會額外代收 10~20 萬的水電瓦斯天然氣管線外管工程費與社區公共基金。'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': '契稅怎麼算？是買賣總價的 6% 嗎？',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': '不是！契稅的計算基準是地方稅捐稽徵處評定的「房屋現值」，而非買賣成交總價。通常電梯大樓房屋評定現值約為總價的 10%~15%，故契稅金額約為數萬元不等。但新成屋或鋼骨超高大樓現值較高，契稅可能破 10 萬元。'
+              }
+            }
+          ];
+        } else if (isNewYouth) {
           articleFaqs = [
             {
               '@type': 'Question',

@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { articles } from './data/articles';
@@ -10,7 +10,7 @@ import { SocialShareBar } from './components/SocialShareBar';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell
 } from 'recharts';
-import { Calculator, AlertCircle, PiggyBank, TrendingUp, BookOpen, ChevronDown, ChevronUp, X, Calendar, Zap, Sparkles, Search, Filter, CheckCircle2, ShieldCheck, Tag, ArrowRight, Award, Wallet, RefreshCw, Landmark, ChevronRight, Bookmark, Building, Share2, Building2, Scale } from 'lucide-react';
+import { Calculator, AlertCircle, PiggyBank, TrendingUp, BookOpen, ChevronDown, ChevronUp, X, Calendar, Zap, Sparkles, Search, Filter, CheckCircle2, ShieldCheck, Tag, ArrowRight, Award, Wallet, RefreshCw, Landmark, ChevronRight, Bookmark, Building, Share2, Building2, Scale, Copy } from 'lucide-react';
 import { cn } from './utils';
 import { MortgageEligibilityWizard } from './components/MortgageEligibilityWizard';
 import { DtiHealthGauge } from './components/DtiHealthGauge';
@@ -21,6 +21,12 @@ import { InteractiveContactForm } from './components/InteractiveContactForm';
 import { FeedbackRatingWidget } from './components/FeedbackRatingWidget';
 import { AiCitationBox } from './components/AiCitationBox';
 import { CalculatorPartnerCard, ArticlePartnerCard } from './components/AffiliatePartnerBanner';
+import { HomePurchaseCostCalculator } from './components/HomePurchaseCostCalculator';
+import { NewYouthSimulator } from './components/NewYouthSimulator';
+import { BookmarkRetentionBanner } from './components/BookmarkRetentionBanner';
+import { ArticleFaqAccordion } from './components/ArticleFaqAccordion';
+import { MortgageShareCardModal } from './components/MortgageShareCardModal';
+import { CalculationHistoryDrawer, SavedCalculation } from './components/CalculationHistoryDrawer';
 
 // --- Calculator Component ---
 type RepaymentMethod = 'equal_payment' | 'equal_principal';
@@ -37,14 +43,40 @@ interface CalculationResult {
 const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444'];
 
 export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmount?: number }) {
-  const [loanAmount, setLoanAmount] = useState<number>(initialLoanAmount); // in 10k
-  const [loanTerm, setLoanTerm] = useState<number>(30); // in years
-  const [gracePeriod, setGracePeriod] = useState<number>(0); // in years
-  const [interestRate, setInterestRate] = useState<number>(2.06); // in %
-  const [repaymentMethod, setRepaymentMethod] = useState<RepaymentMethod>('equal_payment');
+  const [searchParams] = useSearchParams();
+
+  // Read URL query params on initial load
+  const paramAmount = searchParams.get('amount');
+  const paramTerm = searchParams.get('term');
+  const paramGrace = searchParams.get('grace');
+  const paramRate = searchParams.get('rate');
+  const paramMethod = searchParams.get('method');
+
+  const [loanAmount, setLoanAmount] = useState<number>(() => paramAmount ? Math.max(1, Number(paramAmount)) : initialLoanAmount);
+  const [loanTerm, setLoanTerm] = useState<number>(() => paramTerm ? Number(paramTerm) : 30);
+  const [gracePeriod, setGracePeriod] = useState<number>(() => paramGrace ? Number(paramGrace) : 0);
+  const [interestRate, setInterestRate] = useState<number>(() => paramRate ? Number(paramRate) : 2.06);
+  const [repaymentMethod, setRepaymentMethod] = useState<RepaymentMethod>(() => paramMethod === 'equal_principal' ? 'equal_principal' : 'equal_payment');
   const [activeTab, setActiveTab] = useState<'chart' | 'table'>('chart');
   const [showComparisonModal, setShowComparisonModal] = useState(false);
   const [rateData, setRateData] = useState<{updateDate: string, baseRate: string} | null>(null);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isHistoryDrawerOpen, setIsHistoryDrawerOpen] = useState(false);
+  const [copiedQuickResult, setCopiedQuickResult] = useState(false);
+
+  // Sync parameters with browser URL query string for instant viral sharing
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      params.set('amount', loanAmount.toString());
+      params.set('term', loanTerm.toString());
+      params.set('grace', gracePeriod.toString());
+      params.set('rate', interestRate.toString());
+      params.set('method', repaymentMethod);
+      const newRelativePathQuery = window.location.pathname + '?' + params.toString();
+      window.history.replaceState(null, '', newRelativePathQuery);
+    }
+  }, [loanAmount, loanTerm, gracePeriod, interestRate, repaymentMethod]);
 
   useEffect(() => {
     fetch('/data/rate.json')
@@ -285,6 +317,42 @@ export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmo
           </div>
           <div className="text-lg font-bold">{endDateString}</div>
         </div>
+      </div>
+
+      {/* Quick Action Viral Buttons inside Result Card */}
+      <div className="mt-4 pt-4 border-t border-white/20 flex flex-wrap items-center justify-between gap-2">
+        <button
+          onClick={() => {
+            const currentOrigin = typeof window !== 'undefined' ? window.location.origin : 'https://tryit.qzz.io';
+            const paramUrl = `${currentOrigin}/?amount=${loanAmount}&term=${loanTerm}&grace=${gracePeriod}&rate=${interestRate}&method=${repaymentMethod}`;
+            const methodText = repaymentMethod === 'equal_payment' ? '本息平均攤還' : '本金平均攤還';
+            const text = `🏠【台灣房貸試算結果 · 快速財務評估】\n💰 貸款金額：${loanAmount} 萬元 (${loanTerm}年期)\n📈 參考利率：${interestRate}% (${methodText})\n${gracePeriod > 0 ? `⏳ 寬限期月繳：$${summary.firstMonthPayment.toLocaleString()} 元/月 (${gracePeriod}年寬限期)\n💥 寬限期後月繳：$${summary.afterGracePeriodPayment.toLocaleString()} 元/月\n` : `💰 每月還款：$${summary.firstMonthPayment.toLocaleString()} 元/月\n`}💸 總利息支出：約 ${(summary.totalInterest / 10000).toFixed(1)} 萬元\n----------------------------------------\n✨ 本數據由 tryit.qzz.io 房貸試算神器 計算產出\n👉 查看此試算：${paramUrl}`;
+            navigator.clipboard.writeText(text);
+            setCopiedQuickResult(true);
+            setTimeout(() => setCopiedQuickResult(false), 2500);
+          }}
+          className="flex-1 min-w-[130px] flex items-center justify-center gap-1.5 bg-white/20 hover:bg-white/30 text-white text-xs font-bold py-2.5 px-3 rounded-xl transition-all border border-white/30 active:scale-95 cursor-pointer"
+        >
+          {copiedQuickResult ? <CheckCircle2 className="w-4 h-4 text-emerald-200" /> : <Copy className="w-4 h-4 text-amber-200" />}
+          <span>{copiedQuickResult ? '已複製結果！' : '一鍵複製試算結果'}</span>
+        </button>
+
+        <button
+          onClick={() => setIsShareModalOpen(true)}
+          className="flex items-center justify-center gap-1.5 bg-gradient-to-r from-amber-300 to-amber-400 hover:from-amber-400 hover:to-amber-500 text-slate-950 text-xs font-bold py-2.5 px-3 rounded-xl transition-all shadow-md active:scale-95 cursor-pointer"
+        >
+          <Sparkles className="w-4 h-4 fill-slate-950" />
+          <span>產生精美圖卡</span>
+        </button>
+
+        <button
+          onClick={() => setIsHistoryDrawerOpen(true)}
+          className="flex items-center justify-center gap-1.5 bg-white/15 hover:bg-white/25 text-white text-xs font-bold py-2.5 px-3 rounded-xl transition-all border border-white/25 active:scale-95 cursor-pointer"
+          title="儲存此筆試算紀錄"
+        >
+          <Bookmark className="w-4 h-4 text-emerald-200" />
+          <span>儲存 / 歷史</span>
+        </button>
       </div>
     </div>
   );
@@ -680,17 +748,66 @@ export function CalculatorSection({ initialLoanAmount = 1000 }: { initialLoanAmo
             firstMonthPayment={summary.firstMonthPayment}
             afterGracePeriodPayment={summary.afterGracePeriodPayment}
             totalInterest={summary.totalInterest}
+            onApplyCalculation={(calc) => {
+              setLoanAmount(calc.loanAmount);
+              setLoanTerm(calc.loanTerm);
+              setGracePeriod(calc.gracePeriod);
+              setInterestRate(calc.interestRate);
+              setRepaymentMethod(calc.repaymentMethod);
+            }}
           />
+
+          {/* Bookmark & Returning Visitors Retention Banner */}
+          <BookmarkRetentionBanner />
         </div>
 
       </div>
 
+      {/* Comparison Modal */}
       {showComparisonModal && (
         <ComparisonModal 
           loanAmount={loanAmount} 
           onClose={() => setShowComparisonModal(false)} 
         />
       )}
+
+      {/* Share Card Modal */}
+      <MortgageShareCardModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        loanAmount={loanAmount}
+        loanTerm={loanTerm}
+        gracePeriod={gracePeriod}
+        interestRate={interestRate}
+        repaymentMethod={repaymentMethod}
+        firstMonthPayment={summary.firstMonthPayment}
+        afterGracePeriodPayment={summary.afterGracePeriodPayment}
+        totalInterest={summary.totalInterest}
+        totalPayment={summary.totalPayment}
+      />
+
+      {/* Calculation History & Compare Drawer */}
+      <CalculationHistoryDrawer
+        isOpen={isHistoryDrawerOpen}
+        onClose={() => setIsHistoryDrawerOpen(false)}
+        currentCalculation={{
+          loanAmount,
+          loanTerm,
+          gracePeriod,
+          interestRate,
+          repaymentMethod,
+          firstMonthPayment: summary.firstMonthPayment,
+          afterGracePeriodPayment: summary.afterGracePeriodPayment,
+          totalInterest: summary.totalInterest
+        }}
+        onApplyCalculation={(calc) => {
+          setLoanAmount(calc.loanAmount);
+          setLoanTerm(calc.loanTerm);
+          setGracePeriod(calc.gracePeriod);
+          setInterestRate(calc.interestRate);
+          setRepaymentMethod(calc.repaymentMethod);
+        }}
+      />
     </div>
   );
 }
@@ -1366,6 +1483,30 @@ export function ArticleDetailPage() {
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content.replace(/\\n/g, '\n')}</ReactMarkdown>
       </div>
 
+      {/* 針對情境式長尾專文，直接在文末／文中嵌入專屬互動工具 (Content-led Tool Embedding) */}
+      {(article.id === '2026-new-youth-mortgage-rate-limit-and-monthly-payment-formula' || article.id === 'new-youth-mortgage-complete-guide-2026') && (
+        <div className="my-10 bg-slate-50 border-2 border-indigo-200 rounded-3xl p-5 sm:p-8 shadow-sm">
+          <div className="flex items-center gap-2 mb-4 text-xs font-bold text-indigo-700 uppercase tracking-wider">
+            <Calculator className="w-4 h-4 text-indigo-600" />
+            文中嵌入式互動工具：2026 新青安房貸月付金沙盤推演機
+          </div>
+          <NewYouthSimulator />
+        </div>
+      )}
+
+      {(article.id === 'how-much-down-payment-needed-with-hidden-costs-calculator' || article.id === 'first-time-home-buyer-10-hidden-costs-checklist' || article.id === 'hidden-costs-of-buying-a-house') && (
+        <div className="my-10 bg-slate-50 border-2 border-indigo-200 rounded-3xl p-5 sm:p-8 shadow-sm">
+          <div className="flex items-center gap-2 mb-4 text-xs font-bold text-indigo-700 uppercase tracking-wider">
+            <Calculator className="w-4 h-4 text-indigo-600" />
+            文中嵌入式互動工具：全台買房交屋總成本與隱形規費精算機
+          </div>
+          <HomePurchaseCostCalculator />
+        </div>
+      )}
+
+      {/* GEO & AI 搜尋常見問答 (FAQ Page Schema.org 認證區塊) */}
+      <ArticleFaqAccordion articleId={article.id} title={article.title} />
+
       {/* Embedded Quick Calculator Widget */}
       <div className="my-8 p-6 bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-200 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="space-y-1 text-center sm:text-left">
@@ -1384,6 +1525,9 @@ export function ArticleDetailPage() {
           立即開始免費試算 &rarr;
         </Link>
       </div>
+
+      {/* 長期看房回訪機制：加入書籤與桌面捷徑 */}
+      <BookmarkRetentionBanner />
 
       {/* 專題文章讀者成家福利推薦卡 */}
       <ArticlePartnerCard />
